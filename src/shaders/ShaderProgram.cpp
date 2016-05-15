@@ -12,10 +12,10 @@ ShaderProgram::ShaderProgram(const std::string &vertex_shader_file, const std::s
 }
 
 GLuint ShaderProgram::loadShader(const std::string &shader_file, GLuint type) {
-    auto result;
-    auto shader_id;
-    auto info_length;
-    auto shader_code_ptr;
+    GLint result;
+    GLuint shader_id;
+    GLint info_length;
+    const char *shader_code_ptr;
 
     info_length = 0;
     result = GL_FALSE;

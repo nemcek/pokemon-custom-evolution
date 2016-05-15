@@ -29,3 +29,6 @@
 
 # IDEA files
 .idea*
+
+# build and installation files
+_*

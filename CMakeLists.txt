@@ -1,7 +1,7 @@
 # This CMake script is mainly designed for CLion IDE and QTCreator projects on Windows
 # It should find bundled binary dependencies automatically when using MinGW
 
-cmake_minimum_required ( VERSION 3.3 )
+cmake_minimum_required ( VERSION 3.5 )
 project( pokemon-custom-evolution CXX )
 
 #
@@ -53,8 +53,10 @@ if (NOT CMAKE_INSTALL_PREFIX)
     set(CMAKE_INSTALL_PREFIX "../_install")
 endif ()
 
+file(GLOB evolution_main "src/*.cpp")
 file(GLOB evolution_shaders "src/shaders/*.cpp")
 file(GLOB evolution_loaders "src/loaders/*.cpp")
+file(GLOB evolution_windows "src/windows/*.cpp")
 file(GLOB evolution_shader_programs "src/shaders/*.glsl")
 
 # Include header directories
@@ -73,12 +75,13 @@ set ( LIBRARIES
         ${OPENGL_LIBRARIES}
         ${GLFW_LIBRARIES}
         ${GLEW_LIBRARIES}
-        libpokemon3d )
+        evolutionlib )
 
-# Pokemon3D library
+# Evolution library
 add_library(evolutionlib STATIC
         ${evolution_shaders}
-        ${evolution_loaders})
+        ${evolution_loaders}
+        ${evolution_windows})
 
 target_link_libraries(evolutionlib ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARY})
 
@@ -86,9 +89,12 @@ target_link_libraries(evolutionlib ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_L
 # TARGETS
 #
 
-# gl_pokemon
+# evolution
 set ( EVOLUTION_SRC
-        ${evolution_shaders})
+        ${evolution_main}
+        ${evolution_shaders}
+        ${evolution_loaders}
+        ${evolution_windows})
 generate_shaders( EVOLUTION_SHADERS )
 
 add_executable ( PokemonCustomEvolution ${EVOLUTION_SRC} ${EVOLUTION_SHADERS})
@@ -101,7 +107,6 @@ install ( TARGETS PokemonCustomEvolution DESTINATION . )
 # INSTALLATION
 #
 
-install(DIRECTORY models DESTINATION .)
 install(FILES ${evolution_shaders_programs} DESTINATION src/shaders)
 
 # Install dlls to destination when on Windows
