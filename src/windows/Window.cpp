@@ -4,7 +4,7 @@
 
 #include "src/windows/Window.hpp"
 
-Window::Window()
+Window::Window(int width, int height) : width(width), height(height)
 {
     Init();
 }
@@ -26,7 +26,7 @@ bool Window::Show()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Try to create a window
-    this->window = glfwCreateWindow( 512, 512, "Evolution", NULL, NULL);
+    this->window = glfwCreateWindow(this->width, this->height, "Evolution", NULL, NULL);
     if (this->window == NULL)
     {
         std::cerr << "Failed to open GLFW window, your graphics card is probably only capable of OpenGL 2.1" << std::endl;
@@ -48,7 +48,7 @@ bool Window::Show()
     }
 
     // Load shaders
-    this->program_id = ShaderProgram("src/shaders/gl_texture.vert", "src/shaders/gl_texture.frag").programId;
+    this->program_id = ShaderProgram("src/shaders/vert_texture.glsl", "src/shaders/frag_texture.glsl").programId;
     glUseProgram(this->program_id);
 
     InitializeGeometry();
@@ -105,5 +105,15 @@ void Window::InitializeGeometry()
     GLuint texcoord_attrib = (GLuint)glGetAttribLocation(this->program_id, "TexCoord");
     glVertexAttribPointer(texcoord_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(texcoord_attrib);
+}
+
+void Window::LoadImage(ImagePtr image)
+{
+    this->image = image;
+}
+
+void Window::Update()
+{
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->image->width, this->image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, this->image->buffer->data());
 }
 

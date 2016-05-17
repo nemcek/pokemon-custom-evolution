@@ -4,6 +4,8 @@
 
 #include <vector>
 #include <iostream>
+#include <loaders/ImageLoader.hpp>
+#include <images/PngImage.hpp>
 
 #include "src/windows/Window.hpp"
 
@@ -11,7 +13,7 @@ int main()
 {
     std::cout << "Running.." << std::endl;
 
-    Window *window = new Window();
+    Window *window = new Window(512, 512);
 
     if (!window->Show())
     {
@@ -19,11 +21,17 @@ int main()
         return EXIT_FAILURE;
     }
 
+    png_byte *bytes;
+    int width, height;
+    ImageLoader::LoadPNGImage("_data/opengl.png", bytes, &width, &height);
+
+//    PngImagePtr png_image = new PngImage(bytes, width, height);
+
     // Main execution loop
     while (!glfwWindowShouldClose(window->window))
     {
         // Set gray background
-        glClearColor(.5f,.5f,.5f,0);
+        glClearColor(0, 0, 0,0);
         // Clear depth and color buffers
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

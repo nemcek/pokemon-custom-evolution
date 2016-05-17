@@ -28,7 +28,7 @@ add_definitions ( -DGLM_FORCE_RADIANS )
 # Add custom target for installation in CLion
 add_custom_target(run_install COMMAND ${CMAKE_MAKE_PROGRAM} install)
 
-# Use generate_shader function to vonvert .glsl sources to C++ headers
+# Use generate_shader function to convert .glsl sources to C++ headers
 include(shaders)
 
 #
@@ -57,6 +57,7 @@ file(GLOB evolution_main "src/*.cpp")
 file(GLOB evolution_shaders "src/shaders/*.cpp")
 file(GLOB evolution_loaders "src/loaders/*.cpp")
 file(GLOB evolution_windows "src/windows/*.cpp")
+file(GLOB evolution_images "src/images/*.cpp")
 file(GLOB evolution_shader_programs "src/shaders/*.glsl")
 
 # Include header directories
@@ -81,7 +82,8 @@ set ( LIBRARIES
 add_library(evolutionlib STATIC
         ${evolution_shaders}
         ${evolution_loaders}
-        ${evolution_windows})
+        ${evolution_windows}
+        ${evolution_images})
 
 target_link_libraries(evolutionlib ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARY})
 
@@ -94,7 +96,8 @@ set ( EVOLUTION_SRC
         ${evolution_main}
         ${evolution_shaders}
         ${evolution_loaders}
-        ${evolution_windows})
+        ${evolution_windows}
+        ${evolution_images})
 generate_shaders( EVOLUTION_SHADERS )
 
 add_executable ( PokemonCustomEvolution ${EVOLUTION_SRC} ${EVOLUTION_SHADERS})
@@ -107,7 +110,8 @@ install ( TARGETS PokemonCustomEvolution DESTINATION . )
 # INSTALLATION
 #
 
-install(FILES ${evolution_shaders_programs} DESTINATION src/shaders)
+install(DIRECTORY _data DESTINATION .)
+install(FILES ${evolution_shader_programs} DESTINATION src/shaders)
 
 # Install dlls to destination when on Windows
 if ( MINGW )
