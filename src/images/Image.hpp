@@ -8,6 +8,7 @@
 #include <vector>
 #include <png.h>
 #include <memory>
+#include "src/loaders/ImageLoader.hpp"
 
 struct Pixel
 {
@@ -21,11 +22,14 @@ class Image
 {
 public:
     Image();
-    Image(std::vector<Pixel> *buffer, int width, int height);
+    Image(std::vector<Pixel> *buffer, int width, int height, int bit_depth, IMAGE_COLOR_TYPE color_type);
+    std::vector<Pixel> *ChangeToWhite();
 
     std::vector<Pixel> *buffer;
     int width;
     int height;
+    int bit_depth;
+    IMAGE_COLOR_TYPE color_type;
 };
 
 typedef std::shared_ptr<Image> ImagePtr;

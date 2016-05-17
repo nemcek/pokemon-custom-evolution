@@ -8,10 +8,13 @@
 #include <memory>
 #include "Image.hpp"
 
-class PngImage : Image
+class PngImage : public Image
 {
+private:
+    bool CreateBuffer(png_bytep *row_pointers);
+
 public:
-    PngImage(png_byte *buffer, int width, int height);
+    PngImage(const char *file_name);
 };
 
 typedef std::shared_ptr<PngImage> PngImagePtr;

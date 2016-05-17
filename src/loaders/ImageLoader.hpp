@@ -10,9 +10,25 @@
 #include <stdlib.h>
 #include <memory>
 
-class ImageLoader {
+enum IMAGE_COLOR_TYPE
+{
+    RGB,
+    RGBA
+};
+
+struct png_image_t
+{
+    png_bytep *row_pointers;
+    int width;
+    int height;
+    int bit_depth;
+    IMAGE_COLOR_TYPE color_type;
+};
+
+class ImageLoader
+{
 public:
-    static bool LoadPNGImage(const char *, png_byte *, int *, int* );
+    static bool LoadPNGImage(const char *, png_image_t *);
 };
 
 typedef std::shared_ptr<ImageLoader> ImageLoaderPtr;

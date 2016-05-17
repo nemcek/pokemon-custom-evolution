@@ -107,13 +107,11 @@ void Window::InitializeGeometry()
     glEnableVertexAttribArray(texcoord_attrib);
 }
 
-void Window::LoadImage(ImagePtr image)
+void Window::Load(std::vector<Pixel> *buffer, int width, int height, IMAGE_COLOR_TYPE color_type)
 {
-    this->image = image;
-}
+    this->buffer = buffer;
+    GLuint gl_color_type = color_type == IMAGE_COLOR_TYPE::RGB ? GL_RGB : GL_RGBA;
 
-void Window::Update()
-{
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->image->width, this->image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, this->image->buffer->data());
+    glTexImage2D(GL_TEXTURE_2D, 0, gl_color_type, width, height, 0, gl_color_type, GL_UNSIGNED_BYTE, buffer->data());
 }
 

@@ -4,7 +4,7 @@
 
 #include "src/loaders/ImageLoader.hpp"
 
-bool ImageLoader::LoadPNGImage(const char *file_name, png_byte *image, int *width, int *height)
+bool ImageLoader::LoadPNGImage(const char *file_name, png_image_t *png_image)
 {
     png_byte header[8];
 
@@ -79,9 +79,6 @@ bool ImageLoader::LoadPNGImage(const char *file_name, png_byte *image, int *widt
     png_get_IHDR(png_ptr, info_ptr, &temp_width, &temp_height, &bit_depth, &color_type,
                  NULL, NULL, NULL);
 
-    if (width){ *width = (int)temp_width; }
-    if (height){ *height = (int)temp_height; }
-
     // Update the png info struct.
     png_read_update_info(png_ptr, info_ptr);
 
@@ -92,6 +89,7 @@ bool ImageLoader::LoadPNGImage(const char *file_name, png_byte *image, int *widt
     rowbytes += 3 - ((rowbytes-1) % 4);
 
     // Allocate the image as a big block, to be given to opengl
+    png_byte *image;
     image = (png_byte *)malloc(rowbytes * temp_height * sizeof(png_byte)+15);
     if (image == NULL)
     {
@@ -113,18 +111,24 @@ bool ImageLoader::LoadPNGImage(const char *file_name, png_byte *image, int *widt
     }
 
     // set the individual row_pointers to point at the correct offsets of image
-    int i;
-    for (i = 0; i < temp_height; i++)
-    {
-        row_pointers[temp_height - 1 - i] = image + i * rowbytes;
-    }
+//    for (int i = 0; i < temp_height; i++)
+//    {
+//        row_pointers[temp_height - 1 - i] = image + i * rowbytes;
+//    }
+    for (int i = 0; i < (int)temp_height; i++)
+        row_pointers[i] = (png_byte*) malloc(png_get_rowbytes(png_ptr, info_ptr));
 
     // read the png into image through row_pointers
     png_read_image(png_ptr, row_pointers);
 
+//    png_image = new png_image_t();
+    png_image->row_pointers = row_pointers;
+    png_image->width = (int)temp_width;
+    png_image->height = (int)temp_height;
+    png_image->bit_depth = bit_depth;
+    png_image->color_type = color_type == PNG_COLOR_TYPE_RGB ? IMAGE_COLOR_TYPE::RGB : IMAGE_COLOR_TYPE::RGBA;
+
     // clean up
-    png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-    free(row_pointers);
     fclose(fp);
 
     return true;

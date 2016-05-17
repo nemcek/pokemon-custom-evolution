@@ -18,18 +18,17 @@ private:
     void Init();
     void InitializeGeometry();
 
-    GLuint program_id;
-    ImagePtr image;
+    std::vector<Pixel> *buffer;
     int width;
     int height;
 
 public:
     Window(int width, int height);
     bool Show();
-    void Update();
-    void LoadImage(ImagePtr image);
+    void Load(std::vector<Pixel> *buffer, int width, int height, IMAGE_COLOR_TYPE color_type);
 
     GLFWwindow *window;
+    GLuint program_id;
 };
 
 typedef std::shared_ptr<Window> WindowPtr;

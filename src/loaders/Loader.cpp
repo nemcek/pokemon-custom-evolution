@@ -4,26 +4,20 @@
 
 #include "src/loaders/Loader.hpp"
 
-GLuint Loader::LoadTexture(const std::string &image)
+GLuint Loader::LoadTexture(Image *image, GLuint program_id)
 {
-    png_byte *image_data = nullptr;
-    int width;
-    int height;
+    GLuint texture_id;
+    auto texture_attrib = glGetUniformLocation(program_id, "Texture");
 
-    if (!ImageLoader::LoadPNGImage(image.c_str(), image_data, &width, &height))
-    {
-        fprintf(stderr, "Unable to open file: %s", image.c_str());
-        return 0;
-    }
+    glGenTextures(1, &texture_id);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+    // Set mipmaps
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->buffer->data());
+    glUniform1i(texture_attrib, 0);
+    glActiveTexture(GL_TEXTURE0 + 0);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
 
-    // Generate the OpenGL texture object
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.4f);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
-
-    free(image_data);
+    return texture_id;
 }

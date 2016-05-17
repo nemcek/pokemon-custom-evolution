@@ -7,12 +7,12 @@
 
 #include <GL/glew.h>
 #include <string>
-#include "ImageLoader.hpp"
+#include "src/images/Image.hpp"
 
 class Loader
 {
 public:
-    static GLuint LoadTexture(const std::string &image);
+    static GLuint LoadTexture(Image *image, GLuint program_id);
 };
 
 typedef std::shared_ptr<Loader> LoaderPtr;
