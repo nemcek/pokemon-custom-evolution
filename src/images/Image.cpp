@@ -16,7 +16,7 @@ Image::Image(std::vector<Pixel> *buffer, int width, int height, int bit_depth, I
 
 std::vector<Pixel>* Image::ChangeToWhite()
 {
-    std::vector<Pixel> *framebuffer = new std::vector<Pixel>((unsigned long) this->width * this->height);
+    std::vector<Pixel> *framebuffer = new std::vector<Pixel>((unsigned long) (this->width * this->height));
 
     for (int y = 0; y < this->height; y++)
     {

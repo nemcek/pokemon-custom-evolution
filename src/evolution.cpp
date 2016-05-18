@@ -7,6 +7,7 @@
 #include <loaders/ImageLoader.hpp>
 #include <images/PngImage.hpp>
 #include <loaders/Loader.hpp>
+#include <engine/Manipulations.hpp>
 
 #include "src/windows/Window.hpp"
 
@@ -33,6 +34,9 @@ int main()
             window->Load(png_image->ChangeToWhite(), png_image->width, png_image->height, png_image->color_type);
         else if (glfwGetKey(window->window, GLFW_KEY_B) == GLFW_PRESS)
             window->Load(png_image->buffer, png_image->width, png_image->height, png_image->color_type);
+        else if (glfwGetKey(window->window, GLFW_KEY_1) == GLFW_PRESS)
+            window->Load(Manipulations::Scale(png_image->buffer, png_image->width, png_image->height, 512, 222),
+                    png_image->width, png_image->height, png_image->color_type);
 
 
         glClearColor(0, 0, 0,0);

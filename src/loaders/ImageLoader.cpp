@@ -110,18 +110,12 @@ bool ImageLoader::LoadPNGImage(const char *file_name, png_image_t *png_image)
         return 0;
     }
 
-    // set the individual row_pointers to point at the correct offsets of image
-//    for (int i = 0; i < temp_height; i++)
-//    {
-//        row_pointers[temp_height - 1 - i] = image + i * rowbytes;
-//    }
     for (int i = 0; i < (int)temp_height; i++)
         row_pointers[i] = (png_byte*) malloc(png_get_rowbytes(png_ptr, info_ptr));
 
     // read the png into image through row_pointers
     png_read_image(png_ptr, row_pointers);
 
-//    png_image = new png_image_t();
     png_image->row_pointers = row_pointers;
     png_image->width = (int)temp_width;
     png_image->height = (int)temp_height;
