@@ -52,6 +52,7 @@ bool Window::Show()
     glUseProgram(this->program_id);
 
     InitializeGeometry();
+    InitializeTexture();
 
     return true;
 
@@ -59,6 +60,7 @@ bool Window::Show()
 
 void Window::Init()
 {
+    this->bitmap = new BitMap(this->width, this->height);
 }
 
 void Window::InitializeGeometry()
@@ -107,11 +109,29 @@ void Window::InitializeGeometry()
     glEnableVertexAttribArray(texcoord_attrib);
 }
 
-void Window::Load(std::vector<Pixel> *buffer, int width, int height, IMAGE_COLOR_TYPE color_type)
+GLuint Window::InitializeTexture()
 {
-    this->buffer = buffer;
+    GLuint texture_id;
+    auto texture_attrib = glGetUniformLocation(program_id, "Texture");
+
+    glGenTextures(1, &texture_id);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+    // Set mipmaps
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->bitmap->width, this->bitmap->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, this->bitmap->buffer->data());
+    glUniform1i(texture_attrib, 0);
+    glActiveTexture(GL_TEXTURE0 + 0);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+
+    return texture_id;
+}
+
+void Window::Load(BitMap *bitmap, IMAGE_COLOR_TYPE color_type)
+{
+    this->bitmap = bitmap;
     GLuint gl_color_type = color_type == IMAGE_COLOR_TYPE::RGB ? GL_RGB : GL_RGBA;
 
-    glTexImage2D(GL_TEXTURE_2D, 0, gl_color_type, width, height, 0, gl_color_type, GL_UNSIGNED_BYTE, buffer->data());
+    glTexImage2D(GL_TEXTURE_2D, 0, gl_color_type, bitmap->width, bitmap->height, 0, gl_color_type, GL_UNSIGNED_BYTE, bitmap->buffer->data());
 }
 

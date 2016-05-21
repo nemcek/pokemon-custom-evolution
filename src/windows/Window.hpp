@@ -17,20 +17,17 @@ class Window
 private:
     void Init();
     void InitializeGeometry();
-
-    std::vector<Pixel> *buffer;
-    int width;
-    int height;
-
+    GLuint InitializeTexture();
 public:
     Window(int width, int height);
     bool Show();
-    void Load(std::vector<Pixel> *buffer, int width, int height, IMAGE_COLOR_TYPE color_type);
+    void Load(BitMap *bitmap, IMAGE_COLOR_TYPE color_type);
 
     GLFWwindow *window;
     GLuint program_id;
+    BitMap *bitmap;
+    int width;
+    int height;
 };
-
-typedef std::shared_ptr<Window> WindowPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_WINDOW_HPP

@@ -9,29 +9,27 @@ PngImage::PngImage(const char *file_name)
     png_image_t *png_image = new png_image_t();
     ImageLoader::LoadPNGImage(file_name, png_image);
 
-    this->width = png_image->width;
-    this->height = png_image->height;
     this->bit_depth = png_image->bit_depth;
     this->color_type = png_image->color_type;
 
-    CreateBuffer(png_image->row_pointers);
+    CreateBitMap(png_image->row_pointers, png_image->width, png_image->height);
 }
 
-bool PngImage::CreateBuffer(png_bytep *row_pointers)
+bool PngImage::CreateBitMap(png_bytep *row_pointers, int width, int height)
 {
-    std::vector<Pixel> *framebuffer = new std::vector<Pixel>((unsigned long) (this->width * this->height));
+    BitMap *bitmap = new BitMap(width, height);
 
-    for (int y = 0; y < this->height; y++)
+    for (int y = 0; y < height; y++)
     {
         png_byte* row = row_pointers[y];
 
-        for (int x = 0; x < this->width; x++) {
+        for (int x = 0; x < width; x++) {
             png_byte* ptr = &(row[x*4]);
-            (*framebuffer)[y * this->width + x] = { ptr[0], ptr[1], ptr[2], ptr[3] };
+            (*bitmap->buffer)[y * width + x] = { ptr[0], ptr[1], ptr[2], ptr[3] };
         }
     }
 
-    this->buffer = framebuffer;
+    this->bitmap = bitmap;
 
     return true;
 }

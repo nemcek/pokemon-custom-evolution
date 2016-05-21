@@ -7,39 +7,48 @@
 #include <loaders/ImageLoader.hpp>
 #include <images/PngImage.hpp>
 #include <loaders/Loader.hpp>
-#include <engine/Manipulations.hpp>
+#include <engine/Transformations.hpp>
 
 #include "src/windows/Window.hpp"
 
 int main()
 {
-    std::cout << "Running.." << std::endl;
+    //std::cout << "Running.." << std::endl;
 
-    Window *window = new Window(1024, 512);
+    PngImage *png_image = new PngImage("_data/github.png");
 
+    Window *window = new Window(png_image->bitmap->width, png_image->bitmap->height);
     if (!window->Show())
     {
         std::cerr << "Failed opening window." << std::endl;
         return EXIT_FAILURE;
     }
 
-    PngImage *png_image = new PngImage("_data/opengl.png");
-
-    Loader::LoadTexture(png_image, window->program_id);
+    window->Load(png_image->bitmap, png_image->color_type);
 
     // Main execution loop
     while (!glfwWindowShouldClose(window->window))
     {
-        if (glfwGetKey(window->window, GLFW_KEY_W) == GLFW_PRESS)
-            window->Load(png_image->ChangeToWhite(), png_image->width, png_image->height, png_image->color_type);
+        if (glfwGetKey(window->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window->window, GL_TRUE);
+
+        if (glfwGetKey(window->window, GLFW_KEY_1) == GLFW_PRESS)
+        {
+            window->Load(
+                    Transformations::Concat(new BitMap(window->width, window->height), Transformations::Scale(png_image->bitmap, png_image->bitmap->width / 2, png_image->bitmap->height / 2), PicturePosition::Center),
+                    png_image->color_type);
+        }
+        else if (glfwGetKey(window->window, GLFW_KEY_W) == GLFW_PRESS)
+        {
+            window->Load(Transformations::ChangeToWhite(window->bitmap), png_image->color_type);
+        }
         else if (glfwGetKey(window->window, GLFW_KEY_B) == GLFW_PRESS)
-            window->Load(png_image->buffer, png_image->width, png_image->height, png_image->color_type);
-        else if (glfwGetKey(window->window, GLFW_KEY_1) == GLFW_PRESS)
-            window->Load(Manipulations::Scale(png_image->buffer, png_image->width, png_image->height, 512, 222),
-                    png_image->width, png_image->height, png_image->color_type);
+        {
+            window->Load(png_image->bitmap, png_image->color_type);
+        }
 
-
-        glClearColor(0, 0, 0,0);
+        // Set gray background
+        glClearColor(0,1,0,0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

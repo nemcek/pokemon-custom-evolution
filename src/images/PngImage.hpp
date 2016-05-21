@@ -11,7 +11,7 @@
 class PngImage : public Image
 {
 private:
-    bool CreateBuffer(png_bytep *row_pointers);
+    bool CreateBitMap(png_bytep *row_pointers, int width, int height);
 
 public:
     PngImage(const char *file_name);

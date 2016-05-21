@@ -14,7 +14,7 @@ GLuint Loader::LoadTexture(Image *image, GLuint program_id)
     // Set mipmaps
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->buffer->data());
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->bitmap->width, image->bitmap->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->bitmap->buffer->data());
     glUniform1i(texture_attrib, 0);
     glActiveTexture(GL_TEXTURE0 + 0);
     glBindTexture(GL_TEXTURE_2D, texture_id);

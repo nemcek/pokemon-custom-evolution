@@ -9,25 +9,15 @@
 #include <png.h>
 #include <memory>
 #include "src/loaders/ImageLoader.hpp"
-
-struct Pixel
-{
-    unsigned char R;
-    unsigned char G;
-    unsigned char B;
-    unsigned char A;
-};
+#include "src/images/BitMap.hpp"
 
 class Image
 {
 public:
     Image();
-    Image(std::vector<Pixel> *buffer, int width, int height, int bit_depth, IMAGE_COLOR_TYPE color_type);
-    std::vector<Pixel> *ChangeToWhite();
+    Image(BitMap *bitmap, int bit_depth, IMAGE_COLOR_TYPE color_type);
 
-    std::vector<Pixel> *buffer;
-    int width;
-    int height;
+    BitMap *bitmap;
     int bit_depth;
     IMAGE_COLOR_TYPE color_type;
 };
