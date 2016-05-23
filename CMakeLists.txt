@@ -47,6 +47,8 @@ find_package ( GLEW REQUIRED )
 find_package ( GLM REQUIRED )
 find_package ( OpenGL REQUIRED )
 find_package ( PNG REQUIRED )
+find_package ( GLUT REQUIRED )
+find_package ( Freetype REQUIRED )
 
 # Set default installation destination
 if (NOT CMAKE_INSTALL_PREFIX)
@@ -59,6 +61,8 @@ file(GLOB evolution_loaders "src/loaders/*.cpp")
 file(GLOB evolution_windows "src/windows/*.cpp")
 file(GLOB evolution_images "src/images/*.cpp")
 file(GLOB evolution_engine "src/engine/*.cpp")
+file(GLOB evolution_engine_text "src/engine/text/*.cpp")
+file(GLOB evolution_engine_rendering "src/engine/rendering/*.cpp")
 file(GLOB evolution_shader_programs "src/shaders/*.glsl")
 
 # Include header directories
@@ -70,7 +74,9 @@ include_directories (
         ${OPENGL_INCLUDE_DIRS}
         ${CMAKE_SOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}
-        ${PNG_INCLUDE_DIR} )
+        ${PNG_INCLUDE_DIR}
+        ${GLUT_INCLUDE_DIRS}
+        ${FREETYPE_INCLUDE_DIRS})
 
 # Prepare libraries for linking
 set ( LIBRARIES
@@ -85,9 +91,11 @@ add_library(evolutionlib STATIC
         ${evolution_loaders}
         ${evolution_windows}
         ${evolution_images}
-        ${evolution_engine})
+        ${evolution_engine}
+        ${evolution_engine_text}
+        ${evolution_engine_rendering})
 
-target_link_libraries(evolutionlib ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARY})
+target_link_libraries(evolutionlib ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARY} ${GLUT_LIBRARIES} ${FREETYPE_LIBRARIES})
 
 #
 # TARGETS
@@ -100,7 +108,9 @@ set ( EVOLUTION_SRC
         ${evolution_loaders}
         ${evolution_windows}
         ${evolution_images}
-        ${evolution_engine})
+        ${evolution_engine}
+        ${evolution_engine_text}
+        ${evolution_engine_rendering})
 
 generate_shaders( EVOLUTION_SHADERS )
 

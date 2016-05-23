@@ -48,11 +48,14 @@ bool Window::Show()
     }
 
     // Load shaders
-    this->program_id = ShaderProgram("src/shaders/vert_texture.glsl", "src/shaders/frag_texture.glsl").programId;
-    glUseProgram(this->program_id);
-
-    InitializeGeometry();
-    InitializeTexture();
+//    ShaderProgram *program = new ShaderProgram("src/shaders/vert_texture.glsl", "src/shaders/frag_texture.glsl");
+//    this->program_id = program->programId;
+//    program->start();
+//
+//    InitializeGeometry();
+//    InitializeTexture();
+//
+//    program->stop();
 
     return true;
 

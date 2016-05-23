@@ -9,22 +9,37 @@
 #include <iostream>
 #include <fstream>
 #include <GL/glew.h>
+#include <glm/vec3.hpp>
+#include <glm/detail/type_mat.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ShaderProgram {
 private:
     GLuint vertexShaderProgramId;
     GLuint fragmentShaderProgramId;
 
-    GLuint loadShader(const std::string &shader_file, GLuint type);
-    GLuint createProgram(GLuint vertex_shader_id, GLuint fragment_shader_id);
+    GLuint LoadShader(const std::string &shader_file, GLuint type);
+    GLuint CreateProgram(GLuint vertex_shader_id, GLuint fragment_shader_id);
+
+protected:
+    virtual void BindAttributes();
+    virtual void GetAllUniformLocations() = 0;
+    void BindAttribute(int attribute, const std::string &varname);
+    GLint GetUniformLocation(const std::string uniformName);
+    void LoadFloat(GLint location, float value);
+    void LoadVector(GLint location, glm::vec3 vector);
+    void LoadBoolean(GLint location, bool value);
+    void LoadMatrix(GLint location, glm::mat4 matrix);
+    void LoadTexture(GLint location, GLint texture_id);
+    void LoadInt(GLint location, int value);
 
 public:
     GLuint programId;
 
     ShaderProgram(const std::string &vertex_shader_file, const std::string &fragment_shader_file);
-    void start();
-    void stop();
-    void clean();
+    void Start();
+    void Stop();
+    void Clean();
 
 };
 

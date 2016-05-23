@@ -13,6 +13,7 @@ class Loader
 {
 public:
     static GLuint LoadTexture(Image *image, GLuint program_id);
+    static GLuint LoadDDS(const char *path);
 };
 
 typedef std::shared_ptr<Loader> LoaderPtr;
