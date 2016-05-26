@@ -24,7 +24,7 @@ public:
     void Load(BitMap *bitmap, IMAGE_COLOR_TYPE color_type);
 
     GLFWwindow *window;
-    GLuint program_id;
+    //GLuint program_id;
     BitMap *bitmap;
     int width;
     int height;

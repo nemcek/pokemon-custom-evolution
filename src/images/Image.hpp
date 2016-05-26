@@ -5,8 +5,8 @@
 #ifndef POKEMON_CUSTOM_EVOLUTION_IMAGE_HPP
 #define POKEMON_CUSTOM_EVOLUTION_IMAGE_HPP
 
-#include <vector>
 #include <png.h>
+#include <vector>
 #include <memory>
 #include "src/loaders/ImageLoader.hpp"
 #include "src/images/BitMap.hpp"

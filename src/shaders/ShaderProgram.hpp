@@ -24,13 +24,14 @@ private:
 protected:
     virtual void BindAttributes();
     virtual void GetAllUniformLocations() = 0;
-    void BindAttribute(int attribute, const std::string &varname);
+    void BindAttribute(unsigned int attribute, const std::string &varname);
     GLint GetUniformLocation(const std::string uniformName);
     void LoadFloat(GLint location, float value);
     void LoadVector(GLint location, glm::vec3 vector);
+    void LoadVector(GLint location, glm::vec2 vector);
     void LoadBoolean(GLint location, bool value);
     void LoadMatrix(GLint location, glm::mat4 matrix);
-    void LoadTexture(GLint location, GLint texture_id);
+    void LoadTexture(GLint location, GLuint texture_id);
     void LoadInt(GLint location, int value);
 
 public:

@@ -90,9 +90,9 @@ void ShaderProgram::Clean() {
     glDeleteProgram(programId);
 }
 
-void ShaderProgram::BindAttributes() {};
+void ShaderProgram::BindAttributes() {}
 
-void ShaderProgram::BindAttribute(int attribute, const std::string &varname) {
+void ShaderProgram::BindAttribute(unsigned int attribute, const std::string &varname) {
     glBindAttribLocation(programId, attribute, varname.c_str());
 }
 
@@ -112,6 +112,11 @@ void ShaderProgram::LoadVector(GLint location, glm::vec3 vector) {
     glUniform3f(location, vector.x, vector.y, vector.z);
 }
 
+void ShaderProgram::LoadVector(GLint location, glm::vec2 vector)
+{
+    glUniform2f(location, vector.x, vector.y);
+}
+
 void ShaderProgram::LoadMatrix(GLint location, glm::mat4 matrix) {
     glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
@@ -126,7 +131,7 @@ void ShaderProgram::LoadBoolean(GLint location, bool value) {
     glUniform1f(location, load);
 }
 
-void ShaderProgram::LoadTexture(GLint location, GLint texture_id) {
+void ShaderProgram::LoadTexture(GLint location, GLuint texture_id) {
     // Bind the texture to "Texture" uniform in program
     glUniform1i(location, 0);
     glActiveTexture(GL_TEXTURE0 + 0);

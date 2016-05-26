@@ -4,8 +4,9 @@
 
 #include "src/engine/rendering/RenderManager.hpp"
 
-RenderManager::RenderManager(TextRenderer *textRenderer)
-        : textRenderer(textRenderer)
+RenderManager::RenderManager(TextRenderer *textRenderer, StaticRenderer *staticRenderer)
+        : textRenderer(textRenderer),
+          staticRenderer(staticRenderer)
 {
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
@@ -22,8 +23,17 @@ void RenderManager::ProcessProjection(glm::mat4 projection)
     this->projection = projection;
 }
 
+void RenderManager::ProcessQuad(Quad *quad)
+{
+    this->quads.push_back(quad);
+}
+
 void RenderManager::Render()
 {
+    staticRenderer->shader->Start();
+    staticRenderer->Render(this->quads);
+    staticRenderer->shader->Stop();
+
     textRenderer->shader->Start();
     textRenderer->Render(this->texts, this->projection);
     textRenderer->shader->Stop();
@@ -40,4 +50,5 @@ void RenderManager::Prepare()
 void RenderManager::Clean()
 {
     this->textRenderer->shader->Clean();
+    this->staticRenderer->shader->Clean();
 }

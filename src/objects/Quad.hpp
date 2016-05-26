@@ -1,0 +1,31 @@
+//
+// Created by martin on 24.05.2016.
+//
+
+#ifndef POKEMON_CUSTOM_EVOLUTION_QUAD_HPP
+#define POKEMON_CUSTOM_EVOLUTION_QUAD_HPP
+
+#include <GL/glew.h>
+#include <glm/vec2.hpp>
+#include <engine/loaders/Loader.hpp>
+#include <images/BitMap.hpp>
+
+class Quad
+{
+private:
+    void Init();
+
+public:
+    RawModel *rawModel;
+    float scale;
+    glm::vec2 position;
+    Loader *loader;
+    BitMap *bitMap;
+    GLuint textureId;
+
+    Quad(Loader *loader, glm::vec2 position, float scale, BitMap *bitMap);
+};
+
+
+
+#endif //POKEMON_CUSTOM_EVOLUTION_QUAD_HPP

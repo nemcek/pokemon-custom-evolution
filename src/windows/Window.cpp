@@ -76,10 +76,15 @@ void Window::InitializeGeometry()
     // Setup geometry
     std::vector<GLfloat> vertex_buffer {
             // x, y
-            1.0f, 1.0f,
-            -1.0f, 1.0f,
-            1.0f, -1.0f,
-            -1.0f, -1.0f
+//            1.0f, 1.0f,
+//            -1.0f, 1.0f,
+//            1.0f, -1.0f,
+//            -1.0f, -1.0f
+             .5f, .5f,
+            -.5f, .5f,
+            .5f, -.5f,
+            -.5f, -.5f
+
     };
 
     // Generate a vertex buffer object
@@ -89,9 +94,9 @@ void Window::InitializeGeometry()
     glBufferData(GL_ARRAY_BUFFER, vertex_buffer.size() * sizeof(GLfloat), vertex_buffer.data(), GL_STATIC_DRAW);
 
     // Setup vertex array lookup
-    GLuint position_attrib = (GLuint)glGetAttribLocation(this->program_id, "Position");
-    glVertexAttribPointer(position_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(position_attrib);
+//    GLuint position_attrib = (GLuint)glGetAttribLocation(this->program_id, "Position");
+//    glVertexAttribPointer(position_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+//    glEnableVertexAttribArray(position_attrib);
 
     // Generate another vertex buffer object for texture coordinates
     std::vector<GLfloat> texcoord_buffer {
@@ -107,15 +112,15 @@ void Window::InitializeGeometry()
     glBindBuffer(GL_ARRAY_BUFFER, tbo);
     glBufferData(GL_ARRAY_BUFFER, texcoord_buffer.size() * sizeof(GLfloat), texcoord_buffer.data(), GL_STATIC_DRAW);
 
-    GLuint texcoord_attrib = (GLuint)glGetAttribLocation(this->program_id, "TexCoord");
-    glVertexAttribPointer(texcoord_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(texcoord_attrib);
+//    GLuint texcoord_attrib = (GLuint)glGetAttribLocation(this->program_id, "TexCoord");
+//    glVertexAttribPointer(texcoord_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+//    glEnableVertexAttribArray(texcoord_attrib);
 }
 
 GLuint Window::InitializeTexture()
 {
     GLuint texture_id;
-    auto texture_attrib = glGetUniformLocation(program_id, "Texture");
+//    auto texture_attrib = glGetUniformLocation(program_id, "Texture");
 
     glGenTextures(1, &texture_id);
     glBindTexture(GL_TEXTURE_2D, texture_id);
@@ -123,7 +128,7 @@ GLuint Window::InitializeTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->bitmap->width, this->bitmap->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, this->bitmap->buffer->data());
-    glUniform1i(texture_attrib, 0);
+//    glUniform1i(texture_attrib, 0);
     glActiveTexture(GL_TEXTURE0 + 0);
     glBindTexture(GL_TEXTURE_2D, texture_id);
 

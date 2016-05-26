@@ -104,3 +104,17 @@ BitMap* Transformations::Center(BitMap *background, BitMap *foreground)
 
     return background;
 }
+
+glm::vec2 Transformations::ToOpenGLCoords(glm::vec2 position, int window_width, int window_height)
+{
+    GLfloat x;
+    GLfloat y;
+
+    x = -(1.0f - ((GLfloat)position.x) / ((GLfloat)window_width / 2.0f));
+    y = -(1.0f - ((GLfloat)position.y) / ((GLfloat)window_height / 2.0f));
+
+//    x = position.x < window_width / 2 ? -(1.0f - x) : x;
+//    y = position.y < window_height / 2 ? -(1.0f - y) : y;
+
+    return glm::vec2 (x, y);
+}
