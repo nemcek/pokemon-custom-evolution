@@ -14,10 +14,12 @@ class Loader
 {
 private:
     GLuint programId;
+
 public:
     Loader(GLuint programId);
     RawModel *Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> textcoord_buffer);
     GLuint LoadTexture(BitMap *bitMap);
+    void LoadVertexBuffer(GLuint location, std::vector<GLfloat> vertex_buffer);
 };
 
 #endif //POKEMON_CUSTOM_EVOLUTION_LOADER_HPP

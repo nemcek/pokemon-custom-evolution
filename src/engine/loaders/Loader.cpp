@@ -21,8 +21,7 @@ RawModel* Loader::Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> 
 
     // Generate a vertex buffer object
     glGenBuffers(1, &rawModel->vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, rawModel->vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertex_buffer.size() * sizeof(GLfloat), vertex_buffer.data(), GL_STATIC_DRAW);
+    LoadVertexBuffer(rawModel->vbo, vertex_buffer);
 
     // Setup vertex array lookup
     GLuint position_attrib = (GLuint)glGetAttribLocation(this->programId, "Position");
@@ -55,4 +54,10 @@ GLuint Loader::LoadTexture(BitMap *bitMap)
     glBindTexture(GL_TEXTURE_2D, texture_id);
 
     return texture_id;
+}
+
+void Loader::LoadVertexBuffer(GLuint location, std::vector<GLfloat> vertex_buffer)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, location);
+    glBufferData(GL_ARRAY_BUFFER, vertex_buffer.size() * sizeof(GLfloat), vertex_buffer.data(), GL_STATIC_DRAW);
 }

@@ -13,6 +13,8 @@
 class Quad
 {
 private:
+    std::vector<GLfloat> vertex_buffer;
+
     void Init();
 
 public:
@@ -24,6 +26,9 @@ public:
     GLuint textureId;
 
     Quad(Loader *loader, glm::vec2 position, float scale, BitMap *bitMap);
+    void ChangeToWhite();
+    virtual void Animate(float delta);
+    std::vector<GLfloat> Scale(float scale);
 };
 
 

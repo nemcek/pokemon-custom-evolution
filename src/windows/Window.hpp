@@ -15,17 +15,12 @@
 class Window
 {
 private:
-    void Init();
-    void InitializeGeometry();
-    GLuint InitializeTexture();
+
 public:
     Window(int width, int height);
     bool Show();
-    void Load(BitMap *bitmap, IMAGE_COLOR_TYPE color_type);
 
     GLFWwindow *window;
-    //GLuint program_id;
-    BitMap *bitmap;
     int width;
     int height;
 };

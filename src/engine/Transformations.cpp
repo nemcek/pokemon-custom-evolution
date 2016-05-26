@@ -68,6 +68,7 @@ BitMap* Transformations::ChangeToWhite(BitMap *bitmap)
                 (*changed->buffer)[y * bitmap->width + x].R = 255;
                 (*changed->buffer)[y * bitmap->width + x].G = 255;
                 (*changed->buffer)[y * bitmap->width + x].B = 255;
+                (*changed->buffer)[y * bitmap->width + x].A = (*bitmap->buffer)[y * bitmap->width + x].A;
             }
         }
     }
@@ -113,8 +114,21 @@ glm::vec2 Transformations::ToOpenGLCoords(glm::vec2 position, int window_width, 
     x = -(1.0f - ((GLfloat)position.x) / ((GLfloat)window_width / 2.0f));
     y = -(1.0f - ((GLfloat)position.y) / ((GLfloat)window_height / 2.0f));
 
-//    x = position.x < window_width / 2 ? -(1.0f - x) : x;
-//    y = position.y < window_height / 2 ? -(1.0f - y) : y;
-
     return glm::vec2 (x, y);
+}
+
+glm::vec2 Transformations::Lerp(glm::vec2 a, glm::vec2 b, float t)
+{
+    if (t > 1)
+        t = 1;
+
+    return a * (1 - t) + b * t;
+}
+
+float Transformations::Lerp(float a, float b, float t)
+{
+    if (t > 1)
+        t = 1;
+
+    return a * (1 - t) + b * t;
 }

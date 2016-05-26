@@ -24,6 +24,8 @@ public:
     static BitMap *ChangeToWhite(BitMap *bitmap);
     static BitMap *Concat(BitMap *background, BitMap *foreground, PicturePosition position);
     static glm::vec2 ToOpenGLCoords(glm::vec2 position, int window_width, int window_height);
+    static glm::vec2 Lerp(glm::vec2 a, glm::vec2 b, float t);
+    static float Lerp(float a, float b, float t);
 };
 
 #endif //POKEMON_CUSTOM_EVOLUTION_MANIPULATIONS_HPP
