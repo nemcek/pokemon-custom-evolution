@@ -5,7 +5,7 @@
 #ifndef POKEMON_CUSTOM_EVOLUTION_ANIMATEDQUAD_HPP
 #define POKEMON_CUSTOM_EVOLUTION_ANIMATEDQUAD_HPP
 
-#include <engine/animation/Animation.hpp>
+#include <engine/animation/animations/Animation.hpp>
 #include "Quad.hpp"
 
 class AnimatedQuad : public Quad

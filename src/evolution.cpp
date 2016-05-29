@@ -13,6 +13,7 @@
 #include <engine/rendering/RenderManager.hpp>
 #include <windows/Window.hpp>
 #include <objects/AnimatedQuad.hpp>
+#include <engine/animation/keyframes/TextKeyFrame.hpp>
 
 const GLuint WIDTH = 512, HEIGHT = 512;
 float currentFrameTime;
@@ -55,12 +56,10 @@ int main()
     std::string str1 ("What?");
     Text *text1 = new Text(str1, glm::vec2(20.0f, 80.0f), .3f, glm::vec3(0, 0, 0), font);
     std::string str2 ("Your Martin Nemcek is evolving!");
-    Text *text2 = new Text(str2, glm::vec2(20.0f, 60.0f), 0.35f, glm::vec3(0, 0, 0), font);
+    Text *text2 = new Text(glm::vec2(20.0f, 60.0f), 0.35f, glm::vec3(0, 0, 0), font);
 
     renderManager->ProcessText(text1);
     renderManager->ProcessText(text2);
-
-//    glBindTexture(GL_TEXTURE_2D, 0);
 
     quad->animation = new Animation();
 //    quad->animation->Add(new KeyFrame(0.0, glm::vec2(256, 256), 1.0f));
@@ -69,13 +68,14 @@ int main()
 //    quad->animation->Add(new KeyFrame(3.0, glm::vec2(384, 384), 0.3f));
 //    quad->animation->Add(new KeyFrame(4.0, glm::vec2(256, 256), 1.0f));
     quad->animation->Add(new KeyFrame(0.0, glm::vec2(256, 256), 1.0f));
-    quad->animation->Add(new KeyFrame(1.0, glm::vec2(256, 256), 0.66f));
-    quad->animation->Add(new KeyFrame(2.0, glm::vec2(256, 256), 0.33f));
-    quad->animation->Add(new KeyFrame(3.0, glm::vec2(256, 256), .0f));
-    quad->animation->Add(new KeyFrame(4.0, glm::vec2(256, 256), .33f));
-    quad->animation->Add(new KeyFrame(5.0, glm::vec2(256, 256), .66f));
-    quad->animation->Add(new KeyFrame(6.0, glm::vec2(256, 256), 1.0f));
+    quad->animation->Add(new KeyFrame(1.0, glm::vec2(256, 256), .0f));
+    quad->animation->Add(new KeyFrame(2.0, glm::vec2(256, 256), 1.0f));
 
+    std::string empty("");
+    text2->animation = new TextAnimation(false);
+    text2->animation->Add(new TextKeyFrame(0.0, glm::vec2(20.0f, 60.0f), 0.35f, empty));
+    text2->animation->Add(new TextKeyFrame(1.0, glm::vec2(20.0f, 60.0f), 0.35f, empty));
+    text2->animation->Add(new TextKeyFrame(4.0, glm::vec2(20.0f, 60.0f), 0.35f, str2));
 
     while (!glfwWindowShouldClose(window->window))
     {
@@ -90,6 +90,7 @@ int main()
         glfwPollEvents();
 
         quad->Animate(frameTimeDelta);
+        text2->Animate(frameTimeDelta);
         renderManager->Prepare();
         renderManager->Render();
 

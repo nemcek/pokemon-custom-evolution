@@ -5,10 +5,37 @@
 
 #include "src/engine/text/Text.hpp"
 
+Text::Text(glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font)
+        : position(position),
+          scale(scale),
+          color(color),
+          font(font)
+
+{
+    text = std::string("");
+}
+
 Text::Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font)
         : text(text),
           position(position),
           scale(scale),
           color(color),
           font(font)
-{ }
+{
+}
+
+void Text::SetText(std::string text)
+{
+    this->text = text;
+}
+
+void Text::Animate(float delta)
+{
+    if (this->animation != nullptr)
+    {
+        this->animation->Animate(delta);
+        this->position = this->animation->position;
+        this->scale = this->animation->scale;
+        this->SetText(this->animation->text);
+    }
+}

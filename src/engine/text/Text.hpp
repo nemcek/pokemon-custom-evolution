@@ -14,6 +14,7 @@
 #include <string>
 #include <map>
 #include <ft2build.h>
+#include <engine/animation/animations/TextAnimation.hpp>
 #include "Font.hpp"
 
 
@@ -25,7 +26,11 @@ public:
     GLfloat scale;
     glm::vec3 color;
     Font *font;
+    TextAnimation *animation;
 
+    Text(glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font);
     Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font);
+    void SetText(std::string text);
+    void Animate(float delta);
 };
 #endif //POKEMON_CUSTOM_EVOLUTION_TEXT_HPP

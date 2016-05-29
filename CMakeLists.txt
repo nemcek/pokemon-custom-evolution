@@ -64,7 +64,7 @@ file(GLOB evolution_engine "src/engine/*.cpp")
 file(GLOB evolution_engine_text "src/engine/text/*.cpp")
 file(GLOB evolution_engine_rendering "src/engine/rendering/*.cpp")
 file(GLOB evolution_engine_loaders "src/engine/loaders/*.cpp")
-file(GLOB evolution_engine_animation "src/engine/animation/*.cpp")
+file(GLOB evolution_engine_animation "src/engine/animation/*/*.cpp")
 file(GLOB evolution_objects "src/objects/*.cpp")
 file(GLOB evolution_shader_programs "src/shaders/*.glsl")
 
