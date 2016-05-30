@@ -14,7 +14,7 @@ public:
 
     TextAnimation();
     TextAnimation(bool repeat);
-    bool Animate(float delta) override ;
+    AnimationStatus Animate(float delta) override ;
 };
 
 #endif //POKEMON_CUSTOM_EVOLUTION_TEXTANIMATION_HPP

@@ -8,6 +8,13 @@
 #include <vector>
 #include "engine/animation/keyframes/KeyFrame.hpp"
 
+enum AnimationStatus
+{
+    MovedToNext,
+    Skipped,
+    Default
+};
+
 class Animation
 {
 private:
@@ -31,7 +38,7 @@ public:
 
     Animation();
     Animation(bool repeat);
-    virtual bool Animate(float delta);
+    virtual AnimationStatus Animate(float delta);
     void Add(KeyFrame *keyFrame);
 };
 

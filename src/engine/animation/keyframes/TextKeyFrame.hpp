@@ -14,6 +14,7 @@ public:
     std::string text;
 
     TextKeyFrame(float time, glm::vec2 pos, float scale, std::string text);
+    TextKeyFrame(float time, glm::vec2 pos, float scale, std::string text, std::function<void (void)> callback);
 };
 
 

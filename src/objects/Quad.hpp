@@ -9,6 +9,7 @@
 #include <glm/vec2.hpp>
 #include <engine/loaders/Loader.hpp>
 #include <images/BitMap.hpp>
+#include <engine/animation/animations/Animation.hpp>
 
 class Quad
 {
@@ -24,6 +25,7 @@ public:
     Loader *loader;
     BitMap *bitMap;
     GLuint textureId;
+    Animation *animation;
 
     Quad(Loader *loader, glm::vec2 position, float scale, BitMap *bitMap);
     void ChangeToWhite();

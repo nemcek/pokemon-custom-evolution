@@ -134,6 +134,7 @@ install ( TARGETS PokemonCustomEvolution DESTINATION . )
 #
 
 install(DIRECTORY _data DESTINATION .)
+install(DIRECTORY data DESTINATION .)
 install(FILES ${evolution_shader_programs} DESTINATION src/shaders)
 
 # Install dlls to destination when on Windows

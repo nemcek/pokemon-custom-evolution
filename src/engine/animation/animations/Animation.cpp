@@ -55,10 +55,10 @@ void Animation::MoveToNextFrame()
     animationTime = 0;
 }
 
-bool Animation::Animate(float delta)
+AnimationStatus Animation::Animate(float delta)
 {
     if (!ShouldRepeat(currentKeyFrameIndex))
-        return false;
+        return AnimationStatus::Skipped;
 
     float t = GetAnimationTime(currentKeyFrameIndex);
 
@@ -71,9 +71,14 @@ bool Animation::Animate(float delta)
         MoveToNextFrame();
         position = keyFrames[currentKeyFrameIndex]->position;
         scale = keyFrames[currentKeyFrameIndex]->scale;
+
+        if (keyFrames[currentKeyFrameIndex]->callback != nullptr)
+            keyFrames[currentKeyFrameIndex]->callback();
+
+        return AnimationStatus::MovedToNext;
     }
 
-    return true;
+    return AnimationStatus::Default;
 }
 
 void Animation::CalculatePosition(int index, float time)

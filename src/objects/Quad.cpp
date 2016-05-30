@@ -43,7 +43,15 @@ void Quad::ChangeToWhite()
     this->bitMap = Transformations::ChangeToWhite(this->bitMap);
 }
 
-void Quad::Animate(float delta) { }
+void Quad::Animate(float delta)
+{
+    if (this->animation != nullptr)
+    {
+        this->animation->Animate(delta);
+        this->position = this->animation->position;
+        this->Scale(this->animation->scale);
+    }
+}
 
 std::vector<GLfloat> Quad::Scale(float scale)
 {

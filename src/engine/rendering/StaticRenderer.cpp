@@ -23,7 +23,7 @@ void StaticRenderer::Render(Quad *quad)
     glBindVertexArray(quad->rawModel->vao);
     glBindBuffer(GL_ARRAY_BUFFER, quad->rawModel->vbo);
 
-    glm::vec2 coords = Transformations::ToOpenGLCoords(quad->position, 512, 512);
+    glm::vec2 coords = Transformations::ToOpenGLCoords(quad->position, 960, 960);
     this->shader->LoadPosition(coords);
 
     this->shader->LoadTexture(quad->textureId);

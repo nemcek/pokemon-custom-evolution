@@ -14,28 +14,51 @@ TextAnimation::TextAnimation(bool repeat) : Animation(repeat)
 {
 }
 
-bool TextAnimation::Animate(float delta)
+AnimationStatus TextAnimation::Animate(float delta)
 {
-    if (!ShouldRepeat(currentKeyFrameIndex))
-        return false;
+    AnimationStatus status = Animation::Animate(delta);
 
-    float t = GetAnimationTime(currentKeyFrameIndex);
-    TextKeyFrame *nextKeyFrame = static_cast<TextKeyFrame *>(keyFrames[currentKeyFrameIndex + 1]);
-
-    float sourceTextLength = (float)static_cast<TextKeyFrame *>(keyFrames[currentKeyFrameIndex])->text.length();
-    float destinationTextLength = (float)nextKeyFrame->text.length();
-    int substringLength = (int)Transformations::Lerp(sourceTextLength, destinationTextLength, t);
-
-    text = nextKeyFrame->text.substr(0, (unsigned long)substringLength);
-    CalculatePosition(currentKeyFrameIndex, t);
-    CalculateScale(currentKeyFrameIndex, t);
-    animationTime += delta;
-
-    if (ShouldMoveToNextFrame(currentKeyFrameIndex, delta))
+    if (status == AnimationStatus::Skipped)
+        return status;
+    else
     {
-        MoveToNextFrame();
-        text = nextKeyFrame->text;
+        if (status == AnimationStatus::Default || status == AnimationStatus::MovedToNext)
+        {
+            if (currentKeyFrameIndex + 1 >= keyFrames.size())
+                return AnimationStatus::Default;
+
+            float t = GetAnimationTime(currentKeyFrameIndex);
+            TextKeyFrame *nextKeyFrame = static_cast<TextKeyFrame *>(keyFrames[currentKeyFrameIndex + 1]);
+
+            float sourceTextLength = (float) static_cast<TextKeyFrame *>(keyFrames[currentKeyFrameIndex])->text.length();
+            float destinationTextLength = (float) nextKeyFrame->text.length();
+            int substringLength = (int) Transformations::Lerp(sourceTextLength, destinationTextLength, t);
+
+            text = nextKeyFrame->text.substr(0, (unsigned long) substringLength);
+
+            if (status == AnimationStatus::MovedToNext)
+            {
+                text = static_cast<TextKeyFrame *>(keyFrames[currentKeyFrameIndex])->text;
+            }
+        }
     }
 
-    return true;
+//    if (!ShouldRepeat(currentKeyFrameIndex))
+//        return false;
+//
+//    CalculatePosition(currentKeyFrameIndex, t);
+//    CalculateScale(currentKeyFrameIndex, t);
+//
+//    animationTime += delta;
+//
+//    if (ShouldMoveToNextFrame(currentKeyFrameIndex, delta))
+//    {
+//        MoveToNextFrame();
+//        text = nextKeyFrame->text;
+//
+//        if (keyFrames[currentKeyFrameIndex]->callback != nullptr)
+//            keyFrames[currentKeyFrameIndex]->callback();
+//    }
+
+    return AnimationStatus::Default;
 }
