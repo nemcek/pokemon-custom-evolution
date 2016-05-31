@@ -43,22 +43,5 @@ AnimationStatus TextAnimation::Animate(float delta)
         }
     }
 
-//    if (!ShouldRepeat(currentKeyFrameIndex))
-//        return false;
-//
-//    CalculatePosition(currentKeyFrameIndex, t);
-//    CalculateScale(currentKeyFrameIndex, t);
-//
-//    animationTime += delta;
-//
-//    if (ShouldMoveToNextFrame(currentKeyFrameIndex, delta))
-//    {
-//        MoveToNextFrame();
-//        text = nextKeyFrame->text;
-//
-//        if (keyFrames[currentKeyFrameIndex]->callback != nullptr)
-//            keyFrames[currentKeyFrameIndex]->callback();
-//    }
-
     return AnimationStatus::Default;
 }

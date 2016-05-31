@@ -66,6 +66,8 @@ file(GLOB evolution_engine_rendering "src/engine/rendering/*.cpp")
 file(GLOB evolution_engine_loaders "src/engine/loaders/*.cpp")
 file(GLOB evolution_engine_animation "src/engine/animation/*/*.cpp")
 file(GLOB evolution_objects "src/objects/*.cpp")
+file(GLOB evolution_scenes "src/scenes/*.cpp")
+file(GLOB evolution_constants "src/constants/*.hpp")
 file(GLOB evolution_shader_programs "src/shaders/*.glsl")
 
 # Include header directories
@@ -99,7 +101,9 @@ add_library(evolutionlib STATIC
         ${evolution_engine_rendering}
         ${evolution_objects}
         ${evolution_engine_loaders}
-        ${evolution_engine_animation})
+        ${evolution_engine_animation}
+        ${evolution_scenes}
+        ${evolution_constants})
 
 target_link_libraries(evolutionlib ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARY} ${GLUT_LIBRARIES} ${FREETYPE_LIBRARIES})
 
@@ -119,9 +123,15 @@ set ( EVOLUTION_SRC
         ${evolution_engine_rendering}
         ${evolution_objects}
         ${evolution_engine_loaders}
-        ${evolution_engine_animation})
+        ${evolution_engine_animation}
+        ${evolution_scenes}
+        ${evolution_constants})
 
-generate_shaders( EVOLUTION_SHADERS )
+generate_shaders( EVOLUTION_SHADERS
+        src/shaders/frag_text.glsl
+        src/shaders/frag_texture.glsl
+        src/shaders/vert_text.glsl
+        src/shaders/vert_texture.glsl)
 
 add_executable ( PokemonCustomEvolution ${EVOLUTION_SRC} ${EVOLUTION_SHADERS})
 

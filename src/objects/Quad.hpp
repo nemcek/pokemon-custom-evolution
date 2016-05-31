@@ -25,7 +25,7 @@ public:
     Loader *loader;
     BitMap *bitMap;
     GLuint textureId;
-    Animation *animation;
+    Animation *animation = nullptr;
 
     Quad(Loader *loader, glm::vec2 position, float scale, BitMap *bitMap);
     void ChangeToWhite();

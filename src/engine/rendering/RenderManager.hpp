@@ -13,14 +13,12 @@ class RenderManager
 private:
     std::vector<Text *> texts;
     std::vector<Quad *> quads;
-    glm::mat4 projection;
-    BitMap *bitMap;
     TextRenderer *textRenderer;
     StaticRenderer *staticRenderer;
 
 public:
     RenderManager(TextRenderer *textRenderer, StaticRenderer *staticRenderer);
-    void Render();
+    void Render(glm::mat4 projection);
     void ProcessText(Text *text);
     void ProcessProjection(glm::mat4 projection);
     void ProcessQuad(Quad *quad);

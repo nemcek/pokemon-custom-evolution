@@ -38,6 +38,12 @@ void EvolutionQuad::Animate(float delta)
             this->animation->swap = false;
         }
 
+        if (this->animation->bitMap != nullptr)
+        {
+            this->bitMap = this->animation->bitMap;
+            this->animation->bitMap = nullptr;
+        }
+
         this->position = this->animation->position;
         this->Scale(this->animation->scale);
     }

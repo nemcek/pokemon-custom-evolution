@@ -132,3 +132,28 @@ float Transformations::Lerp(float a, float b, float t)
 
     return a * (1 - t) + b * t;
 }
+
+BitMap* Transformations::Fade(BitMap *background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime)
+{
+    BitMap *faded = new BitMap(background->width, background->height);
+
+    for (unsigned int y = 0; y < background->height; y++)
+    {
+        for (unsigned int x = 0; x < background->width; x++)
+        {
+            if (y < background->height - yOffset) {
+                (*faded->buffer)[y * background->width + x].R = (unsigned char) Transformations::Lerp(
+                        (*background->buffer)[y * background->width + x].R, fadeColor.x, fadeTime);
+                (*faded->buffer)[y * background->width + x].G = (unsigned char) Transformations::Lerp(
+                        (*background->buffer)[y * background->width + x].G, fadeColor.y, fadeTime);
+                (*faded->buffer)[y * background->width + x].B = (unsigned char) Transformations::Lerp(
+                        (*background->buffer)[y * background->width + x].B, fadeColor.z, fadeTime);
+                (*faded->buffer)[y * background->width + x].A = (*background->buffer)[y * background->width + x].A;
+            }
+            else
+                (*faded->buffer)[y * background->width + x] = (*background->buffer)[y * background->width + x];
+        }
+    }
+
+    return faded;
+}

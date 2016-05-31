@@ -8,6 +8,7 @@
 Animation::Animation()
 {
     Init();
+    this->enabled = true;
 }
 
 Animation::Animation(bool repeat) : Animation()
@@ -57,8 +58,27 @@ void Animation::MoveToNextFrame()
 
 AnimationStatus Animation::Animate(float delta)
 {
+    position = keyFrames[currentKeyFrameIndex]->position;
+    scale = keyFrames[currentKeyFrameIndex]->scale;
+
+    if (!enabled)
+        return AnimationStatus::Skipped;
+
     if (!ShouldRepeat(currentKeyFrameIndex))
         return AnimationStatus::Skipped;
+
+    if (delay)
+    {
+        animationTime += delta;
+
+        if (animationTime > delayTime)
+        {
+            delay = false;
+            animationTime = 0;
+        }
+
+        return AnimationStatus::Skipped;
+    }
 
     float t = GetAnimationTime(currentKeyFrameIndex);
 
@@ -89,4 +109,10 @@ void Animation::CalculatePosition(int index, float time)
 void Animation::CalculateScale(int index, float time)
 {
     this->scale = Transformations::Lerp(keyFrames[index]->scale, keyFrames[index + 1]->scale, time);
+}
+
+void Animation::SetDelay(float delayTime)
+{
+    this->delay = true;
+    this->delayTime = delayTime;
 }

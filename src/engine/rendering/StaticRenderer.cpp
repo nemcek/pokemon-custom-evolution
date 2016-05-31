@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <engine/Transformations.hpp>
+#include <constants/Constants.hpp>
 #include "src/engine/rendering/StaticRenderer.hpp"
 
 StaticRenderer::StaticRenderer(StaticShader *shader)
@@ -23,7 +24,7 @@ void StaticRenderer::Render(Quad *quad)
     glBindVertexArray(quad->rawModel->vao);
     glBindBuffer(GL_ARRAY_BUFFER, quad->rawModel->vbo);
 
-    glm::vec2 coords = Transformations::ToOpenGLCoords(quad->position, 960, 960);
+    glm::vec2 coords = Transformations::ToOpenGLCoords(quad->position, Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT);
     this->shader->LoadPosition(coords);
 
     this->shader->LoadTexture(quad->textureId);

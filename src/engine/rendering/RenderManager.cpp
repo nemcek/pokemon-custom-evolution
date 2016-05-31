@@ -20,7 +20,7 @@ void RenderManager::ProcessText(Text *text)
 
 void RenderManager::ProcessProjection(glm::mat4 projection)
 {
-    this->projection = projection;
+//    this->projection = projection;
 }
 
 void RenderManager::ProcessQuad(Quad *quad)
@@ -28,17 +28,18 @@ void RenderManager::ProcessQuad(Quad *quad)
     this->quads.push_back(quad);
 }
 
-void RenderManager::Render()
+void RenderManager::Render(glm::mat4 projection)
 {
     staticRenderer->shader->Start();
     staticRenderer->Render(this->quads);
     staticRenderer->shader->Stop();
 
     textRenderer->shader->Start();
-    textRenderer->Render(this->texts, this->projection);
+    textRenderer->Render(this->texts, projection);
     textRenderer->shader->Stop();
 
-    //this->texts.clear();
+//    this->texts.clear();
+//    this->quads.clear();
 }
 
 void RenderManager::Prepare()

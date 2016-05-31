@@ -8,6 +8,7 @@
 #include <images/Image.hpp>
 #include <images/BitMap.hpp>
 #include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 
 enum PicturePosition
 {
@@ -26,6 +27,7 @@ public:
     static glm::vec2 ToOpenGLCoords(glm::vec2 position, int window_width, int window_height);
     static glm::vec2 Lerp(glm::vec2 a, glm::vec2 b, float t);
     static float Lerp(float a, float b, float t);
+    static BitMap *Fade(BitMap *background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime);
 };
 
 #endif //POKEMON_CUSTOM_EVOLUTION_MANIPULATIONS_HPP

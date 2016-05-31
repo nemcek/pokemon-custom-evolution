@@ -22,6 +22,8 @@ private:
 protected:
     float animationTime;
     int currentKeyFrameIndex;
+    bool delay = false;
+    float delayTime = 0;
 
     float GetAnimationTime(int index);
     void Init();
@@ -35,11 +37,13 @@ public:
     bool repeat = true;
     glm::vec2 position;
     float scale;
+    bool enabled;
 
     Animation();
     Animation(bool repeat);
     virtual AnimationStatus Animate(float delta);
     void Add(KeyFrame *keyFrame);
+    void SetDelay(float delayTime);
 };
 
 #endif //POKEMON_CUSTOM_EVOLUTION_ANIMATION_HPP

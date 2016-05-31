@@ -7,6 +7,7 @@
 
 #include <glm/vec2.hpp>
 #include <functional>
+#include <glm/vec3.hpp>
 
 class KeyFrame
 {
