@@ -14,6 +14,10 @@ TextAnimation::TextAnimation(bool repeat) : Animation(repeat)
 {
 }
 
+TextAnimation::~TextAnimation()
+{
+}
+
 AnimationStatus TextAnimation::Animate(float delta)
 {
     AnimationStatus status = Animation::Animate(delta);

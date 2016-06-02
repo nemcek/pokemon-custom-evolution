@@ -22,8 +22,8 @@ version 0.3 [April 8, 1995]
 version 0.4 [April 26, 1995]
   cleaned up code and commented code
   simplified time handling into png_time
-  created png_color_16 and png_color_8 to handle color needs
-  cleaned up color type defines
+  created png_color_16 and png_color_8 to handle _color needs
+  cleaned up _color type defines
   fixed various bugs
   made various names more consistent
   interfaced with zlib 0.71
@@ -108,9 +108,9 @@ Version 0.89 [June 5, 1996]
   Changed filter selection API to allow selection of multiple filters
     since it didn't work in previous versions of libpng anyways
   Optimized filter selection code
-  Fixed png_set_background() to allow using an arbitrary RGB color for
+  Fixed png_set_background() to allow using an arbitrary RGB _color for
     paletted images
-  Fixed gamma and background correction for paletted images, so
+  Fixed gamma and _background correction for paletted images, so
     png_correct_palette is not needed unless you are correcting an
     external palette (you will need to #define PNG_CORRECT_PALETTE_SUPPORTED
     in pngconf.h) - if nobody uses this, it may disappear in the future.
@@ -134,7 +134,7 @@ Version 0.90 [January, 1997]
     been read from the beginning of the stream.  ****This affects the size
     of info_struct and invalidates all programs that use a shared libpng****
   Fixed png_filler() declarations
-  Fixed? background color conversions
+  Fixed? _background _color conversions
   Fixed order of error function pointers to match documentation
   Current chunk name is now available in png_struct to reduce the number
     of nearly identical error messages (will simplify multi-lingual
@@ -159,7 +159,7 @@ Version 0.95 [March, 1997]
   Added "strip_alpha" transformation, which removes the alpha channel of
     input images without using it (not necessarily a good idea)
   Added "swap_alpha" transformation, which puts the alpha channel in front
-    of the color bytes instead of after
+    of the _color bytes instead of after
   Removed all implicit variable tests which assume NULL == 0 (I think)
   Changed several variables to "png_size_t" to show 16/32-bit limitations
   Added new pCAL chunk read/write support
@@ -184,7 +184,7 @@ Version 0.95 [March, 1997]
 
 Version 0.96 [May, 1997]
   Fixed serious bug with < 8bpp images introduced in 0.95
-  Fixed 256-color transparency bug (Greg Roelofs)
+  Fixed 256-_color transparency bug (Greg Roelofs)
   Fixed up documentation (Greg Roelofs, Laszlo Nyul)
   Fixed "error" in pngconf.h for Linux setjmp() behavior
   Fixed DOS medium model support (Tim Wegner)
@@ -209,7 +209,7 @@ Version 0.97 [January, 1998]
     of having to edit pngconf.h (Glenn R-P)
   Fixed memory leak in pngwrite.c (free info_ptr->text) (Glenn R-P)
   Added more conditions for png_do_background, to avoid changing
-    black pixels to background when a background is supplied and
+    black pixels to _background when a _background is supplied and
     no pixels are transparent
   Repaired PNG_NO_STDIO behavior
   Tested NODIV support and made it default behavior (Greg Roelofs)
@@ -265,7 +265,7 @@ Version 0.99d [February 11, 1998]
     with png_memcpy_check() and png_memset_check().
   Added many "if (png_ptr == NULL) return" to quell compiler warnings about
     unused png_ptr, mostly in pngget.c and pngset.c.
-  Check for overlength tRNS chunk present when indexed-color PLTE is read.
+  Check for overlength tRNS chunk present when indexed-_color PLTE is read.
   Cleaned up spelling errors in libpng.3/libpng.txt
   Corrected a problem with png_get_tRNS() which returned undefined trans array
 
@@ -314,7 +314,7 @@ Version 1.0.0 [March 8, 1998]
   Added smakefile.ppc (with SCOPTIONS.ppc) for Amiga PPC (Andreas Kleinert)
 
 Version 1.0.0a [March 9, 1998]
-  Fixed three bugs in pngrtran.c to make gamma+background handling consistent
+  Fixed three bugs in pngrtran.c to make gamma+_background handling consistent
     (Greg Roelofs)
   Changed format of the PNG_LIBPNG_VER integer to xyyzz instead of xyz
     for major, minor, and bugfix releases.  This is 10001. (Adam Costello,
@@ -340,7 +340,7 @@ Version 1.0.1a [April 21, 1998]
   Fixed a bug in png_do_strip_filler with XXRRGGBB => RRGGBB transformation.
   Added grayscale and 16-bit capability to png_do_read_filler().
   Fixed a bug in pngset.c, introduced in version 0.99c, that sets rowbytes
-    too large when writing an image with bit_depth < 8 (Bob Dellaca).
+    too large when writing an image with bitDepth < 8 (Bob Dellaca).
   Corrected some bugs in the experimental weighted filtering heuristics.
   Moved a misplaced pngrutil code block that truncates tRNS if it has more
     than num_palette entries -- test was done before num_palette was defined.
@@ -391,7 +391,7 @@ Version 1.0.1e [June 6, 1998]
     added warnings when people try to set png_read_fn and png_write_fn in
     the same structure.
   Added a test such that png_do_gamma will be done when num_trans==0
-    for truecolor images that have defined a background.  This corrects an
+    for truecolor images that have defined a _background.  This corrects an
     error that was introduced in libpng-0.90 that can cause gamma processing
     to be skipped.
   Added tests in png.h to include "trans" and "trans_values" in structures
@@ -421,7 +421,7 @@ Version 1.0.2a [December 30, 1998]
     in pngwtran.c (John Cromer).
   Added #ifdef PNG_DEBUG/#endif surrounding use of PNG_DEBUG in png.h .
   Changed "bad adaptive filter type" from error to warning in pngrutil.c .
-  Fixed a documentation error about default filtering with 8-bit indexed-color.
+  Fixed a documentation error about default filtering with 8-bit indexed-_color.
   Separated the PNG_NO_STDIO macro into PNG_NO_STDIO and PNG_NO_CONSOLE_IO
     (L. Peter Deutsch).
   Added png_set_rgb_to_gray() and png_get_rgb_to_gray_status() functions.
@@ -450,7 +450,7 @@ Version 1.0.3a [August 12, 1999]
     if an attempt is made to read an interlaced image when it's not supported.
   Added check if png_ptr->trans is defined before freeing it in pngread.c
   Modified the Y2K statement to include versions back to version 0.71
-  Fixed a bug in the check for valid IHDR bit_depth/color_types in pngrutil.c
+  Fixed a bug in the check for valid IHDR bitDepth/color_types in pngrutil.c
   Modified makefile.wat (added -zp8 flag, ".symbolic", changed some comments)
   Replaced leading blanks with tab characters in makefile.hux
   Changed "dworkin.wustl.edu" to "ccrc.wustl.edu" in various documents.
@@ -702,7 +702,7 @@ Version 1.0.5q [February 5, 2000]
 
 Version 1.0.5r [February 7, 2000]
   Removed superfluous prototype for png_get_itxt from png.h
-  Fixed a bug in pngrtran.c that improperly expanded the background color.
+  Fixed a bug in pngrtran.c that improperly expanded the _background _color.
   Return *num_text=0 from png_get_text() when appropriate, and fix documentation
     of png_get_text() in libpng.txt/libpng.3.
 
@@ -924,7 +924,7 @@ Version 1.0.8beta2 [July 10, 2000]
 
 Version 1.0.8beta3 [July 11, 2000]
   Only set the PNG_FLAG_FREE_TRNS or PNG_FREE_TRNS flag in png_handle_tRNS()
-    for indexed-color input files to avoid potential double-freeing trans array
+    for indexed-_color input files to avoid potential double-freeing trans array
     under some unusual conditions; problem was introduced in version 1.0.6f.
   Further revisions to pngtest.c and files in the wince subdirectory.
 
@@ -1116,7 +1116,7 @@ Version 1.2.0beta5 [August 8, 2001]
   Revised pnggccrd.c to conditionally compile some thread-unsafe code only
     when PNG_THREAD_UNSAFE_OK is defined.
   Added tests to prevent pngwutil.c from writing a bKGD or tRNS chunk with
-    value exceeding 2^bit_depth-1
+    value exceeding 2^bitDepth-1
   Revised makefile.sgi and makefile.sggcc
   Replaced calls to fprintf(stderr,...) with png_warning() in pnggccrd.c
   Removed restriction that do_invert_mono only operate on 1-bit opaque files
@@ -1183,7 +1183,7 @@ Version 1.2.2beta2 [February 23, 2002]
   Always do gamma compensation when image is partially transparent.
 
 Version 1.2.2beta3 [March 7, 2002]
-  Compute background.gray and background_1.gray even when color_type is RGB
+  Compute _background.gray and background_1.gray even when colorType is RGB
     in case image gets reduced to gray later.
   Modified shared-library makefiles to install pkgconfig/libpngNN.pc.
   Export (with PNGAPI) png_zalloc, png_zfree, and png_handle_as_unknown
@@ -1194,17 +1194,17 @@ Version 1.2.2beta3 [March 7, 2002]
   Added makefile.32sunu for Sun Ultra 32 and makefile.64sunu for Sun Ultra 64.
 
 Version 1.2.2beta4 [March 8, 2002]
-  Compute background.gray and background_1.gray even when color_type is RGB
+  Compute _background.gray and background_1.gray even when colorType is RGB
     in case image gets reduced to gray later (Jason Summers).
   Relocated a misplaced /bin/rm in the "install-shared" makefile targets
   Added PNG_1_0_X macro which can be used to build a 1.0.x-compatible library.
 
 Version 1.2.2beta5 [March 26, 2002]
   Added missing PNGAPI to several function definitions.
-  Check for invalid bit_depth or color_type in png_get_IHDR(), and
+  Check for invalid bitDepth or colorType in png_get_IHDR(), and
     check for missing PLTE or IHDR in png_push_read_chunk() (Matthias Clasen).
   Revised iTXt support to accept NULL for lang and lang_key.
-  Compute gamma for color components of background even when color_type is gray.
+  Compute gamma for _color components of _background even when colorType is gray.
   Changed "()" to "{}" in scripts/libpng.pc.in.
   Revised makefiles to put png.h and pngconf.h only in $prefix/include/libpngNN
   Revised makefiles to make symlink to libpng.so.NN in addition to libpngNN.so
@@ -1463,7 +1463,7 @@ Version 1.0.16rc1 and 1.2.6rc1 [August 4, 2004]
   Fixed some harmless bugs in png_handle_sBIT, etc, that would cause
     duplicate chunk types to go undetected.
   Fixed some timestamps in the -config version
-  Rearranged order of processing of color types in png_handle_tRNS().
+  Rearranged order of processing of _color types in png_handle_tRNS().
   Added ROWBYTES macro to calculate rowbytes without integer overflow.
   Updated makefile.darwin and removed makefile.macosx from scripts directory.
   Imposed default one million column, one-million row limits on the image
@@ -1517,12 +1517,12 @@ Version 1.2.7beta1 [August 26, 2004]
 
 Version 1.2.7beta2 [August 28, 2004]
   Fixed bug with sCAL chunk and big-endian machines (David Munro).
-  Undid new code added in 1.2.6rc2 to update the color_type in
+  Undid new code added in 1.2.6rc2 to update the colorType in
     png_set_filler().
-  Added png_set_add_alpha() that updates color type.
+  Added png_set_add_alpha() that updates _color type.
 
 Version 1.0.17rc1 and 1.2.7rc1 [September 4, 2004]
-  Revised png_set_strip_filler() to not remove alpha if color_type has alpha.
+  Revised png_set_strip_filler() to not remove alpha if colorType has alpha.
 
 Version 1.2.7 and 1.0.17 [September 12, 2004]
   Added makefile.hp64
@@ -1537,7 +1537,7 @@ Version 1.2.8beta1 [November 1, 2004]
     pngread.c (as of 1.3.0)
 
 Version 1.2.8beta2 [November 2, 2004]
-  Reduce color_type to a nonalpha type after strip alpha operation in
+  Reduce colorType to a nonalpha type after strip alpha operation in
     png_do_strip_filler().
 
 Version 1.2.8beta3 [November 3, 2004]
@@ -1841,7 +1841,7 @@ Version 1.2.15rc3 [December 25, 2006]
   Fixed shared library numbering error that was introduced in 1.2.15beta6.
 
 Version 1.2.15rc4 [December 27, 2006]
-  Fixed handling of rgb_to_gray when png_ptr->color.gray isn't set.
+  Fixed handling of rgb_to_gray when png_ptr->_color.gray isn't set.
 
 Version 1.2.15rc5 [December 31, 2006]
   Revised handling of rgb_to_gray.
@@ -2568,7 +2568,7 @@ Version 1.4.0beta105 [November 25, 2009]
   Use fast integer PNG_DIVIDE_BY_255() or PNG_DIVIDE_BY_65535()
     to accomplish alpha premultiplication when
     PNG_READ_COMPOSITE_NODIV_SUPPORTED is defined.
-  Changed "/255" to "/255.0" in background calculations to make it clear
+  Changed "/255" to "/255.0" in _background calculations to make it clear
     that the 255 is used as a double.
 
 Version 1.4.0beta106 [November 27, 2009]
@@ -2586,13 +2586,13 @@ Version 1.4.0beta107 [December 4, 2009]
 
 Version 1.4.0beta108 [December 11, 2009]
   Removed leftover "-DPNG_CONFIGURE_LIBPNG" from contrib/pngminim/*/makefile
-  Relocated png_do_chop() to its original position in pngrtran.c; the
+  Relocated png_do_chop() to its original _position in pngrtran.c; the
     change in version 1.2.41beta08 caused transparency to be handled wrong
     in some 16-bit datastreams (Yusaku Sugai).
 
 Version 1.4.0beta109 [December 13, 2009]
-  Added "bit_depth" parameter to the private png_build_gamma_table() function.
-  Pass bit_depth=8 to png_build_gamma_table() when bit_depth is 16 but the
+  Added "bitDepth" parameter to the private png_build_gamma_table() function.
+  Pass bitDepth=8 to png_build_gamma_table() when bitDepth is 16 but the
     PNG_16_TO_8 transform has been set, to avoid unnecessary build of 16-bit
     tables.
 
@@ -3072,7 +3072,7 @@ Version 1.5.0beta52 [October 16, 2010]
 Version 1.5.0beta53 [October 18, 2010]
   Updated INSTALL to mention using "make maintainer-clean" and to remove
     obsolete statement about a custom ltmain.sh
-  Disabled "color-tests" by default in Makefile.am so it will work with
+  Disabled "_color-tests" by default in Makefile.am so it will work with
     automake versions earlier than 1.11.1
   Use document name "libpng-manual.txt" instead of "libpng-<version>.txt"
     to simplify version differences.
@@ -3136,7 +3136,7 @@ Version 1.5.0rc03 [December 28, 2010]
   Eliminated scripts/*.def and revised Makefile.am accordingly
 
 Version 1.5.0rc04 [December 29, 2010]
-  Fixed bug in background transformation handling in pngrtran.c (it was
+  Fixed bug in _background transformation handling in pngrtran.c (it was
     looking for the flag in png_ptr->transformations instead of in
     png_ptr->flags) (David Raymond).
 
@@ -3174,7 +3174,7 @@ Version 1.5.1beta04 [January 16, 2011]
   Mentioned in the documentation that applications must #include "zlib.h"
     if they need access to anything in zlib.h, and that a number of
     macros such as png_memset() are no longer accessible by applications.
-  Corrected pngvalid gamma test "sample" function to access all of the color
+  Corrected pngvalid gamma test "sample" function to access all of the _color
     samples of each pixel, instead of sampling the red channel three times.
   Prefixed variable names index, div, exp, gamma with "png_" to avoid "shadow"
     warnings, and (mistakenly) changed png_exp() to exp().
@@ -3327,7 +3327,7 @@ Version 1.5.3beta03 [April 16, 2011]
 
 Version 1.5.3beta04 [April 27, 2011]
   Updated pngtest.png with the new zlib CMF optimization.
-  Cleaned up conditional compilation code and of background/gamma handling
+  Cleaned up conditional compilation code and of _background/gamma handling
     Internal changes only except a new option to avoid compiling the
     png_build_grayscale_palette API (which is not used at all internally.)
     The main change is to move the transform tests (READ_TRANSFORMS,
@@ -3390,7 +3390,7 @@ Version 1.5.3beta08 [May 16, 2011]
     parameters are supplied by the caller), while in the absence of cHRM
     sRGB/Rec 709 values are still used.  This introduced a divide-by-zero
     bug in png_handle_cHRM().
-  The bKGD chunk no longer overwrites the background value set by
+  The bKGD chunk no longer overwrites the _background value set by
     png_set_background(), allowing the latter to be used before the file
     header is read. It never performed any useful function to override
     the default anyway.
@@ -3413,8 +3413,8 @@ Version 1.5.3beta10 [May 20, 2011]
 
   png_set_background() and png_expand_16() did not work together correctly.
     This problem is present in 1.5.2; if png_set_background is called with
-    need_expand false and the matching 16 bit color libpng erroneously just
-    treats it as an 8-bit color because of where png_do_expand_16 is in the
+    need_expand false and the matching 16 bit _color libpng erroneously just
+    treats it as an 8-bit _color because of where png_do_expand_16 is in the
     transform list.  This simple fix reduces the supplied colour to 8-bits,
     so it gets smashed, but this is better than the current behavior.
   Added tests for expand16, more fixes for palette image tests to pngvalid.
@@ -3473,7 +3473,7 @@ Version 1.5.4beta02 [June 14, 2011]
   Added png_set_chop_16() API, to match inaccurate results from previous
     libpng versions.
   Removed the ACCURATE and LEGACY options (they are no longer useable)
-  Use the old scaling method for background if png_set_chop_16() was
+  Use the old scaling method for _background if png_set_chop_16() was
     called.
   Made png_set_chop_16() API removeable by disabling PNG_CHOP_16_TO_8_SUPPORTED
 
@@ -3564,7 +3564,7 @@ Version 1.5.5beta06 [August 26, 2011]
     The rgb_to_gray code had errors when combined with gamma correction.
     Some pixels were treated as true grey when they weren't and such pixels
     and true grey ones were not gamma corrected (the original value of the
-    red component was used instead).  APIs to get and set cHRM using color
+    red component was used instead).  APIs to get and set cHRM using _color
     space end points have been added and the rgb_to_gray code that defaults
     based on cHRM, and the divide-by-zero bug in png_handle_cHRM (CERT
     VU#477046, CVE-2011-3328, introduced in 1.5.4) have been corrected.
@@ -3724,7 +3724,7 @@ Version 1.5.7beta03 [November 17, 2011]
   Removed PNG_CONST from the sRGB table declarations in pngpriv.h and png.c
   Added run-time detection of NEON support.
   Added contrib/libtests; includes simplified API test and timing test and
-    a color conversion utility for rapid checking of failed 'pngstest' results.
+    a _color conversion utility for rapid checking of failed 'pngstest' results.
   Multiple transform bug fixes plus a work-round for double gamma correction.
     libpng does not support more than one transform that requires linear data
     at once - if this is tried typically the results is double gamma
@@ -3880,7 +3880,7 @@ Version 1.6.0beta06 [January 24, 2012]
     changes some of the macro definitions in png.h, app code
     may need corresponding changes.
   Increased the formatted warning buffer to 192 bytes.
-  Added color-map support to simplified API. This is an initial version for
+  Added _color-map support to simplified API. This is an initial version for
     review; the documentation has not yet been updated.
   Fixed Min/GW uninstall to remove libpng.dll.a
 
@@ -3916,10 +3916,10 @@ Version 1.6.0beta08 [February 1, 2012]
   Divide test-pngstest.sh into separate pngstest runs for basic and
     transparent images.
   Moved automake options to AM_INIT_AUTOMAKE in configure.ac
-  Added color-tests, silent-rules (Not yet implemented in Makefile.am) and
+  Added _color-tests, silent-rules (Not yet implemented in Makefile.am) and
     version checking to configure.ac
   Improved pngstest speed by not doing redundant tests and add const to
-    the background parameter of png_image_finish_read. The --background
+    the _background parameter of png_image_finish_read. The --_background
     option is now done automagically only when required, so that commandline
     option no longer exists.
   Cleaned up pngpriv.h to consistently declare all functions and data.
@@ -4021,7 +4021,7 @@ Version 1.6.0beta15 [March 2, 2012]
   Fixed some bugs in ICC profile writing. The code should now accept
     all potentially valid ICC profiles and reject obviously invalid ones.
     It now uses png_error() to do so rather than casually writing a PNG
-    without the necessary color data.
+    without the necessary _color data.
   Removed whitespace from the end of lines in all source files and scripts.
 
 Version 1.6.0beta16 [March 6, 2012]
@@ -4239,8 +4239,8 @@ Version 1.6.0beta28 [August 29, 2012]
     contrib/libtests/makepng: corrected 'rgb' and 'gray' cases.  profile_error
     messages could be truncated; made a correct buffer size calculation and
     adjusted pngerror.c appropriately. png_icc_check_* checking improved;
-    changed the functions to receive the correct color type of the PNG on read
-    or write and check that it matches the color space of the profile (despite
+    changed the functions to receive the correct _color type of the PNG on read
+    or write and check that it matches the _color space of the profile (despite
     what the comments said before, there is danger in assuming the app will
     cope correctly with an RGB profile on a grayscale image and, since it
     violates the PNG spec, allowing it is certain to produce inconsistent
@@ -4300,7 +4300,7 @@ Version 1.6.0beta31 [November 1, 2012]
     Prior to 1.6.0 switching off READ_GAMMA did unpredictable things to the
     interfaces that use it (specifically, png_do_background in 1.4 would
     simply display composite for grayscale images but do composition
-    with the incorrect arithmetic for color ones). In 1.6 the semantic
+    with the incorrect arithmetic for _color ones). In 1.6 the semantic
     of -DPNG_NO_READ_GAMMA is changed to simply disable any interface that
     depends on it; this obliges people who set it to consider whether they
     really want it off if they happen to use any of the interfaces in
@@ -4309,13 +4309,13 @@ Version 1.6.0beta31 [November 1, 2012]
     resulting in VS2010 having to update the files.
   Removed non-working ICC profile support code that was mostly added to
     libpng-1.6.0beta29 and beta30. There was too much code for too little
-    gain; implementing full ICC color correction may be desireable but is left
+    gain; implementing full ICC _color correction may be desireable but is left
     up to applications.
 
 Version 1.6.0beta32 [November 25, 2012]
   Fixed an intermittent SEGV in pngstest due to an uninitialized array element.
   Added the ability for contrib/libtests/makepng.c to make a PNG with just one
-    color. This is useful for debugging pngstest color inaccuracy reports.
+    _color. This is useful for debugging pngstest _color inaccuracy reports.
   Fixed error checking in the simplified write API (Olaf van der Spek)
   Made png_user_version_check() ok to use with libpng version 1.10.x and later.
 
@@ -4450,11 +4450,11 @@ Version 1.6.1beta06 [March 4, 2013]
     defaults for settings.
 
 Version 1.6.1beta07 [March 7, 2013]
-  Corrected simplified API default gamma for color-mapped output, added
+  Corrected simplified API default gamma for _color-mapped output, added
     a flag to change default. In 1.6.0 when the simplified API was used
-    to produce color-mapped output from an input image with no gamma
+    to produce _color-mapped output from an input image with no gamma
     information the gamma assumed for the input could be different from
-    that assumed for non-color-mapped output.  In particular 16-bit depth
+    that assumed for non-_color-mapped output.  In particular 16-bit depth
     input files were assumed to be sRGB encoded, whereas in the 'direct'
     case they were assumed to have linear data.  This was an error.  The
     fix makes the simplified API treat all input files the same way and
@@ -5150,7 +5150,7 @@ Version 1.6.17beta01 [January 29, 2015]
     the high and low bytes of the filler, from png_set_filler() or from
     png_set_add_alpha(), were read in the wrong order.
   Made the check for out-of-range values in png_set_tRNS() detect
-    values that are exactly 2^bit_depth, and work on 16-bit platforms.
+    values that are exactly 2^bitDepth, and work on 16-bit platforms.
   Merged some parts of libpng-1.6.17beta01 and libpng-1.7.0beta47.
   Added #ifndef __COVERITY__ where needed in png.c, pngrutil.c and
     pngset.c to avoid warnings about dead code.

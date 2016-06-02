@@ -26,3 +26,7 @@ EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm
     this->colorEnabled = true;
     this->swap = swap;
 }
+
+EvolutionKeyFrame::~EvolutionKeyFrame()
+{
+}

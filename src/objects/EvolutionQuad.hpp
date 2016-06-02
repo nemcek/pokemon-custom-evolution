@@ -11,15 +11,18 @@
 class EvolutionQuad : public Quad
 {
 private:
-    BitMap *firstStageOfEvolution;
-    BitMap *secondStageOfEvolution;
-    bool firstStageOfEvolutionIsActive;
-    bool secondStageOfEvolutionIsActive;
+    BitMap *_firstStageOfEvolution;
+    BitMap *_secondStageOfEvolution;
+    bool _firstStageOfEvolutionIsActive;
+    bool _secondStageOfEvolutionIsActive;
 public:
     EvolutionAnimation *animation;
 
     EvolutionQuad(Loader *loader, glm::vec2 position, float scale, BitMap *firstStageOfEvolution, BitMap *secondStageOfEvolution);
+    ~EvolutionQuad();
     void Animate(float delta) override ;
 };
+
+typedef std::shared_ptr<EvolutionQuad> EvolutionQuadPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_ANIMATEDQUAD_HPP

@@ -18,11 +18,14 @@ private:
 
 public:
     Window(int width, int height);
+    ~Window();
     bool Show();
 
     GLFWwindow *window;
     int width;
     int height;
 };
+
+typedef std::shared_ptr<Window> WindowPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_WINDOW_HPP

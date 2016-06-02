@@ -8,6 +8,8 @@ Window::Window(int width, int height) : width(width), height(height)
 {
 }
 
+Window::~Window() { }
+
 bool Window::Show()
 {
     // Initialize GLFW

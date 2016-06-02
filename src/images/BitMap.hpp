@@ -6,6 +6,7 @@
 #define POKEMON_CUSTOM_EVOLUTION_BITMAP_HPP
 
 #include <vector>
+#include <memory>
 
 struct Pixel
 {
@@ -21,14 +22,17 @@ struct Pixel
 class BitMap
 {
 private:
-    Pixel default_value = { 0, 0, 0, 0 };
+    Pixel _defaultValue = { 0, 0, 0, 0 };
 
 public:
-    BitMap(int width, int height);
-
     std::vector<Pixel> *buffer;
     int width;
     int height;
+
+    BitMap(int width, int height);
+    ~BitMap();
 };
+
+typedef std::shared_ptr<BitMap> BitMapPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_BITMAP_HPP

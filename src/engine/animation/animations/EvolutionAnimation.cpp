@@ -10,6 +10,10 @@ EvolutionAnimation::EvolutionAnimation(BitMap bitMap) : Animation(), originalBit
 {
 }
 
+EvolutionAnimation::~EvolutionAnimation()
+{
+}
+
 AnimationStatus EvolutionAnimation::Animate(float delta)
 {
     AnimationStatus status = Animation::Animate(delta);

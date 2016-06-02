@@ -15,6 +15,10 @@ KeyFrame::KeyFrame(float time, glm::vec2 pos, float scale, std::function<void(vo
     this->callback = callback;
 }
 
+KeyFrame::~KeyFrame()
+{
+}
+
 void KeyFrame::Init(float time, glm::vec2 pos, float scale)
 {
     this->time = time;

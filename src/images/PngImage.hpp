@@ -15,6 +15,7 @@ private:
 
 public:
     PngImage(const char *file_name);
+    ~PngImage();
 };
 
 typedef std::shared_ptr<PngImage> PngImagePtr;

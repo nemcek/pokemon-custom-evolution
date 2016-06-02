@@ -5,41 +5,47 @@
 #include "src/engine/rendering/RenderManager.hpp"
 
 RenderManager::RenderManager(TextRenderer *textRenderer, StaticRenderer *staticRenderer)
-        : textRenderer(textRenderer),
-          staticRenderer(staticRenderer)
+        : _textRenderer(textRenderer),
+          _staticRenderer(staticRenderer)
 {
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
+RenderManager::~RenderManager()
+{
+    this->_quads.clear();
+    this->_texts.clear();
+}
+
 void RenderManager::ProcessText(Text *text)
 {
-    this->texts.push_back(text);
+    this->_texts.push_back(text);
 }
 
 void RenderManager::ProcessProjection(glm::mat4 projection)
 {
-//    this->projection = projection;
+//    this->_projection = _projection;
 }
 
 void RenderManager::ProcessQuad(Quad *quad)
 {
-    this->quads.push_back(quad);
+    this->_quads.push_back(quad);
 }
 
 void RenderManager::Render(glm::mat4 projection)
 {
-    staticRenderer->shader->Start();
-    staticRenderer->Render(this->quads);
-    staticRenderer->shader->Stop();
+    _staticRenderer->shader->Start();
+    _staticRenderer->Render(this->_quads);
+    _staticRenderer->shader->Stop();
 
-    textRenderer->shader->Start();
-    textRenderer->Render(this->texts, projection);
-    textRenderer->shader->Stop();
+    _textRenderer->shader->Start();
+    _textRenderer->Render(this->_texts, projection);
+    _textRenderer->shader->Stop();
 
-//    this->texts.clear();
-//    this->quads.clear();
+//    this->_texts.clear();
+//    this->_quads.clear();
 }
 
 void RenderManager::Prepare()
@@ -50,6 +56,6 @@ void RenderManager::Prepare()
 
 void RenderManager::Clean()
 {
-    this->textRenderer->shader->Clean();
-    this->staticRenderer->shader->Clean();
+    this->_textRenderer->shader->Clean();
+    this->_staticRenderer->shader->Clean();
 }

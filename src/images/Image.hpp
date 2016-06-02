@@ -16,10 +16,11 @@ class Image
 public:
     Image();
     Image(BitMap *bitmap, int bit_depth, IMAGE_COLOR_TYPE color_type);
+    ~Image();
 
     BitMap *bitmap;
-    int bit_depth;
-    IMAGE_COLOR_TYPE color_type;
+    int bitDepth;
+    IMAGE_COLOR_TYPE colorType;
 };
 
 typedef std::shared_ptr<Image> ImagePtr;

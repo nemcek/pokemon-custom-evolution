@@ -10,54 +10,81 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
 
-The C compiler identification is GNU, found in "C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/3.3.2/CompilerIdC/a.exe"
+The C compiler identification is GNU, found in "C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/3.3.2/CompilerIdC/a.exe"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp
 
 Run Build Command:"C:/Programs/TDM-GCC-64/bin/mingw32-make.exe" "cmTC_53313/fast"
-C:/Programs/TDM-GCC-64/bin/mingw32-make.exe -f CMakeFiles\cmTC_53313.dir\build.make CMakeFiles/cmTC_53313.dir/build
-mingw32-make.exe[1]: Entering directory 'C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp'
-C:\Programs\TDM-GCC-64\bin\gcc.exe    -o CMakeFiles\cmTC_53313.dir\testCCompiler.c.obj   -c C:\Users\Martin\Projects\pokemon-custom-evolution\dependencies\lpng1621\CMakeFiles\CMakeTmp\testCCompiler.c
-C:\Programs\CMake\bin\cmake.exe -E cmake_link_script CMakeFiles\cmTC_53313.dir\link.txt --verbose=1
-C:\Programs\CMake\bin\cmake.exe -E remove -f CMakeFiles\cmTC_53313.dir/objects.a
-C:\Programs\TDM-GCC-64\bin\ar.exe cr CMakeFiles\cmTC_53313.dir/objects.a @CMakeFiles\cmTC_53313.dir\objects1.rsp
-C:\Programs\TDM-GCC-64\bin\gcc.exe       -Wl,--whole-archive CMakeFiles\cmTC_53313.dir/objects.a -Wl,--no-whole-archive  -o cmTC_53313.exe -Wl,--out-implib,libcmTC_53313.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\cmTC_53313.dir\linklibs.rsp
-mingw32-make.exe[1]: Leaving directory 'C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp'
+C:/Programs/TDM-GCC-64/bin/mingw32-make.exe -f CMakeFiles\cmTC_53313.dir\build.make CMakeFiles/cmTC_53313.dir/build
+
+mingw32-make.exe[1]: Entering directory 'C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp'
+
+C:\Programs\TDM-GCC-64\bin\gcc.exe    -o CMakeFiles\cmTC_53313.dir\testCCompiler.c.obj   -c C:\Users\Martin\Projects\pokemon-custom-_evolution\dependencies\lpng1621\CMakeFiles\CMakeTmp\testCCompiler.c
+
+C:\Programs\CMake\bin\cmake.exe -E cmake_link_script CMakeFiles\cmTC_53313.dir\link.txt --verbose=1
+
+C:\Programs\CMake\bin\cmake.exe -E remove -f CMakeFiles\cmTC_53313.dir/objects.a
+
+C:\Programs\TDM-GCC-64\bin\ar.exe cr CMakeFiles\cmTC_53313.dir/objects.a @CMakeFiles\cmTC_53313.dir\objects1.rsp
+
+C:\Programs\TDM-GCC-64\bin\gcc.exe       -Wl,--whole-archive CMakeFiles\cmTC_53313.dir/objects.a -Wl,--no-whole-archive  -o cmTC_53313.exe -Wl,--out-implib,libcmTC_53313.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\cmTC_53313.dir\linklibs.rsp
+
+mingw32-make.exe[1]: Leaving directory 'C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp'
+
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp
 
 Run Build Command:"C:/Programs/TDM-GCC-64/bin/mingw32-make.exe" "cmTC_26da5/fast"
-C:/Programs/TDM-GCC-64/bin/mingw32-make.exe -f CMakeFiles\cmTC_26da5.dir\build.make CMakeFiles/cmTC_26da5.dir/build
-mingw32-make.exe[1]: Entering directory 'C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp'
-C:\Programs\TDM-GCC-64\bin\gcc.exe    -o CMakeFiles\cmTC_26da5.dir\CMakeCCompilerABI.c.obj   -c C:\Programs\CMake\share\cmake-3.3\Modules\CMakeCCompilerABI.c
-C:\Programs\CMake\bin\cmake.exe -E cmake_link_script CMakeFiles\cmTC_26da5.dir\link.txt --verbose=1
-C:\Programs\CMake\bin\cmake.exe -E remove -f CMakeFiles\cmTC_26da5.dir/objects.a
-C:\Programs\TDM-GCC-64\bin\ar.exe cr CMakeFiles\cmTC_26da5.dir/objects.a @CMakeFiles\cmTC_26da5.dir\objects1.rsp
-C:\Programs\TDM-GCC-64\bin\gcc.exe      -v -Wl,--whole-archive CMakeFiles\cmTC_26da5.dir/objects.a -Wl,--no-whole-archive  -o cmTC_26da5.exe -Wl,--out-implib,libcmTC_26da5.dll.a -Wl,--major-image-version,0,--minor-image-version,0   
-Using built-in specs.
-COLLECT_GCC=C:\Programs\TDM-GCC-64\bin\gcc.exe
-COLLECT_LTO_WRAPPER=C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/lto-wrapper.exe
-Target: x86_64-w64-mingw32
-Configured with: ../../../src/gcc-5.1.0/configure --build=x86_64-w64-mingw32 --enable-targets=all --enable-languages=ada,c,c++,fortran,lto,objc,obj-c++ --enable-libgomp --enable-lto --enable-graphite --enable-cxx-flags=-DWINPTHREAD_STATIC --disable-build-with-cxx --disable-build-poststage1-with-cxx --enable-libstdcxx-debug --enable-threads=posix --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libstdcxx-threads --enable-libstdcxx-time --with-gnu-ld --disable-werror --disable-nls --disable-win32-registry --prefix=/mingw64tdm --with-local-prefix=/mingw64tdm --with-pkgversion=tdm64-1 --with-bugurl=http://tdm-gcc.tdragon.net/bugs
-Thread model: posix
-gcc version 5.1.0 (tdm64-1) 
-COMPILER_PATH=C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/;C:/Programs/TDM-GCC-64/bin/../libexec/gcc/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/bin/
-LIBRARY_PATH=C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../lib/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_26da5.exe' '-mtune=generic' '-march=x86-64'
- C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/collect2.exe -plugin C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/liblto_plugin-0.dll -plugin-opt=C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\Martin\AppData\Local\Temp\ccdq3mTs.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -m i386pep --exclude-libs=libpthread.a -Bdynamic -o cmTC_26da5.exe C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/crtbegin.o -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0 -LC:/Programs/TDM-GCC-64/bin/../lib/gcc -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../lib -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../.. --whole-archive CMakeFiles\cmTC_26da5.dir/objects.a --no-whole-archive --out-implib libcmTC_26da5.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lmoldname -lmingwex -lmsvcrt -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lmoldname -lmingwex -lmsvcrt C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/crtend.o
-mingw32-make.exe[1]: Leaving directory 'C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp'
+C:/Programs/TDM-GCC-64/bin/mingw32-make.exe -f CMakeFiles\cmTC_26da5.dir\build.make CMakeFiles/cmTC_26da5.dir/build
+
+mingw32-make.exe[1]: Entering directory 'C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp'
+
+C:\Programs\TDM-GCC-64\bin\gcc.exe    -o CMakeFiles\cmTC_26da5.dir\CMakeCCompilerABI.c.obj   -c C:\Programs\CMake\share\cmake-3.3\Modules\CMakeCCompilerABI.c
+
+C:\Programs\CMake\bin\cmake.exe -E cmake_link_script CMakeFiles\cmTC_26da5.dir\link.txt --verbose=1
+
+C:\Programs\CMake\bin\cmake.exe -E remove -f CMakeFiles\cmTC_26da5.dir/objects.a
+
+C:\Programs\TDM-GCC-64\bin\ar.exe cr CMakeFiles\cmTC_26da5.dir/objects.a @CMakeFiles\cmTC_26da5.dir\objects1.rsp
+
+C:\Programs\TDM-GCC-64\bin\gcc.exe      -v -Wl,--whole-archive CMakeFiles\cmTC_26da5.dir/objects.a -Wl,--no-whole-archive  -o cmTC_26da5.exe -Wl,--out-implib,libcmTC_26da5.dll.a -Wl,--major-image-version,0,--minor-image-version,0   
+
+Using built-in specs.
+
+COLLECT_GCC=C:\Programs\TDM-GCC-64\bin\gcc.exe
+
+COLLECT_LTO_WRAPPER=C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/lto-wrapper.exe
+
+Target: x86_64-w64-mingw32
+
+Configured with: ../../../src/gcc-5.1.0/configure --build=x86_64-w64-mingw32 --enable-targets=all --enable-languages=ada,c,c++,fortran,lto,objc,obj-c++ --enable-libgomp --enable-lto --enable-graphite --enable-cxx-flags=-DWINPTHREAD_STATIC --disable-build-with-cxx --disable-build-poststage1-with-cxx --enable-libstdcxx-debug --enable-threads=posix --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libstdcxx-threads --enable-libstdcxx-time --with-gnu-ld --disable-werror --disable-nls --disable-win32-registry --prefix=/mingw64tdm --with-local-prefix=/mingw64tdm --with-pkgversion=tdm64-1 --with-bugurl=http://tdm-gcc.tdragon.net/bugs
+
+Thread model: posix
+
+gcc version 5.1.0 (tdm64-1) 
+
+COMPILER_PATH=C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/;C:/Programs/TDM-GCC-64/bin/../libexec/gcc/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/bin/
+
+LIBRARY_PATH=C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../lib/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib/;C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../
+
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_26da5.exe' '-mtune=generic' '-march=x86-64'
+
+ C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/collect2.exe -plugin C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/liblto_plugin-0.dll -plugin-opt=C:/Programs/TDM-GCC-64/bin/../libexec/gcc/x86_64-w64-mingw32/5.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\Martin\AppData\Local\Temp\ccdq3mTs.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -m i386pep --exclude-libs=libpthread.a -Bdynamic -o cmTC_26da5.exe C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/crtbegin.o -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0 -LC:/Programs/TDM-GCC-64/bin/../lib/gcc -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../lib -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../.. --whole-archive CMakeFiles\cmTC_26da5.dir/objects.a --no-whole-archive --out-implib libcmTC_26da5.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lmoldname -lmingwex -lmsvcrt -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lmoldname -lmingwex -lmsvcrt C:/Programs/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/crtend.o
+
+mingw32-make.exe[1]: Leaving directory 'C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp'
+
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld\.exe|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp]
   ignore line: []
   ignore line: [Run Build Command:"C:/Programs/TDM-GCC-64/bin/mingw32-make.exe" "cmTC_26da5/fast"]
   ignore line: [C:/Programs/TDM-GCC-64/bin/mingw32-make.exe -f CMakeFiles\cmTC_26da5.dir\build.make CMakeFiles/cmTC_26da5.dir/build]
-  ignore line: [mingw32-make.exe[1]: Entering directory 'C:/Users/Martin/Projects/pokemon-custom-evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp']
+  ignore line: [mingw32-make.exe[1]: Entering directory 'C:/Users/Martin/Projects/pokemon-custom-_evolution/dependencies/lpng1621/CMakeFiles/CMakeTmp']
   ignore line: [C:\Programs\TDM-GCC-64\bin\gcc.exe    -o CMakeFiles\cmTC_26da5.dir\CMakeCCompilerABI.c.obj   -c C:\Programs\CMake\share\cmake-3.3\Modules\CMakeCCompilerABI.c]
   ignore line: [C:\Programs\CMake\bin\cmake.exe -E cmake_link_script CMakeFiles\cmTC_26da5.dir\link.txt --verbose=1]
   ignore line: [C:\Programs\CMake\bin\cmake.exe -E remove -f CMakeFiles\cmTC_26da5.dir/objects.a]

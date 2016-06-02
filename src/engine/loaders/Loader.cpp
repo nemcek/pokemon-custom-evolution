@@ -6,14 +6,16 @@
 
 Loader::Loader(GLuint programId)
 {
-    this->programId = programId;
+    this->_programId = programId;
 }
+
+Loader::~Loader() { }
 
 RawModel* Loader::Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> textcoord_buffer)
 {
     RawModel *rawModel = new RawModel();
 
-    glUseProgram(this->programId);
+    glUseProgram(this->_programId);
 
     // Generate a vertex array object
     glGenVertexArrays(1, &rawModel->vao);
@@ -24,7 +26,7 @@ RawModel* Loader::Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> 
     LoadVertexBuffer(rawModel->vbo, vertex_buffer);
 
     // Setup vertex array lookup
-    GLuint position_attrib = (GLuint)glGetAttribLocation(this->programId, "Position");
+    GLuint position_attrib = (GLuint)glGetAttribLocation(this->_programId, "Position");
     glVertexAttribPointer(position_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(position_attrib);
 
@@ -32,7 +34,7 @@ RawModel* Loader::Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> 
     glBindBuffer(GL_ARRAY_BUFFER, rawModel->tbo);
     glBufferData(GL_ARRAY_BUFFER, textcoord_buffer.size() * sizeof(GLfloat), textcoord_buffer.data(), GL_STATIC_DRAW);
 
-    GLuint texcoord_attrib = (GLuint)glGetAttribLocation(this->programId, "TexCoord");
+    GLuint texcoord_attrib = (GLuint)glGetAttribLocation(this->_programId, "TexCoord");
     glVertexAttribPointer(texcoord_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(texcoord_attrib);
 
@@ -42,7 +44,7 @@ RawModel* Loader::Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> 
 GLuint Loader::LoadTexture(BitMap *bitMap)
 {
     GLuint texture_id;
-    auto texture_attrib = glGetUniformLocation(this->programId, "Texture");
+    auto texture_attrib = glGetUniformLocation(this->_programId, "Texture");
 
     glGenTextures(1, &texture_id);
     glBindTexture(GL_TEXTURE_2D, texture_id);

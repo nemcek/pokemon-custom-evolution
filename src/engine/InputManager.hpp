@@ -6,16 +6,20 @@
 #define POKEMON_CUSTOM_EVOLUTION_INPUTMANAGER_HPP
 
 #include <GLFW/glfw3.h>
+#include <memory>
 
 class InputManager
 {
 private:
 
-    bool *keys;
+    bool *_keys;
 public:
     InputManager();
+    ~InputManager();
     void OnKeyPress(GLFWwindow *, int key, int , int action, int mods);
     bool IsAPressed();
 };
+
+typedef std::shared_ptr<InputManager> InputManagerPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_INPUTMANAGER_HPP

@@ -11,8 +11,8 @@
 class TextRenderer
 {
 private:
-    GLuint vao;
-    GLuint vbo;
+    GLuint _vao;
+    GLuint _vbo;
 
     void Initialize();
 
@@ -20,8 +20,11 @@ public:
     TextShader *shader;
 
     TextRenderer(TextShader *shader);
+    ~TextRenderer();
     void Render(Text *text, glm::mat4 projection);
     void Render(std::vector<Text *> text, glm::mat4 projection);
 };
+
+typedef std::shared_ptr<TextRenderer> TextRendererPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_TEXTRENDERER_HPP

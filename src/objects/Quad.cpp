@@ -14,10 +14,12 @@ Quad::Quad(Loader *loader, glm::vec2 position, float scale, BitMap *bitMap)
     Init();
 }
 
+Quad::~Quad() { }
+
 void Quad::Init()
 {
     // Setup geometry
-    vertex_buffer = {
+    _vertexBuffer = {
             // x, y
              1.0f * scale,  1.0f * scale,
             -1.0f * scale,  1.0f * scale,
@@ -25,7 +27,7 @@ void Quad::Init()
             -1.0f * scale, -1.0f * scale
     };
 
-    // Generate another vertex buffer object for texture coordinates
+    // Generate another vertex buffer object for _texture coordinates
     std::vector<GLfloat> texcoord_buffer {
             // u, v
             1.0f, 0.0f,
@@ -34,7 +36,7 @@ void Quad::Init()
             0.0f, 1.0f
     };
 
-    this->rawModel = this->loader->Load(vertex_buffer, texcoord_buffer);
+    this->rawModel = this->loader->Load(_vertexBuffer, texcoord_buffer);
     this->textureId = this->loader->LoadTexture(this->bitMap);
 }
 
@@ -55,10 +57,10 @@ void Quad::Animate(float delta)
 
 std::vector<GLfloat> Quad::Scale(float scale)
 {
-    std::vector<GLfloat> scaled(this->vertex_buffer.size());
+    std::vector<GLfloat> scaled(this->_vertexBuffer.size());
 
-    for (int i = 0; i < this->vertex_buffer.size(); i++)
-        scaled[i] = this->vertex_buffer[i] * scale;
+    for (int i = 0; i < this->_vertexBuffer.size(); i++)
+        scaled[i] = this->_vertexBuffer[i] * scale;
 
     // apply scaling
     this->loader->LoadVertexBuffer(this->rawModel->vbo, scaled);

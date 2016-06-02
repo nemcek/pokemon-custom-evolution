@@ -6,10 +6,12 @@
 #include "src/shaders/ShaderProgram.hpp"
 
 ShaderProgram::ShaderProgram(const std::string &vertex_shader_file, const std::string &fragment_shader_file) {
-    this->vertexShaderProgramId = LoadShader(vertex_shader_file, GL_VERTEX_SHADER);
-    this->fragmentShaderProgramId = LoadShader(fragment_shader_file, GL_FRAGMENT_SHADER);
-    this->programId = CreateProgram(this->vertexShaderProgramId, this->fragmentShaderProgramId);
+    this->_vertexShaderProgramId = LoadShader(vertex_shader_file, GL_VERTEX_SHADER);
+    this->_fragmentShaderProgramId = LoadShader(fragment_shader_file, GL_FRAGMENT_SHADER);
+    this->programId = CreateProgram(this->_vertexShaderProgramId, this->_fragmentShaderProgramId);
 }
+
+ShaderProgram::~ShaderProgram() { }
 
 GLuint ShaderProgram::LoadShader(const std::string &shader_file, GLuint type) {
     GLint result;
@@ -81,11 +83,11 @@ void ShaderProgram::Stop() {
 
 void ShaderProgram::Clean() {
     Stop();
-    glDetachShader(programId, this->vertexShaderProgramId);
-    glDetachShader(programId, this->fragmentShaderProgramId);
+    glDetachShader(programId, this->_vertexShaderProgramId);
+    glDetachShader(programId, this->_fragmentShaderProgramId);
 
-    glDeleteShader(this->vertexShaderProgramId);
-    glDeleteShader(this->fragmentShaderProgramId);
+    glDeleteShader(this->_vertexShaderProgramId);
+    glDeleteShader(this->_fragmentShaderProgramId);
 
     glDeleteProgram(programId);
 }
@@ -132,7 +134,7 @@ void ShaderProgram::LoadBoolean(GLint location, bool value) {
 }
 
 void ShaderProgram::LoadTexture(GLint location, GLuint texture_id) {
-    // Bind the texture to "Texture" uniform in program
+    // Bind the _texture to "Texture" uniform in program
     glUniform1i(location, 0);
     glActiveTexture(GL_TEXTURE0 + 0);
     glBindTexture(GL_TEXTURE_2D, texture_id);

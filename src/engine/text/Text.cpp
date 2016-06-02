@@ -24,6 +24,10 @@ Text::Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color,
 {
 }
 
+Text::~Text()
+{
+}
+
 void Text::SetText(std::string text)
 {
     this->text = text;

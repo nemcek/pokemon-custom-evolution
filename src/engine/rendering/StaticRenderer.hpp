@@ -17,8 +17,11 @@ public:
     StaticShader *shader;
 
     StaticRenderer(StaticShader *shader);
+    ~StaticRenderer();
     void Render(std::vector<Quad *> quad);
     void Render(Quad *quad);
 };
+
+typedef std::shared_ptr<StaticRenderer> StaticRendererPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_STATICRENDERER_HPP

@@ -14,7 +14,10 @@ public:
 
     TextAnimation();
     TextAnimation(bool repeat);
+    ~TextAnimation();
     AnimationStatus Animate(float delta) override ;
 };
+
+typedef std::shared_ptr<TextAnimation> TextAnimationPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_TEXTANIMATION_HPP

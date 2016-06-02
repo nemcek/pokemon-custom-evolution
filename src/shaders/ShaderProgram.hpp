@@ -15,8 +15,8 @@
 
 class ShaderProgram {
 private:
-    GLuint vertexShaderProgramId;
-    GLuint fragmentShaderProgramId;
+    GLuint _vertexShaderProgramId;
+    GLuint _fragmentShaderProgramId;
 
     GLuint LoadShader(const std::string &shader_file, GLuint type);
     GLuint CreateProgram(GLuint vertex_shader_id, GLuint fragment_shader_id);
@@ -38,6 +38,7 @@ public:
     GLuint programId;
 
     ShaderProgram(const std::string &vertex_shader_file, const std::string &fragment_shader_file);
+    virtual ~ShaderProgram();
     void Start();
     void Stop();
     void Clean();

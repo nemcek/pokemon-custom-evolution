@@ -30,7 +30,11 @@ public:
 
     Text(glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font);
     Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font);
+    ~Text();
     void SetText(std::string text);
     void Animate(float delta);
 };
+
+typedef std::shared_ptr<Text> TextPtr;
+
 #endif //POKEMON_CUSTOM_EVOLUTION_TEXT_HPP

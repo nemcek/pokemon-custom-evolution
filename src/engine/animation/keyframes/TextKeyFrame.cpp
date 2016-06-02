@@ -16,3 +16,7 @@ TextKeyFrame::TextKeyFrame(float time, glm::vec2 pos, float scale, std::string t
       text(text)
 {
 }
+
+TextKeyFrame::~TextKeyFrame()
+{
+}

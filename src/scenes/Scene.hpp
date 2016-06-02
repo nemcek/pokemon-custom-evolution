@@ -20,30 +20,33 @@
 class Scene
 {
 private:
-    std::vector<Quad *> quads;
-    std::vector<Text *> texts;
-    RenderManager *renderManager;
-    glm::mat4 projection;
-    InputManager *inputManager;
-    Text *startEvolutionTextFirstPart;
-    Text *startEvolutionTextSecondPart;
-    EvolutionQuad *background;
-    EvolutionQuad *evolution;
+    std::vector<Quad *> _quads;
+    std::vector<Text *> _texts;
+    RenderManager *_renderManager;
+    glm::mat4 _projection;
+    InputManager *_inputManager;
+    Text *_startEvolutionTextFirstPart;
+    Text *_startEvolutionTextSecondPart;
+    EvolutionQuad *_background;
+    EvolutionQuad *_evolution;
 
     // callbacks
     void WhatTextDrawFinishedCallback();
     void StartEvolutionTextFirstPartDrawFinishedCallback();
     void StartEvolutionTextDrawFinishedCallback();
     void EvolutionSceneFadeCompletedCallback();
-    bool startEvolutionTextDrawEnabled = false;
+    bool _startEvolutionTextDrawEnabled = false;
 
     void Init();
 public:
     Scene(InputManager *inputManager);
+    ~Scene();
     void Animate(float delta);
     void Render();
     void Update();
     void Clean();
 };
+
+typedef std::shared_ptr<Scene> ScenePtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_SCENE_HPP

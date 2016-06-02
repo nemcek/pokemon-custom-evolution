@@ -41,9 +41,12 @@ public:
 
     Animation();
     Animation(bool repeat);
+    virtual ~Animation();
     virtual AnimationStatus Animate(float delta);
     void Add(KeyFrame *keyFrame);
     void SetDelay(float delayTime);
 };
+
+typedef std::shared_ptr<Animation> AnimationPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_ANIMATION_HPP

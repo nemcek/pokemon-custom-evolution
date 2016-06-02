@@ -10,14 +10,16 @@ TextRenderer::TextRenderer(TextShader *shader)
     Initialize();
 }
 
+TextRenderer::~TextRenderer() { }
+
 void TextRenderer::Initialize()
 {
-    // Configure VAO/VBO for texture quads
+    // Configure VAO/VBO for _texture _quads
     shader->Start();
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glGenVertexArrays(1, &_vao);
+    glGenBuffers(1, &_vbo);
+    glBindVertexArray(_vao);
+    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
@@ -39,7 +41,7 @@ void TextRenderer::Render(Text *text, glm::mat4 projection)
     shader->LoadTextColor(text->color);
     shader->LoadProjection(projection);
     glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(vao);
+    glBindVertexArray(_vao);
 
     GLfloat x = text->position.x;
     GLfloat y = text->position.y;
@@ -65,10 +67,10 @@ void TextRenderer::Render(Text *text, glm::mat4 projection)
                 { xpos + w, ypos,       1.0, 1.0 },
                 { xpos + w, ypos + h,   1.0, 0.0 }
         };
-        // Render glyph texture over quad
+        // Render glyph _texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
         // Update content of VBO memory
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, _vbo);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);

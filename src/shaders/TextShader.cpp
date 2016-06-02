@@ -9,18 +9,20 @@ TextShader::TextShader() : ShaderProgram("src/shaders/vert_text.glsl", "src/shad
     GetAllUniformLocations();
 }
 
+TextShader::~TextShader() { }
+
 void TextShader::GetAllUniformLocations()
 {
-    this->projection = this->GetUniformLocation("projection");
-    this->color = this->GetUniformLocation("textColor");
+    this->_projection = this->GetUniformLocation("projection");
+    this->_color = this->GetUniformLocation("textColor");
 }
 
 void TextShader::LoadProjection(glm::mat4 projection)
 {
-    this->LoadMatrix(this->projection, projection);
+    this->LoadMatrix(this->_projection, projection);
 }
 
 void TextShader::LoadTextColor(glm::vec3 color)
 {
-    this->LoadVector(this->color, color);
+    this->LoadVector(this->_color, color);
 }

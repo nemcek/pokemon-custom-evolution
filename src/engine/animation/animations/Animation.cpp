@@ -16,6 +16,11 @@ Animation::Animation(bool repeat) : Animation()
     this->repeat = repeat;
 }
 
+Animation::~Animation()
+{
+    this->keyFrames.clear();
+}
+
 void Animation::Init()
 {
     currentKeyFrameIndex = 0;

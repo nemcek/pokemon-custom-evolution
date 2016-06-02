@@ -6,7 +6,12 @@
 
 InputManager::InputManager()
 {
-    this->keys = new bool[1024]{false};
+    this->_keys = new bool[1024]{false};
+}
+
+InputManager::~InputManager()
+{
+    delete[] _keys;
 }
 
 void InputManager::OnKeyPress(GLFWwindow *window, int key, int , int action, int ) {
@@ -15,13 +20,13 @@ void InputManager::OnKeyPress(GLFWwindow *window, int key, int , int action, int
 
     if (key >= 0 && key < 1024) {
         if (action == GLFW_PRESS)
-            keys[key] = true;
+            _keys[key] = true;
         else if (action == GLFW_RELEASE)
-            keys[key] = false;
+            _keys[key] = false;
     }
 }
 
 bool InputManager::IsAPressed()
 {
-    return this->keys[GLFW_KEY_A];
+    return this->_keys[GLFW_KEY_A];
 }

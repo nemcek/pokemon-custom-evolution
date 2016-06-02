@@ -12,6 +12,8 @@ StaticRenderer::StaticRenderer(StaticShader *shader)
     this->shader = shader;
 }
 
+StaticRenderer::~StaticRenderer() { }
+
 void StaticRenderer::Render(std::vector<Quad *> quads)
 {
     for (std::vector<Quad *>::iterator it = quads.begin(); it != quads.end(); it++ ) {

@@ -5,3 +5,5 @@
 #include "src/objects/RawModel.hpp"
 
 RawModel::RawModel() { }
+
+RawModel::~RawModel() { }

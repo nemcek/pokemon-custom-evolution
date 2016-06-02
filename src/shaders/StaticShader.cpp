@@ -9,18 +9,20 @@ StaticShader::StaticShader() : ShaderProgram("src/shaders/vert_texture.glsl", "s
     GetAllUniformLocations();
 }
 
+StaticShader::~StaticShader() { }
+
 void StaticShader::GetAllUniformLocations()
 {
-    this->texture = GetUniformLocation("Texture");
-    this->position = GetUniformLocation("quadPos");
+    this->_texture = GetUniformLocation("Texture");
+    this->_position = GetUniformLocation("quadPos");
 }
 
 void StaticShader::LoadTexture(unsigned int textureId)
 {
-    ShaderProgram::LoadTexture(this->texture, textureId);
+    ShaderProgram::LoadTexture(this->_texture, textureId);
 }
 
 void StaticShader::LoadPosition(glm::vec2 position)
 {
-    this->LoadVector(this->position, position);
+    this->LoadVector(this->_position, position);
 }

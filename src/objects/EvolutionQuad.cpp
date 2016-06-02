@@ -8,11 +8,13 @@ EvolutionQuad::EvolutionQuad(Loader *loader, glm::vec2 position, float scale, Bi
                              BitMap *secondStageOfEvolution)
     : Quad(loader, position, scale, firstStageOfEvolution)
 {
-    this->firstStageOfEvolution = firstStageOfEvolution;
-    this->secondStageOfEvolution = secondStageOfEvolution;
-    firstStageOfEvolutionIsActive = true;
-    secondStageOfEvolutionIsActive = false;
+    this->_firstStageOfEvolution = firstStageOfEvolution;
+    this->_secondStageOfEvolution = secondStageOfEvolution;
+    _firstStageOfEvolutionIsActive = true;
+    _secondStageOfEvolutionIsActive = false;
 }
+
+EvolutionQuad::~EvolutionQuad() { }
 
 void EvolutionQuad::Animate(float delta)
 {
@@ -22,17 +24,17 @@ void EvolutionQuad::Animate(float delta)
 
         if (this->animation->swap)
         {
-            if (firstStageOfEvolutionIsActive)
+            if (_firstStageOfEvolutionIsActive)
             {
-                this->bitMap = secondStageOfEvolution;
-                this->secondStageOfEvolutionIsActive = true;
-                this->firstStageOfEvolutionIsActive = false;
+                this->bitMap = _secondStageOfEvolution;
+                this->_secondStageOfEvolutionIsActive = true;
+                this->_firstStageOfEvolutionIsActive = false;
             }
-            else if (secondStageOfEvolutionIsActive)
+            else if (_secondStageOfEvolutionIsActive)
             {
-                this->bitMap = firstStageOfEvolution;
-                this->secondStageOfEvolutionIsActive = false;
-                this->firstStageOfEvolutionIsActive = true;
+                this->bitMap = _firstStageOfEvolution;
+                this->_secondStageOfEvolutionIsActive = false;
+                this->_firstStageOfEvolutionIsActive = true;
             }
 
             this->animation->swap = false;

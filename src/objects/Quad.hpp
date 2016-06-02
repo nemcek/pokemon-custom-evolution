@@ -14,7 +14,7 @@
 class Quad
 {
 private:
-    std::vector<GLfloat> vertex_buffer;
+    std::vector<GLfloat> _vertexBuffer;
 
     void Init();
 
@@ -28,11 +28,12 @@ public:
     Animation *animation = nullptr;
 
     Quad(Loader *loader, glm::vec2 position, float scale, BitMap *bitMap);
+    virtual ~Quad();
     void ChangeToWhite();
     virtual void Animate(float delta);
     std::vector<GLfloat> Scale(float scale);
 };
 
-
+typedef std::shared_ptr<Quad> QuadPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_QUAD_HPP

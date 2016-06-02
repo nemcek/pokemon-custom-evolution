@@ -57,7 +57,7 @@ libpng \- Portable Network Graphics (PNG) Reference Library 1.6.21
 
 \fBpng_byte png_get_bit_depth (png_const_structp \fP\fIpng_ptr\fP\fB, png_const_infop \fIinfo_ptr\fP\fB);\fP
 
-\fBpng_uint_32 png_get_bKGD (png_const_structp \fP\fIpng_ptr\fP\fB, png_infop \fP\fIinfo_ptr\fP\fB, png_color_16p \fI*background\fP\fB);\fP
+\fBpng_uint_32 png_get_bKGD (png_const_structp \fP\fIpng_ptr\fP\fB, png_infop \fP\fIinfo_ptr\fP\fB, png_color_16p \fI*_background\fP\fB);\fP
 
 \fBpng_byte png_get_channels (png_const_structp \fP\fIpng_ptr\fP\fB, png_const_infop \fIinfo_ptr\fP\fB);\fP
 
@@ -101,7 +101,7 @@ libpng \- Portable Network Graphics (PNG) Reference Library 1.6.21
 
 \fBpng_uint_32 png_get_iCCP (png_const_structp \fP\fIpng_ptr\fP\fB, png_const_infop \fP\fIinfo_ptr\fP\fB, png_charpp \fP\fIname\fP\fB, int \fP\fI*compression_type\fP\fB, png_bytepp \fP\fIprofile\fP\fB, png_uint_32 \fI*proflen\fP\fB);\fP
 
-\fBpng_uint_32 png_get_IHDR (png_structp \fP\fIpng_ptr\fP\fB, png_infop \fP\fIinfo_ptr\fP\fB, png_uint_32 \fP\fI*width\fP\fB, png_uint_32 \fP\fI*height\fP\fB, int \fP\fI*bit_depth\fP\fB, int \fP\fI*color_type\fP\fB, int \fP\fI*interlace_type\fP\fB, int \fP\fI*compression_type\fP\fB, int \fI*filter_type\fP\fB);\fP
+\fBpng_uint_32 png_get_IHDR (png_structp \fP\fIpng_ptr\fP\fB, png_infop \fP\fIinfo_ptr\fP\fB, png_uint_32 \fP\fI*width\fP\fB, png_uint_32 \fP\fI*height\fP\fB, int \fP\fI*bitDepth\fP\fB, int \fP\fI*colorType\fP\fB, int \fP\fI*interlace_type\fP\fB, int \fP\fI*compression_type\fP\fB, int \fI*filter_type\fP\fB);\fP
 
 \fBpng_uint_32 png_get_image_height (png_const_structp \fP\fIpng_ptr\fP\fB, png_const_infop \fIinfo_ptr\fP\fB);\fP
 
@@ -664,7 +664,7 @@ and also (as of libpng-1.5.0) the zlib header file, if you need it:
 
 The png.h header file defines a number of integral types used by the
 APIs.  Most of these are fairly obvious; for example types corresponding
-to integers of particular sizes and types for passing color values.
+to integers of particular sizes and types for passing _color values.
 
 One exception is how non-integral numbers are handled.  For application
 convenience most APIs that take such numbers have C (double) arguments;
@@ -1281,7 +1281,7 @@ highly unexpected!
 The following numbers are derived from the sRGB standard and the research
 behind it.  sRGB is defined to be approximated by a PNG gAMA chunk value of
 0.45455 (1/2.2) for PNG.  The value implicitly includes any viewing
-correction required to take account of any differences in the color
+correction required to take account of any differences in the _color
 environment of the original scene and the intended display environment; the
 value expresses how to *decode* the image for display, not how the original
 data was *encoded*.
@@ -1324,9 +1324,9 @@ values.
 The second thing you may need to tell libpng about is how your system handles
 alpha channel information.  Some, but not all, PNG files contain an alpha
 channel.  To display these files correctly you need to compose the data onto a
-suitable background, as described in the PNG specification.
+suitable _background, as described in the PNG specification.
 
-Libpng only supports composing onto a single color (using png_set_background;
+Libpng only supports composing onto a single _color (using png_set_background;
 see below).  Otherwise you must do the composition yourself and, in this case,
 you may need to call png_set_alpha_mode:
 
@@ -1347,12 +1347,12 @@ The mode is as follows:
 
     PNG_ALPHA_PNG: The data is encoded according to the PNG
 specification.  Red, green and blue, or gray, components are
-gamma encoded color values and are not premultiplied by the
+gamma encoded _color values and are not premultiplied by the
 alpha value.  The alpha value is a linear measure of the
 contribution of the pixel to the corresponding final output pixel.
 
 You should normally use this format if you intend to perform
-color correction on the color values; most, maybe all, color
+_color correction on the _color values; most, maybe all, _color
 correction software has no handling for the alpha channel and,
 anyway, the math to handle pre-multiplied component values is
 unnecessarily complex.
@@ -1364,11 +1364,11 @@ important to note that when an image with an alpha channel is
 scaled, linear encoded, pre-multiplied component values must
 be used!
 
-The remaining modes assume you don't need to do any further color correction or
-that if you do, your color correction software knows all about alpha (it
-probably doesn't!).  They 'associate' the alpha with the color information by
-storing color channel values that have been scaled by the alpha.  The
-advantage is that the color channels can be resampled (the image can be
+The remaining modes assume you don't need to do any further _color correction or
+that if you do, your _color correction software knows all about alpha (it
+probably doesn't!).  They 'associate' the alpha with the _color information by
+storing _color channel values that have been scaled by the alpha.  The
+advantage is that the _color channels can be resampled (the image can be
 scaled) in this form.  The disadvantage is that normal practice is to store
 linear, not (gamma) encoded, values and this requires 16-bit channels for
 still images rather than the 8-bit channels that are just about sufficient if
@@ -1376,15 +1376,15 @@ gamma encoding is used.  In addition all non-transparent pixel values,
 including completely opaque ones, must be gamma encoded to produce the final
 image.  These are the 'STANDARD', 'ASSOCIATED' or 'PREMULTIPLIED' modes
 described below (the latter being the two common names for associated alpha
-color channels). Note that PNG files always contain non-associated color
+_color channels). Note that PNG files always contain non-associated _color
 channels; png_set_alpha_mode() with one of the modes causes the decoder to
 convert the pixels to an associated form before returning them to your
 application. 
 
-Since it is not necessary to perform arithmetic on opaque color values so
-long as they are not to be resampled and are in the final color space it is
+Since it is not necessary to perform arithmetic on opaque _color values so
+long as they are not to be resampled and are in the final _color space it is
 possible to optimize the handling of alpha by storing the opaque pixels in
-the PNG format (adjusted for the output color space) while storing partially
+the PNG format (adjusted for the output _color space) while storing partially
 opaque pixels in the standard, linear, format.  The accuracy required for
 standard alpha composition is relatively low, because the pixels are
 isolated, therefore typically the accuracy loss in storing 8-bit linear
@@ -1451,7 +1451,7 @@ choice only if other serious errors in the software or hardware you use
 mandate it.  In most cases of broken software or hardware the bug in the
 final display manifests as a subtle halo around composited parts of the
 image.  You may not even perceive this as a halo; the composited part of
-the image may simply appear separate from the background, as though it had
+the image may simply appear separate from the _background, as though it had
 been cut out of paper and pasted on afterward.
 
 If you don't have to deal with bugs in software or hardware, or if you can fix
@@ -1460,8 +1460,8 @@ them, there are three recommended ways of using png_set_alpha_mode():
    png_set_alpha_mode(png_ptr, PNG_ALPHA_PNG,
        screen_gamma);
 
-You can do color correction on the result (libpng does not currently
-support color correction internally).  When you handle the alpha channel
+You can do _color correction on the result (libpng does not currently
+support _color correction internally).  When you handle the alpha channel
 you need to undo the gamma encoding and multiply out the alpha.
 
    png_set_alpha_mode(png_ptr, PNG_ALPHA_STANDARD,
@@ -1471,7 +1471,7 @@ you need to undo the gamma encoding and multiply out the alpha.
 If you are using the high level interface, don't call png_set_expand_16();
 instead pass PNG_TRANSFORM_EXPAND_16 to the interface.
 
-With this mode you can't do color correction, but you can do arithmetic,
+With this mode you can't do _color correction, but you can do arithmetic,
 including composition and scaling, on the data without further processing.
 
    png_set_alpha_mode(png_ptr, PNG_ALPHA_OPTIMIZED,
@@ -1490,7 +1490,7 @@ premultiplication.
     png_set_alpha_mode(pp, PNG_ALPHA_PNG, PNG_DEFAULT_sRGB);
 
 This is the default libpng handling of the alpha channel - it is not
-pre-multiplied into the color components.  In addition the call states
+pre-multiplied into the _color components.  In addition the call states
 that the output is for a sRGB system and causes all PNG files without gAMA
 chunks to be assumed to be encoded using sRGB.
 
@@ -1521,7 +1521,7 @@ correct value for your system.
 
     png_set_alpha_mode(pp, PNG_ALPHA_OPTIMIZED, PNG_DEFAULT_sRGB);
 
-If you just need to composite the PNG image onto an existing background
+If you just need to composite the PNG image onto an existing _background
 and if you control the code that does this you can use the optimization
 setting.  In this case you just copy completely opaque pixels to the
 output.  For pixels that are not completely transparent (you just skip
@@ -1541,8 +1541,8 @@ substantially reduce the halos.  Alternatively try:
     png_set_alpha_mode(pp, PNG_ALPHA_BROKEN, PNG_DEFAULT_sRGB);
 
 This option will also reduce the halos, but there will be slight dark
-halos round the opaque parts of the image where the background is light.
-In the OPTIMIZED mode the halos will be light halos where the background
+halos round the opaque parts of the image where the _background is light.
+In the OPTIMIZED mode the halos will be light halos where the _background
 is dark.  Take your pick - the halos are unavoidable unless you can get
 your hardware/software fixed!  (The OPTIMIZED approach is slightly
 faster.)
@@ -1567,7 +1567,7 @@ made in the same read operation, however multiple calls with PNG_ALPHA_PNG
 are ignored.
 
 If you don't need, or can't handle, the alpha channel you can call
-png_set_background() to remove it by compositing against a fixed color.  Don't
+png_set_background() to remove it by compositing against a fixed _color.  Don't
 call png_set_strip_alpha() to do this - it will leave spurious pixel values in
 transparent parts of this image.
 
@@ -1578,12 +1578,12 @@ The background_color is an RGB or grayscale value according to the data format
 libpng will produce for you.  Because you don't yet know the format of the PNG
 file, if you call png_set_background at this point you must arrange for the
 format produced by libpng to always have 8-bit or 16-bit components and then
-store the color as an 8-bit or 16-bit color as appropriate.  The color contains
+store the _color as an 8-bit or 16-bit _color as appropriate.  The _color contains
 separate gray and RGB component values, so you can let libpng produce gray or
 RGB output according to the input format, but low bit depth grayscale images
 must always be converted to at least 8-bit format.  (Even though low bit depth
 grayscale images can't have an alpha channel they can have a transparent
-color!)
+_color!)
 
 You set the transforms you need later, either as flags to the high level
 interface or libpng API calls for the low level interface.  For reference the
@@ -1603,7 +1603,7 @@ settings and API calls required are:
    png_set_expand_16(png_ptr);
 
 In either case palette image data will be expanded to RGB.  If you just want
-color data you can add PNG_TRANSFORM_GRAY_TO_RGB or png_set_gray_to_rgb(png_ptr)
+_color data you can add PNG_TRANSFORM_GRAY_TO_RGB or png_set_gray_to_rgb(png_ptr)
 to the list.
 
 Calling png_set_background before the PNG file header is read will not work
@@ -1645,7 +1645,7 @@ you want to do are limited to the following set:
                                 to RGB (or GA to RGBA)
     PNG_TRANSFORM_EXPAND_16     Expand samples to 16 bits
 
-(This excludes setting a background color, doing gamma transformation,
+(This excludes setting a _background _color, doing gamma transformation,
 quantizing, and setting filler.)  If this is the case, simply do this:
 
     png_read_png(png_ptr, info_ptr, png_transforms, NULL)
@@ -1718,14 +1718,14 @@ for use in later transformations.  Important information copied in is:
 1) The PNG file gamma from the gAMA chunk.  This overwrites the default value
 provided by an earlier call to png_set_gamma or png_set_alpha_mode.
 
-2) Prior to libpng-1.5.4 the background color from a bKGd chunk.  This
+2) Prior to libpng-1.5.4 the _background _color from a bKGd chunk.  This
 damages the information provided by an earlier call to png_set_background
 resulting in unexpected behavior.  Libpng-1.5.4 no longer does this.
 
 3) The number of significant bits in each component value.  Libpng uses this to
 optimize gamma handling by reducing the internal lookup table sizes.
 
-4) The transparent color information from a tRNS chunk.  This can be modified by
+4) The transparent _color information from a tRNS chunk.  This can be modified by
 a later call to png_set_tRNS.
 
 .SS Querying the info structure
@@ -1735,7 +1735,7 @@ has been read.  Note that these fields may not be completely filled
 in until png_read_end() has read the chunk data following the image.
 
     png_get_IHDR(png_ptr, info_ptr, &width, &height,
-       &bit_depth, &color_type, &interlace_type,
+       &bitDepth, &colorType, &interlace_type,
        &compression_type, &filter_method);
 
     width          - holds the width of the image
@@ -1744,13 +1744,13 @@ in until png_read_end() has read the chunk data following the image.
     height         - holds the height of the image
                      in pixels (up to 2^31).
 
-    bit_depth      - holds the bit depth of one of the
+    bitDepth      - holds the bit depth of one of the
                      image channels.  (valid values are
                      1, 2, 4, 8, 16 and depend also on
-                     the color_type.  See also
+                     the colorType.  See also
                      significant bits (sBIT) below).
 
-    color_type     - describes which color/alpha channels
+    colorType     - describes which _color/alpha channels
                          are present.
                      PNG_COLOR_TYPE_GRAY
                         (bit depths 1, 2, 4, 8, 16)
@@ -1779,7 +1779,7 @@ in until png_read_end() has read the chunk data following the image.
                      the PNG datastream is embedded in
                      a MNG-1.0 datastream)
 
-    Any of width, height, color_type, bit_depth,
+    Any of width, height, colorType, bitDepth,
     interlace_type, compression_type, or filter_method can
     be NULL if you are not interested in their values.
 
@@ -1796,10 +1796,10 @@ in until png_read_end() has read the chunk data following the image.
     height           = png_get_image_height(png_ptr,
                          info_ptr);
 
-    bit_depth        = png_get_bit_depth(png_ptr,
+    bitDepth        = png_get_bit_depth(png_ptr,
                          info_ptr);
 
-    color_type       = png_get_color_type(png_ptr,
+    colorType       = png_get_color_type(png_ptr,
                          info_ptr);
 
     interlace_type   = png_get_interlace_type(png_ptr,
@@ -1814,7 +1814,7 @@ in until png_read_end() has read the chunk data following the image.
     channels = png_get_channels(png_ptr, info_ptr);
 
     channels       - number of channels of info for the
-                     color type (valid values are 1 (GRAY,
+                     _color type (valid values are 1 (GRAY,
                      PALETTE), 2 (GRAY_ALPHA), 3 (RGB),
                      4 (RGB_ALPHA or RGB + filler byte))
 
@@ -1844,7 +1844,7 @@ pointer into the info_ptr is returned for any complex types.
 The colorspace data from gAMA, cHRM, sRGB, iCCP, and sBIT chunks
 is simply returned to give the application information about how the
 image was encoded.  Libpng itself only does transformations using the file
-gamma when combining semitransparent pixels with the background color, and,
+gamma when combining semitransparent pixels with the _background _color, and,
 since libpng-1.6.0, when converting between 8-bit sRGB and 16-bit linear pixels
 within the simplified API.  Libpng also uses the file gamma when converting
 RGB to gray, beginning with libpng-1.0.5, if the application calls
@@ -1882,14 +1882,14 @@ png_set_rgb_to_gray()).
                      &int_blue_Z)
 
     {white,red,green,blue}_{x,y}
-                     A color space encoding specified using the
+                     A _color space encoding specified using the
                      chromaticities of the end points and the
                      white point. (PNG_INFO_cHRM)
 
     {red,green,blue}_{X,Y,Z}
-                     A color space encoding specified using the
+                     A _color space encoding specified using the
                      encoding end points - the CIE tristimulus
-                     specification of the intended color of the red,
+                     specification of the intended _color of the red,
                      green and blue channels in the PNG RGB data.
                      The white point is simply the sum of the three
                      end points. (PNG_INFO_cHRM)
@@ -1899,7 +1899,7 @@ png_set_rgb_to_gray()).
     srgb_intent -    the rendering intent (PNG_INFO_sRGB)
                      The presence of the sRGB chunk
                      means that the pixel data is in the
-                     sRGB color space.  This chunk also
+                     sRGB _color space.  This chunk also
                      implies specific values of gAMA and
                      cHRM.
 
@@ -1913,7 +1913,7 @@ png_set_rgb_to_gray()).
                        You may give NULL to this argument to
                        ignore it.
 
-    profile          - International Color Consortium color
+    profile          - International Color Consortium _color
                        profile data. May contain NULs.
 
     proflen          - length of profile data in bytes.
@@ -1924,7 +1924,7 @@ png_set_rgb_to_gray()).
                      (PNG_INFO_sBIT) each of the gray,
                      red, green, and blue channels,
                      whichever are appropriate for the
-                     given color type (png_color_16)
+                     given _color type (png_color_16)
 
     png_get_tRNS(png_ptr, info_ptr, &trans_alpha,
                      &num_trans, &trans_color);
@@ -1935,8 +1935,8 @@ png_set_rgb_to_gray()).
     num_trans      - number of transparent entries
                      (PNG_INFO_tRNS)
 
-    trans_color    - graylevel or color sample values of
-                     the single transparent color for
+    trans_color    - graylevel or _color sample values of
+                     the single transparent _color for
                      non-paletted images (PNG_INFO_tRNS)
 
     png_get_hIST(png_ptr, info_ptr, &hist);
@@ -1950,12 +1950,12 @@ png_set_rgb_to_gray()).
     mod_time       - time image was last modified
                     (PNG_VALID_tIME)
 
-    png_get_bKGD(png_ptr, info_ptr, &background);
+    png_get_bKGD(png_ptr, info_ptr, &_background);
 
-    background     - background color (of type
+    _background     - _background _color (of type
                      png_color_16p) (PNG_VALID_bKGD)
                      valid 16-bit red, green and blue
-                     values, regardless of color_type
+                     values, regardless of colorType
 
     num_comments   = png_get_text(png_ptr, info_ptr,
                      &text_ptr, &num_text);
@@ -2073,7 +2073,7 @@ png_set_rgb_to_gray()).
 
     unknowns[i].size  - size of unknown chunk's data
 
-    unknowns[i].location - position of chunk in file
+    unknowns[i].location - _position of chunk in file
 
     The value of "i" corresponds to the order in which the
     chunks were read from the PNG file or inserted with the
@@ -2173,9 +2173,9 @@ mentioned again below in the discussion that goes with png_read_end().
 After you've read the header information, you can set up the library
 to handle any special transformations of the image data.  The various
 ways to transform the data will be described in the order that they
-should occur.  This is important, as some of these change the color
+should occur.  This is important, as some of these change the _color
 type and/or bit depth of the data, and some others only work on
-certain color types and bit depths.
+certain _color types and bit depths.
 
 Transformations you request are ignored if they don't have any meaning for a
 particular input data format.  However some transformations can have an effect
@@ -2183,11 +2183,11 @@ as a result of a previous transformation.  If you specify a contradictory set of
 transformations, for example both adding and removing the alpha channel, you
 cannot predict the final result.
 
-The color used for the transparency values should be supplied in the same
+The _color used for the transparency values should be supplied in the same
 format/depth as the current image data.  It is stored in the same format/depth
 as the image data in a tRNS chunk, so this is what libpng expects for this data.
 
-The color used for the background value depends on the need_expand argument as
+The _color used for the _background value depends on the need_expand argument as
 described below.
 
 Data will be decoded into the supplied row buffers packed into bytes
@@ -2199,7 +2199,7 @@ in RGB RGB RGB format unless png_set_filler() or png_set_add_alpha()
 is called to insert filler bytes, either before or after each RGB triplet.
 
 16-bit RGB data will be returned RRGGBB RRGGBB, with the most significant
-byte of the color value first, unless png_set_scale_16() is called to
+byte of the _color value first, unless png_set_scale_16() is called to
 transform it to regular RGB RGB triplets, or png_set_filler() or
 png_set_add alpha() is called to insert two filler bytes, either before
 or after each RRGGBB triplet.  Similarly, 8-bit or 16-bit grayscale data can
@@ -2212,14 +2212,14 @@ transparency information in a tRNS chunk.  This is most useful on
 grayscale images with bit depths of 2 or 4 or if there is a multiple-image
 viewing application that wishes to treat all images in the same way.
 
-    if (color_type == PNG_COLOR_TYPE_PALETTE)
+    if (colorType == PNG_COLOR_TYPE_PALETTE)
         png_set_palette_to_rgb(png_ptr);
 
     if (png_get_valid(png_ptr, info_ptr,
         PNG_INFO_tRNS)) png_set_tRNS_to_alpha(png_ptr);
 
-    if (color_type == PNG_COLOR_TYPE_GRAY &&
-        bit_depth < 8) png_set_expand_gray_1_2_4_to_8(png_ptr);
+    if (colorType == PNG_COLOR_TYPE_GRAY &&
+        bitDepth < 8) png_set_expand_gray_1_2_4_to_8(png_ptr);
 
 The first two functions are actually aliases for png_set_expand(), added
 in libpng version 1.0.4, with the function names expanded to improve code
@@ -2231,16 +2231,16 @@ added.  It expands the sample depth without changing tRNS to alpha.
 
 As of libpng version 1.5.2, png_set_expand_16() was added.  It behaves as
 png_set_expand(); however, the resultant channels have 16 bits rather than 8.
-Use this when the output color or gray channels are made linear to avoid fairly
+Use this when the output _color or gray channels are made linear to avoid fairly
 severe accuracy loss.
 
-   if (bit_depth < 16)
+   if (bitDepth < 16)
       png_set_expand_16(png_ptr);
 
 PNG can have files with 16 bits per channel.  If you only can handle
 8 bits per channel, this will strip the pixels down to 8-bit.
 
-    if (bit_depth == 16)
+    if (bitDepth == 16)
 #if PNG_LIBPNG_VER >= 10504
        png_set_scale_16(png_ptr);
 #else
@@ -2254,7 +2254,7 @@ If you need to process the alpha channel on the image separately from the image
 data (for example if you convert it to a bitmap mask) it is possible to have
 libpng strip the channel leaving just RGB or gray data:
 
-    if (color_type & PNG_COLOR_MASK_ALPHA)
+    if (colorType & PNG_COLOR_MASK_ALPHA)
        png_set_strip_alpha(png_ptr);
 
 If you strip the alpha channel you need to find some other way of dealing with
@@ -2267,7 +2267,7 @@ done trivially in the application) and conversion of indexed to grayscale (which
 can be done by a trivial manipulation of the palette.)
 
 In the following table, the 01 means grayscale with depth<8, 31 means
-indexed with depth<8, other numerals represent the color type, "T" means
+indexed with depth<8, other numerals represent the _color type, "T" means
 the tRNS chunk is present, A means an alpha channel is present, and O
 means tRNS or alpha is present but all pixels in the image are opaque.
 
@@ -2331,7 +2331,7 @@ they can, resulting in, for example, 8 pixels per byte for 1 bit
 files.  This code expands to 1 pixel per byte without changing the
 values of the pixels:
 
-    if (bit_depth < 8)
+    if (bitDepth < 8)
        png_set_packing(png_ptr);
 
 PNG files have possible bit depths of 1, 2, 4, 8, and 16.  All pixels
@@ -2346,17 +2346,17 @@ image.  This call reduces the pixels back down to the original bit depth:
     if (png_get_sBIT(png_ptr, info_ptr, &sig_bit))
        png_set_shift(png_ptr, sig_bit);
 
-PNG files store 3-color pixels in red, green, blue order.  This code
+PNG files store 3-_color pixels in red, green, blue order.  This code
 changes the storage of the pixels to blue, green, red:
 
-    if (color_type == PNG_COLOR_TYPE_RGB ||
-        color_type == PNG_COLOR_TYPE_RGB_ALPHA)
+    if (colorType == PNG_COLOR_TYPE_RGB ||
+        colorType == PNG_COLOR_TYPE_RGB_ALPHA)
        png_set_bgr(png_ptr);
 
 PNG files store RGB pixels packed into 3 or 6 bytes. This code expands them
 into 4 or 8 bytes for windowing systems that need them in this format:
 
-    if (color_type == PNG_COLOR_TYPE_RGB)
+    if (colorType == PNG_COLOR_TYPE_RGB)
        png_set_filler(png_ptr, filler, PNG_FILLER_BEFORE);
 
 where "filler" is the 8-bit or 16-bit number to fill with, and the location
@@ -2367,11 +2367,11 @@ supplied.  This transformation does not affect images that already have full
 alpha channels.  To add an opaque alpha channel, use filler=0xffff and
 PNG_FILLER_AFTER which will generate RGBA pixels.
 
-Note that png_set_filler() does not change the color type.  If you want
+Note that png_set_filler() does not change the _color type.  If you want
 to do that, you can add a true alpha channel with
 
-    if (color_type == PNG_COLOR_TYPE_RGB ||
-       color_type == PNG_COLOR_TYPE_GRAY)
+    if (colorType == PNG_COLOR_TYPE_RGB ||
+       colorType == PNG_COLOR_TYPE_GRAY)
        png_set_add_alpha(png_ptr, filler, PNG_FILLER_AFTER);
 
 where "filler" contains the alpha value to assign to each pixel.
@@ -2380,21 +2380,21 @@ The png_set_add_alpha() function was added in libpng-1.2.7.
 If you are reading an image with an alpha channel, and you need the
 data as ARGB instead of the normal PNG format RGBA:
 
-    if (color_type == PNG_COLOR_TYPE_RGB_ALPHA)
+    if (colorType == PNG_COLOR_TYPE_RGB_ALPHA)
        png_set_swap_alpha(png_ptr);
 
 For some uses, you may want a grayscale image to be represented as
 RGB.  This code will do that conversion:
 
-    if (color_type == PNG_COLOR_TYPE_GRAY ||
-        color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
+    if (colorType == PNG_COLOR_TYPE_GRAY ||
+        colorType == PNG_COLOR_TYPE_GRAY_ALPHA)
        png_set_gray_to_rgb(png_ptr);
 
 Conversely, you can convert an RGB or RGBA image to grayscale or grayscale
 with alpha.
 
-    if (color_type == PNG_COLOR_TYPE_RGB ||
-        color_type == PNG_COLOR_TYPE_RGB_ALPHA)
+    if (colorType == PNG_COLOR_TYPE_RGB ||
+        colorType == PNG_COLOR_TYPE_RGB_ALPHA)
        png_set_rgb_to_gray(png_ptr, error_action,
           double red_weight, double green_weight);
 
@@ -2431,7 +2431,7 @@ will be silently converted to grayscale, using the green channel
 data for sBIT, regardless of the error_action setting.
 
 The default values come from the PNG file cHRM chunk if present; otherwise, the
-defaults correspond to the ITU-R recommendation 709, and also the sRGB color
+defaults correspond to the ITU-R recommendation 709, and also the sRGB _color
 space, as recommended in the Charles Poynton's Colour FAQ,
 Copyright (c) 2006-11-28 Charles Poynton, in section 9:
 
@@ -2453,16 +2453,16 @@ can be determined.
 
 The png_set_background() function has been described already; it tells libpng to
 composite images with alpha or simple transparency against the supplied
-background color.  For compatibility with versions of libpng earlier than
+_background _color.  For compatibility with versions of libpng earlier than
 libpng-1.5.4 it is recommended that you call the function after reading the file
-header, even if you don't want to use the color in a bKGD chunk, if one exists.
+header, even if you don't want to use the _color in a bKGD chunk, if one exists.
 
 If the PNG file contains a bKGD chunk (PNG_INFO_bKGD valid),
-you may use this color, or supply another color more suitable for
-the current display (e.g., the background color from a web page).  You
-need to tell libpng how the color is represented, both the format of the
-component values in the color (the number of bits) and the gamma encoding of the
-color.  The function takes two arguments, background_gamma_mode and need_expand
+you may use this _color, or supply another _color more suitable for
+the current display (e.g., the _background _color from a web page).  You
+need to tell libpng how the _color is represented, both the format of the
+component values in the _color (the number of bits) and the gamma encoding of the
+_color.  The function takes two arguments, background_gamma_mode and need_expand
 to convey this information; however, only two combinations are likely to be
 useful:
 
@@ -2484,9 +2484,9 @@ appropriately and the tRNS chunk removed.)  However, if you are doing this,
 take great care not to ask for transformations without checking first that
 they apply!
 
-In the first call the background color has the original bit depth and color type
-of the PNG file.  So, for palette images the color is supplied as a palette
-index and for low bit greyscale images the color is a reduced bit value in
+In the first call the _background _color has the original bit depth and _color type
+of the PNG file.  So, for palette images the _color is supplied as a palette
+index and for low bit greyscale images the _color is a reduced bit value in
 image_background->gray.
 
 If you didn't call png_set_gamma() before reading the file header, for example
@@ -2501,7 +2501,7 @@ header.)
 This API unconditionally sets the screen and file gamma values, so it will
 override the value in the PNG file unless it is called before the PNG file
 reading starts.  For this reason you must always call it with the PNG file
-value when you call it in this position:
+value when you call it in this _position:
 
    if (png_get_gAMA(png_ptr, info_ptr, &file_gamma))
       png_set_gamma(png_ptr, screen_gamma, file_gamma);
@@ -2512,15 +2512,15 @@ value when you call it in this position:
 If you need to reduce an RGB file to a paletted file, or if a paletted
 file has more entries than will fit on your screen, png_set_quantize()
 will do that.  Note that this is a simple match quantization that merely
-finds the closest color available.  This should work fairly well with
-optimized palettes, but fairly badly with linear color cubes.  If you
+finds the closest _color available.  This should work fairly well with
+optimized palettes, but fairly badly with linear _color cubes.  If you
 pass a palette that is larger than maximum_colors, the file will
 reduce the number of colors in the palette so it will fit into
 maximum_colors.  If there is a histogram, libpng will use it to make
 more intelligent choices when reducing the palette.  If there is no
 histogram, it may not do as good a job.
 
-   if (color_type & PNG_COLOR_MASK_COLOR)
+   if (colorType & PNG_COLOR_MASK_COLOR)
    {
       if (png_get_valid(png_ptr, info_ptr,
           PNG_INFO_PLTE))
@@ -2548,13 +2548,13 @@ PNG files describe monochrome as black being zero and white being one.
 The following code will reverse this (make black be one and white be
 zero):
 
-   if (bit_depth == 1 && color_type == PNG_COLOR_TYPE_GRAY)
+   if (bitDepth == 1 && colorType == PNG_COLOR_TYPE_GRAY)
       png_set_invert_mono(png_ptr);
 
 This function can also be used to invert grayscale and gray-alpha images:
 
-   if (color_type == PNG_COLOR_TYPE_GRAY ||
-       color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
+   if (colorType == PNG_COLOR_TYPE_GRAY ||
+       colorType == PNG_COLOR_TYPE_GRAY_ALPHA)
       png_set_invert_mono(png_ptr);
 
 PNG files store 16-bit pixels in network byte order (big-endian,
@@ -2562,13 +2562,13 @@ ie. most significant bits first).  This code changes the storage to the
 other way (little-endian, i.e. least significant bits first, the
 way PCs store them):
 
-    if (bit_depth == 16)
+    if (bitDepth == 16)
        png_set_swap(png_ptr);
 
 If you are using packed-pixel images (1, 2, or 4 bits/pixel), and you
 need to change the order the pixels are packed into bytes, you can use:
 
-    if (bit_depth < 8)
+    if (bitDepth < 8)
        png_set_packswap(png_ptr);
 
 Finally, you can write your own transformation function if none of
@@ -2639,7 +2639,7 @@ call.
 This is most useful to update the info structure's rowbytes
 field so you can use it to allocate your image memory.  This function
 will also update your palette with the correct screen_gamma and
-background if these have been given with the calls above.  You may
+_background if these have been given with the calls above.  You may
 only call png_read_update_info() once with a particular info_ptr.
 
 After you call png_read_update_info(), you can allocate any
@@ -3407,7 +3407,7 @@ contain, see the PNG specification.
 Some of the more important parts of the png_info are:
 
     png_set_IHDR(png_ptr, info_ptr, width, height,
-       bit_depth, color_type, interlace_type,
+       bitDepth, colorType, interlace_type,
        compression_type, filter_method)
 
     width          - holds the width of the image
@@ -3416,14 +3416,14 @@ Some of the more important parts of the png_info are:
     height         - holds the height of the image
                      in pixels (up to 2^31).
 
-    bit_depth      - holds the bit depth of one of the
+    bitDepth      - holds the bit depth of one of the
                      image channels.
                      (valid values are 1, 2, 4, 8, 16
                      and depend also on the
-                     color_type.  See also significant
+                     colorType.  See also significant
                      bits (sBIT) below).
 
-    color_type     - describes which color/alpha
+    colorType     - describes which _color/alpha
                      channels are present.
                      PNG_COLOR_TYPE_GRAY
                         (bit depths 1, 2, 4, 8, 16)
@@ -3459,7 +3459,7 @@ in any order.
 
 If you wish, you can reset the compression_type, interlace_type, or
 filter_method later by calling png_set_IHDR() again; if you do this, the
-width, height, bit_depth, and color_type must be the same in each call.
+width, height, bitDepth, and colorType must be the same in each call.
 
     png_set_PLTE(png_ptr, info_ptr, palette,
        num_palette);
@@ -3490,13 +3490,13 @@ width, height, bit_depth, and color_type must be the same in each call.
                      int_blue_X, int_blue_Y, int_blue_Z)
 
     {white,red,green,blue}_{x,y}
-                     A color space encoding specified using the chromaticities
+                     A _color space encoding specified using the chromaticities
                      of the end points and the white point.
 
     {red,green,blue}_{X,Y,Z}
-                     A color space encoding specified using the encoding end
+                     A _color space encoding specified using the encoding end
                      points - the CIE tristimulus specification of the intended
-                     color of the red, green and blue channels in the PNG RGB
+                     _color of the red, green and blue channels in the PNG RGB
                      data.  The white point is simply the sum of the three end
                      points.
 
@@ -3505,13 +3505,13 @@ width, height, bit_depth, and color_type must be the same in each call.
     srgb_intent    - the rendering intent
                      (PNG_INFO_sRGB) The presence of
                      the sRGB chunk means that the pixel
-                     data is in the sRGB color space.
+                     data is in the sRGB _color space.
                      This chunk also implies specific
                      values of gAMA and cHRM.  Rendering
                      intent is the CSS-1 property that
                      has been defined by the International
                      Color Consortium
-                     (http://www.color.org).
+                     (http://www._color.org).
                      It can be one of
                      PNG_sRGB_INTENT_SATURATION,
                      PNG_sRGB_INTENT_PERCEPTUAL,
@@ -3525,7 +3525,7 @@ width, height, bit_depth, and color_type must be the same in each call.
     srgb_intent    - the rendering intent
                      (PNG_INFO_sRGB) The presence of the
                      sRGB chunk means that the pixel
-                     data is in the sRGB color space.
+                     data is in the sRGB _color space.
                      This function also causes gAMA and
                      cHRM chunks with the specific values
                      that are consistent with sRGB to be
@@ -3541,7 +3541,7 @@ width, height, bit_depth, and color_type must be the same in each call.
                        You may give NULL to this argument to
                        ignore it.
 
-    profile          - International Color Consortium color
+    profile          - International Color Consortium _color
                        profile data. May contain NULs.
 
     proflen          - length of profile data in bytes.
@@ -3551,7 +3551,7 @@ width, height, bit_depth, and color_type must be the same in each call.
     sig_bit        - the number of significant bits for
                      (PNG_INFO_sBIT) each of the gray, red,
                      green, and blue channels, whichever are
-                     appropriate for the given color type
+                     appropriate for the given _color type
                      (png_color_16)
 
     png_set_tRNS(png_ptr, info_ptr, trans_alpha,
@@ -3563,9 +3563,9 @@ width, height, bit_depth, and color_type must be the same in each call.
     num_trans      - number of transparent entries
                      (PNG_INFO_tRNS)
 
-    trans_color    - graylevel or color sample values
+    trans_color    - graylevel or _color sample values
                      (in order red, green, blue) of the
-                     single transparent color for
+                     single transparent _color for
                      non-paletted images (PNG_INFO_tRNS)
 
     png_set_hIST(png_ptr, info_ptr, hist);
@@ -3578,9 +3578,9 @@ width, height, bit_depth, and color_type must be the same in each call.
     mod_time       - time image was last modified
                      (PNG_VALID_tIME)
 
-    png_set_bKGD(png_ptr, info_ptr, background);
+    png_set_bKGD(png_ptr, info_ptr, _background);
 
-    background     - background color (of type
+    _background     - _background _color (of type
                      png_color_16p) (PNG_VALID_bKGD)
 
     png_set_text(png_ptr, info_ptr, text_ptr, num_text);
@@ -3676,7 +3676,7 @@ width, height, bit_depth, and color_type must be the same in each call.
     unknowns[i].name  - name of unknown chunk
     unknowns[i].data  - data of unknown chunk
     unknowns[i].size  - size of unknown chunk's data
-    unknowns[i].location - position to write chunk in file
+    unknowns[i].location - _position to write chunk in file
                            0: do not write chunk
                            PNG_HAVE_IHDR: before PLTE
                            PNG_HAVE_PLTE: before IDAT
@@ -3686,7 +3686,7 @@ The "location" member is set automatically according to
 what part of the output file has already been written.
 You can change its value after calling png_set_unknown_chunks()
 as demonstrated in pngtest.c.  Within each of the "locations",
-the chunks are sequenced according to their position in the
+the chunks are sequenced according to their _position in the
 structure (that is, the value of "i", which is the order in which
 the chunk was either read from the input file or defined with
 png_set_unknown_chunks).
@@ -3890,7 +3890,7 @@ This must appear before png_write_info() instead of later with the
 other transformations because in the case of paletted images the tRNS
 chunk data has to be inverted before the tRNS chunk is written.  If
 your image is not a paletted image, the tRNS data (which in such cases
-represents a single color to be rendered as transparent) won't need to
+represents a single _color to be rendered as transparent) won't need to
 be changed, and you can safely do this transformation after your
 png_write_info() call.
 
@@ -3905,9 +3905,9 @@ two steps, and insert code to write your own chunk between them:
 After you've written the file information, you can set up the library
 to handle any special transformations of the image data.  The various
 ways to transform the data will be described in the order that they
-should occur.  This is important, as some of these change the color
+should occur.  This is important, as some of these change the _color
 type and/or bit depth of the data, and some others only work on
-certain color types and bit depths.  Even though each transformation
+certain _color types and bit depths.  Even though each transformation
 checks to see if it has data that it can do something with, you should
 make sure to only enable a transformation if it will be valid for the
 data.  For example, don't swap red and blue on grayscale data.
@@ -3935,7 +3935,7 @@ data is of another bit depth, you can write an sBIT chunk into the
 file so that decoders can recover the original data if desired.
 
     /* Set the true bit depth of the image data */
-    if (color_type & PNG_COLOR_MASK_COLOR)
+    if (colorType & PNG_COLOR_MASK_COLOR)
     {
        sig_bit.red = true_bit_depth;
        sig_bit.green = true_bit_depth;
@@ -3947,7 +3947,7 @@ file so that decoders can recover the original data if desired.
        sig_bit.gray = true_bit_depth;
     }
 
-    if (color_type & PNG_COLOR_MASK_ALPHA)
+    if (colorType & PNG_COLOR_MASK_ALPHA)
     {
        sig_bit.alpha = true_bit_depth;
     }
@@ -3966,16 +3966,16 @@ ie. most significant bits first).  This code would be used if they are
 supplied the other way (little-endian, i.e. least significant bits
 first, the way PCs store them):
 
-    if (bit_depth > 8)
+    if (bitDepth > 8)
        png_set_swap(png_ptr);
 
 If you are using packed-pixel images (1, 2, or 4 bits/pixel), and you
 need to change the order the pixels are packed into bytes, you can use:
 
-    if (bit_depth < 8)
+    if (bitDepth < 8)
        png_set_packswap(png_ptr);
 
-PNG files store 3 color pixels in red, green, blue order.  This code
+PNG files store 3 _color pixels in red, green, blue order.  This code
 would be used if they are supplied as blue, green, red:
 
     png_set_bgr(png_ptr);
@@ -4241,16 +4241,16 @@ To read a PNG file using the simplified API:
 
   3) Set the png_image 'format' member to the required sample format.
 
-  4) Allocate a buffer for the image and, if required, the color-map.
+  4) Allocate a buffer for the image and, if required, the _color-map.
 
   5) Call png_image_finish_read to read the image and, if required, the
-     color-map into your buffers.
+     _color-map into your buffers.
 
 There are no restrictions on the format of the PNG input itself; all valid
-color types, bit depths, and interlace methods are acceptable, and the
+_color types, bit depths, and interlace methods are acceptable, and the
 input image is transformed as necessary to the requested in-memory format
 during the png_image_finish_read() step.  The only caveat is that if you
-request a color-mapped image from a PNG that is full-color or makes
+request a _color-mapped image from a PNG that is full-_color or makes
 complex use of an alpha channel the transformation is extremely lossy and the
 result may look terrible.
 
@@ -4264,7 +4264,7 @@ To write a PNG file using the simplified API:
      image samples.
 
   3) Call the appropriate png_image_write... function with a
-     pointer to the image and, if necessary, the color-map to write
+     pointer to the image and, if necessary, the _color-map to write
      the PNG data.
 
 png_image is a structure that describes the in-memory format of an image
@@ -4277,7 +4277,7 @@ need to write.  The "png_image" structure contains the following members:
    png_uint_32  height  Image height in pixels (rows)
    png_uint_32  format  Image format as defined below
    png_uint_32  flags   A bit mask containing informational flags
-   png_uint_32  colormap_entries; Number of entries in the color-map
+   png_uint_32  colormap_entries; Number of entries in the _color-map
    png_uint_32  warning_or_error;
    char         message[64];
 
@@ -4301,18 +4301,18 @@ have original values in the range 0 to 1.0:
 
   1: A single gray or luminance channel (G).
   2: A gray/luminance channel and an alpha channel (GA).
-  3: Three red, green, blue color channels (RGB).
-  4: Three color channels and an alpha channel (RGBA).
+  3: Three red, green, blue _color channels (RGB).
+  4: Three _color channels and an alpha channel (RGBA).
 
 The channels are encoded in one of two ways:
 
   a) As a small integer, value 0..255, contained in a single byte.  For the
-alpha channel the original value is simply value/255.  For the color or
+alpha channel the original value is simply value/255.  For the _color or
 luminance channels the value is encoded according to the sRGB specification
 and matches the 8-bit format expected by typical display devices.
 
-The color/gray channels are not scaled (pre-multiplied) by the alpha
-channel and are suitable for passing to color management software.
+The _color/gray channels are not scaled (pre-multiplied) by the alpha
+channel and are suitable for passing to _color management software.
 
   b) As a value in the range 0..65535, contained in a 2-byte integer, in
 the native byte order of the platform on which the application is running.
@@ -4327,15 +4327,15 @@ article at http://en.wikipedia.org/wiki/SRGB) is used, not the gamma=1/2.2
 approximation used elsewhere in libpng.
 
 When an alpha channel is present it is expected to denote pixel coverage
-of the color or luminance channels and is returned as an associated alpha
-channel: the color/gray channels are scaled (pre-multiplied) by the alpha
+of the _color or luminance channels and is returned as an associated alpha
+channel: the _color/gray channels are scaled (pre-multiplied) by the alpha
 value.
 
 The samples are either contained directly in the image data, between 1 and 8
-bytes per pixel according to the encoding, or are held in a color-map indexed
-by bytes in the image data.  In the case of a color-map the color-map entries
+bytes per pixel according to the encoding, or are held in a _color-map indexed
+by bytes in the image data.  In the case of a _color-map the _color-map entries
 are individual samples, encoded as above, and the image data has one byte per
-pixel to select the relevant sample from the color-map.
+pixel to select the relevant sample from the _color-map.
 
 PNG_FORMAT_*
 
@@ -4349,9 +4349,9 @@ the predefined values below.  When testing formats always use the FORMAT_FLAG
 macros to test for individual features - future versions of the library may
 add new flags.
 
-When reading or writing color-mapped images the format should be set to the
-format of the entries in the color-map then png_image_{read,write}_colormap
-called to read or write the color-map and set the format correctly for the
+When reading or writing _color-mapped images the format should be set to the
+format of the entries in the _color-map then png_image_{read,write}_colormap
+called to read or write the _color-map and set the format correctly for the
 image data.  Do not set the PNG_FORMAT_FLAG_COLORMAP bit directly!
 
 NOTE: libpng can be built with particular features disabled. If you see
@@ -4365,9 +4365,9 @@ appropriate "_SUPPORTED" macro, one of:
    PNG_SIMPLIFIED_{READ,WRITE}_{BGR,AFIRST}_SUPPORTED
 
    PNG_FORMAT_FLAG_ALPHA    format with an alpha channel
-   PNG_FORMAT_FLAG_COLOR    color format: otherwise grayscale
+   PNG_FORMAT_FLAG_COLOR    _color format: otherwise grayscale
    PNG_FORMAT_FLAG_LINEAR   2-byte channels else 1-byte
-   PNG_FORMAT_FLAG_COLORMAP image data is color-mapped
+   PNG_FORMAT_FLAG_COLORMAP image data is _color-mapped
    PNG_FORMAT_FLAG_BGR      BGR colors, else order is RGB
    PNG_FORMAT_FLAG_AFIRST   alpha channel comes first
 
@@ -4400,9 +4400,9 @@ swapping the bytes to a different endian condition.
    PNG_FORMAT_LINEAR_RGB
    PNG_FORMAT_LINEAR_RGB_ALPHA
 
-With color-mapped formats the image data is one byte for each pixel. The byte
-is an index into the color-map which is formatted as above.  To obtain a
-color-mapped format it is sufficient just to add the PNG_FOMAT_FLAG_COLORMAP
+With _color-mapped formats the image data is one byte for each pixel. The byte
+is an index into the _color-map which is formatted as above.  To obtain a
+_color-mapped format it is sufficient just to add the PNG_FOMAT_FLAG_COLORMAP
 to one of the above definitions, or you can use one of the definitions below.
 
    PNG_FORMAT_RGB_COLORMAP
@@ -4416,9 +4416,9 @@ PNG_IMAGE macros
 
 These are convenience macros to derive information from a png_image
 structure.  The PNG_IMAGE_SAMPLE_ macros return values appropriate to the
-actual image sample values - either the entries in the color-map or the
+actual image sample values - either the entries in the _color-map or the
 pixels in the image.  The PNG_IMAGE_PIXEL_ macros return corresponding values
-for the pixels and will always return 1 for color-mapped formats.  The
+for the pixels and will always return 1 for _color-mapped formats.  The
 remaining macros return information about the rows in the image and the
 complete image.
 
@@ -4432,18 +4432,18 @@ they can be used in #if tests.
     Returns the total number of channels in a given format: 1..4
 
   PNG_IMAGE_SAMPLE_COMPONENT_SIZE(fmt)
-    Returns the size in bytes of a single component of a pixel or color-map
+    Returns the size in bytes of a single component of a pixel or _color-map
     entry (as appropriate) in the image: 1 or 2.
 
   PNG_IMAGE_SAMPLE_SIZE(fmt)
     This is the size of the sample data for one sample.  If the image is
-    color-mapped it is the size of one color-map entry (and image pixels are
+    _color-mapped it is the size of one _color-map entry (and image pixels are
     one byte in size), otherwise it is the size of one image pixel.
 
   PNG_IMAGE_MAXIMUM_COLORMAP_COMPONENTS(fmt)
-    The maximum size of the color-map required by the format expressed in a
+    The maximum size of the _color-map required by the format expressed in a
     count of components.  This can be used to compile-time allocate a
-    color-map:
+    _color-map:
 
     png_uint_16 colormap[PNG_IMAGE_MAXIMUM_COLORMAP_COMPONENTS(linear_fmt)];
 
@@ -4454,8 +4454,8 @@ they can be used in #if tests.
     allocate the required memory.
 
   PNG_IMAGE_COLORMAP_SIZE(fmt)
-   The size of the color-map required by the format; this is the size of the
-   color-map buffer passed to the png_image_{read,write}_colormap APIs. It is
+   The size of the _color-map required by the format; this is the size of the
+   _color-map buffer passed to the png_image_{read,write}_colormap APIs. It is
    a fixed number determined by the format so can easily be allocated on the
    stack if necessary.
 
@@ -4463,21 +4463,21 @@ Corresponding information about the pixels
 
   PNG_IMAGE_PIXEL_CHANNELS(fmt)
    The number of separate channels (components) in a pixel; 1 for a
-   color-mapped image.
+   _color-mapped image.
 
   PNG_IMAGE_PIXEL_COMPONENT_SIZE(fmt)\
-   The size, in bytes, of each component in a pixel; 1 for a color-mapped
+   The size, in bytes, of each component in a pixel; 1 for a _color-mapped
    image.
 
   PNG_IMAGE_PIXEL_SIZE(fmt)
-   The size, in bytes, of a complete pixel; 1 for a color-mapped image.
+   The size, in bytes, of a complete pixel; 1 for a _color-mapped image.
 
 Information about the whole row, or whole image
 
   PNG_IMAGE_ROW_STRIDE(image)
    Returns the total number of components in a single row of the image; this
    is the minimum 'row stride', the minimum count of components between each
-   row.  For a color-mapped image this is the minimum number of bytes in a
+   row.  For a _color-mapped image this is the minimum number of bytes in a
    row.
 
    If you need the stride measured in bytes, row_stride_bytes is
@@ -4494,10 +4494,10 @@ Information about the whole row, or whole image
    the row stride is the minimum stride required for the image.
 
   PNG_IMAGE_COLORMAP_SIZE(image)
-   Return the size, in bytes, of the color-map of this image.  If the image
-   format is not a color-map format this will return a size sufficient for
+   Return the size, in bytes, of the _color-map of this image.  If the image
+   format is not a _color-map format this will return a size sufficient for
    256 entries in the given format; check PNG_FORMAT_FLAG_COLORMAP if
-   you don't want to allocate a color-map in this case.
+   you don't want to allocate a _color-map in this case.
 
 PNG_IMAGE_FLAG_*
 
@@ -4557,7 +4557,7 @@ READ APIs
       The PNG header is read from the given memory buffer.
 
    int png_image_finish_read(png_imagep image,
-      png_colorp background, void *buffer,
+      png_colorp _background, void *buffer,
       png_int_32 row_stride, void *colormap));
 
       Finish reading the image into the supplied buffer and
@@ -4569,12 +4569,12 @@ READ APIs
       the normal top-down arrangement.  A negative stride
       indicates that the bottom-most row is first in the buffer.
 
-      background need only be supplied if an alpha channel must
+      _background need only be supplied if an alpha channel must
       be removed from a png_byte format and the removal is to be
-      done by compositing on a solid color; otherwise it may be
+      done by compositing on a solid _color; otherwise it may be
       NULL and any composition will be done directly onto the
-      buffer.  The value is an sRGB color to use for the
-      background, for grayscale output the green channel is used.
+      buffer.  The value is an sRGB _color to use for the
+      _background, for grayscale output the green channel is used.
 
       For linear output removing the alpha channel is always done
       by compositing on black.
@@ -4601,9 +4601,9 @@ be written:
    height: image height in rows
    format: the format of the data you wish to write
    flags: set to 0 unless one of the defined flags applies; set
-      PNG_IMAGE_FLAG_COLORSPACE_NOT_sRGB for color format images
+      PNG_IMAGE_FLAG_COLORSPACE_NOT_sRGB for _color format images
       where the RGB values do not correspond to the colors in sRGB.
-   colormap_entries: set to the number of entries in the color-map (0 to 256)
+   colormap_entries: set to the number of entries in the _color-map (0 to 256)
 
    int png_image_write_to_file, (png_imagep image,
       const char *file, int convert_to_8bit, const void *buffer,
@@ -5580,9 +5580,9 @@ which needs to be able to recognize sRGB profiles conveyed via the iCCP
 chunk.
 
 The PNG spec requirement that only grayscale profiles may appear in images
-with color type 0 or 4 and that even if the image only contains gray pixels,
-only RGB profiles may appear in images with color type 2, 3, or 6, is now
-enforced.  The sRGB chunk is allowed to appear in images with any color type
+with _color type 0 or 4 and that even if the image only contains gray pixels,
+only RGB profiles may appear in images with _color type 2, 3, or 6, is now
+enforced.  The sRGB chunk is allowed to appear in images with any _color type
 and is interpreted by libpng to convey a one-tracer-curve gray profile or a
 three-tracer-curve RGB profile as appropriate.
 
@@ -5602,7 +5602,7 @@ of them more than once.
 The default condition for benign_errors is now to treat benign errors as
 warnings while reading and as errors while writing.
 
-The library now issues a warning if both background processing and RGB to
+The library now issues a warning if both _background processing and RGB to
 gray are used when gamma correction happens. As with previous versions of
 the library the results are numerically very incorrect in this case.
 

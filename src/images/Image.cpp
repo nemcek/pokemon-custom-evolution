@@ -8,8 +8,10 @@ Image::Image() { }
 
 Image::Image(BitMap *bitmap, int bit_depth, IMAGE_COLOR_TYPE color_type) : bitmap(bitmap)
 {
-    this->bit_depth = bit_depth;
-    this->color_type = color_type;
+    this->bitDepth = bit_depth;
+    this->colorType = color_type;
 }
+
+Image::~Image() { }
 
 

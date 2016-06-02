@@ -16,8 +16,11 @@ public:
     BitMap *bitMap = nullptr;
 
     EvolutionAnimation(BitMap bitMap);
+    ~EvolutionAnimation();
     AnimationStatus Animate(float delta) override ;
     void Fade(glm::vec3 color, float time);
 };
+
+typedef std::shared_ptr<EvolutionAnimation> EvolutionAnimationPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_EVOLUTIONANIMATION_HPP
