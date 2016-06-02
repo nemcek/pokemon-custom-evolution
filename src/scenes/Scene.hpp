@@ -20,15 +20,15 @@
 class Scene
 {
 private:
-    std::vector<Quad *> _quads;
-    std::vector<Text *> _texts;
-    RenderManager *_renderManager;
+    std::vector<QuadPtr> _quads;
+    std::vector<TextPtr> _texts;
+    RenderManagerPtr _renderManager;
     glm::mat4 _projection;
-    InputManager *_inputManager;
-    Text *_startEvolutionTextFirstPart;
-    Text *_startEvolutionTextSecondPart;
-    EvolutionQuad *_background;
-    EvolutionQuad *_evolution;
+    InputManagerPtr _inputManager;
+    TextPtr _startEvolutionTextFirstPart;
+    TextPtr _startEvolutionTextSecondPart;
+    EvolutionQuadPtr _background;
+    EvolutionQuadPtr _evolution;
 
     // callbacks
     void WhatTextDrawFinishedCallback();
@@ -39,7 +39,7 @@ private:
 
     void Init();
 public:
-    Scene(InputManager *inputManager);
+    Scene(InputManagerPtr inputManager);
     ~Scene();
     void Animate(float delta);
     void Render();

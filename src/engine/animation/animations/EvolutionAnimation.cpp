@@ -6,7 +6,7 @@
 #include <engine/Transformations.hpp>
 #include "EvolutionAnimation.hpp"
 
-EvolutionAnimation::EvolutionAnimation(BitMap bitMap) : Animation(), originalBitMap(bitMap)
+EvolutionAnimation::EvolutionAnimation(BitMapPtr &bitMap) : Animation(), originalBitMap(bitMap)
 {
 }
 
@@ -23,15 +23,15 @@ AnimationStatus EvolutionAnimation::Animate(float delta)
         if (currentKeyFrameIndex + 1 >= keyFrames.size())
             return AnimationStatus::Default;
 
-        if (static_cast<EvolutionKeyFrame *>(keyFrames[currentKeyFrameIndex + 1])->colorEnabled)
+        if (std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->colorEnabled)
         {
             float t = GetAnimationTime(currentKeyFrameIndex);
-            Fade(static_cast<EvolutionKeyFrame *>(keyFrames[currentKeyFrameIndex + 1])->color, t);
+            Fade(std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->color, t);
         }
 
         if (status == AnimationStatus::MovedToNext)
         {
-            swap = static_cast<EvolutionKeyFrame *>(keyFrames[currentKeyFrameIndex])->swap;
+            swap = std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex])->swap;
         }
     }
 
@@ -40,5 +40,5 @@ AnimationStatus EvolutionAnimation::Animate(float delta)
 
 void EvolutionAnimation::Fade(glm::vec3 color, float time)
 {
-    bitMap = Transformations::Fade(&originalBitMap, color, 286, time);
+    bitMap = Transformations::Fade(originalBitMap, color, 286, time);
 }

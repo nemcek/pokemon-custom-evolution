@@ -14,12 +14,12 @@ class StaticRenderer
 private:
 
 public:
-    StaticShader *shader;
+    StaticShaderPtr shader;
 
-    StaticRenderer(StaticShader *shader);
+    StaticRenderer(StaticShaderPtr shader);
     ~StaticRenderer();
-    void Render(std::vector<Quad *> quad);
-    void Render(Quad *quad);
+    void Render(std::vector<QuadPtr> quad);
+    void Render(QuadPtr quad);
 };
 
 typedef std::shared_ptr<StaticRenderer> StaticRendererPtr;

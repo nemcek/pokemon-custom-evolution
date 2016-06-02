@@ -11,9 +11,9 @@ Loader::Loader(GLuint programId)
 
 Loader::~Loader() { }
 
-RawModel* Loader::Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> textcoord_buffer)
+RawModelPtr Loader::Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> textcoord_buffer)
 {
-    RawModel *rawModel = new RawModel();
+    RawModelPtr rawModel = std::make_shared<RawModel>();
 
     glUseProgram(this->_programId);
 
@@ -41,7 +41,7 @@ RawModel* Loader::Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> 
     return rawModel;
 }
 
-GLuint Loader::LoadTexture(BitMap *bitMap)
+GLuint Loader::LoadTexture(BitMapPtr bitMap)
 {
     GLuint texture_id;
     auto texture_attrib = glGetUniformLocation(this->_programId, "Texture");

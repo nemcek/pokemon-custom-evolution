@@ -4,7 +4,7 @@
 
 #include "src/engine/rendering/RenderManager.hpp"
 
-RenderManager::RenderManager(TextRenderer *textRenderer, StaticRenderer *staticRenderer)
+RenderManager::RenderManager(TextRendererPtr textRenderer, StaticRendererPtr staticRenderer)
         : _textRenderer(textRenderer),
           _staticRenderer(staticRenderer)
 {
@@ -19,7 +19,7 @@ RenderManager::~RenderManager()
     this->_texts.clear();
 }
 
-void RenderManager::ProcessText(Text *text)
+void RenderManager::ProcessText(TextPtr text)
 {
     this->_texts.push_back(text);
 }
@@ -29,7 +29,7 @@ void RenderManager::ProcessProjection(glm::mat4 projection)
 //    this->_projection = _projection;
 }
 
-void RenderManager::ProcessQuad(Quad *quad)
+void RenderManager::ProcessQuad(QuadPtr quad)
 {
     this->_quads.push_back(quad);
 }

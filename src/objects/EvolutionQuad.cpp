@@ -4,8 +4,8 @@
 
 #include "EvolutionQuad.hpp"
 
-EvolutionQuad::EvolutionQuad(Loader *loader, glm::vec2 position, float scale, BitMap *firstStageOfEvolution,
-                             BitMap *secondStageOfEvolution)
+EvolutionQuad::EvolutionQuad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr firstStageOfEvolution,
+                             BitMapPtr secondStageOfEvolution)
     : Quad(loader, position, scale, firstStageOfEvolution)
 {
     this->_firstStageOfEvolution = firstStageOfEvolution;

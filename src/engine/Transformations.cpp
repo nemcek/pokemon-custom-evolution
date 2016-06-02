@@ -5,9 +5,9 @@
 #include <iostream>
 #include "src/engine/Transformations.hpp"
 
-BitMap* Transformations::Scale(BitMap *bitmap, int new_width, int new_height)
+BitMapPtr Transformations::Scale(BitMapPtr bitmap, int new_width, int new_height)
 {
-    BitMap *scaled = new BitMap(new_width, new_height);
+    BitMapPtr scaled = std::make_shared<BitMap>(new_width, new_height);
     Pixel a, b, c, d;
     int x, y, index;
     float x_ratio = ((float)(bitmap->width - 1)) / (float)new_width;
@@ -53,9 +53,9 @@ BitMap* Transformations::Scale(BitMap *bitmap, int new_width, int new_height)
     return scaled;
 }
 
-BitMap* Transformations::ChangeToWhite(BitMap *bitmap)
+BitMapPtr Transformations::ChangeToWhite(BitMapPtr bitmap)
 {
-    BitMap *changed = new BitMap(bitmap->width, bitmap->height);
+    BitMapPtr changed = std::make_shared<BitMap>(bitmap->width, bitmap->height);
 
     for (int y = 0; y < bitmap->height; y++)
     {
@@ -76,7 +76,7 @@ BitMap* Transformations::ChangeToWhite(BitMap *bitmap)
     return changed;
 }
 
-BitMap* Transformations::Concat(BitMap *background, BitMap *foreground, PicturePosition position)
+BitMapPtr Transformations::Concat(BitMapPtr background, BitMapPtr foreground, PicturePosition position)
 {
     switch (position)
     {
@@ -87,7 +87,7 @@ BitMap* Transformations::Concat(BitMap *background, BitMap *foreground, PictureP
     return nullptr;
 }
 
-BitMap* Transformations::Center(BitMap *background, BitMap *foreground)
+BitMapPtr Transformations::Center(BitMapPtr background, BitMapPtr foreground)
 {
     int top_margin = ((background->height - foreground->height) / 2) * background->width;
     int left_margin = (background->width - foreground->width) / 2;
@@ -133,9 +133,9 @@ float Transformations::Lerp(float a, float b, float t)
     return a * (1 - t) + b * t;
 }
 
-BitMap* Transformations::Fade(BitMap *background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime)
+BitMapPtr Transformations::Fade(BitMapPtr background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime)
 {
-    BitMap *faded = new BitMap(background->width, background->height);
+    BitMapPtr faded = std::make_shared<BitMap>(background->width, background->height);
 
     for (unsigned int y = 0; y < background->height; y++)
     {

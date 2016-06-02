@@ -8,7 +8,7 @@
 float currentFrameTime;
 float lastFrameTime;
 float frameTimeDelta;
-InputManager *inputManager;
+InputManagerPtr inputManager;
 
 void OnKeyPress(GLFWwindow* window, int key, int scancode, int action, int mods) {
     inputManager->OnKeyPress(window, key, scancode, action, mods);
@@ -22,8 +22,8 @@ int main()
 {
     Window *window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT);
     window->Show();
-    inputManager = new InputManager();
-    Scene *scene = new Scene(inputManager);
+    inputManager = std::make_shared<InputManager>();
+    ScenePtr scene = std::make_shared<Scene>(inputManager);
 
     glfwSetKeyCallback(window->window, OnKeyPress);
 

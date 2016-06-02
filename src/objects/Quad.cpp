@@ -5,7 +5,7 @@
 #include <engine/Transformations.hpp>
 #include "src/objects/Quad.hpp"
 
-Quad::Quad(Loader *loader, glm::vec2 position, float scale, BitMap *bitMap)
+Quad::Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap)
     : loader(loader),
       position(position),
       scale(scale),

@@ -32,9 +32,9 @@ AnimationStatus TextAnimation::Animate(float delta)
                 return AnimationStatus::Default;
 
             float t = GetAnimationTime(currentKeyFrameIndex);
-            TextKeyFrame *nextKeyFrame = static_cast<TextKeyFrame *>(keyFrames[currentKeyFrameIndex + 1]);
+            TextKeyFramePtr nextKeyFrame = std::static_pointer_cast<TextKeyFrame>(keyFrames[currentKeyFrameIndex + 1]);
 
-            float sourceTextLength = (float) static_cast<TextKeyFrame *>(keyFrames[currentKeyFrameIndex])->text.length();
+            float sourceTextLength = (float) std::static_pointer_cast<TextKeyFrame>(keyFrames[currentKeyFrameIndex])->text.length();
             float destinationTextLength = (float) nextKeyFrame->text.length();
             int substringLength = (int) Transformations::Lerp(sourceTextLength, destinationTextLength, t);
 
@@ -42,7 +42,7 @@ AnimationStatus TextAnimation::Animate(float delta)
 
             if (status == AnimationStatus::MovedToNext)
             {
-                text = static_cast<TextKeyFrame *>(keyFrames[currentKeyFrameIndex])->text;
+                text = std::static_pointer_cast<TextKeyFrame>(keyFrames[currentKeyFrameIndex])->text;
             }
         }
     }

@@ -4,7 +4,7 @@
 
 #include "src/engine/rendering/TextRenderer.hpp"
 
-TextRenderer::TextRenderer(TextShader *shader)
+TextRenderer::TextRenderer(TextShaderPtr shader)
 {
     this->shader = shader;
     Initialize();
@@ -28,14 +28,14 @@ void TextRenderer::Initialize()
     shader->Stop();
 }
 
-void TextRenderer::Render(std::vector<Text *> texts, glm::mat4 projection)
+void TextRenderer::Render(std::vector<TextPtr> texts, glm::mat4 projection)
 {
-    for ( std::vector<Text *>::iterator it = texts.begin(); it != texts.end(); it++ ) {
-        Render(*it, projection);
+    for (TextPtr text : texts) {
+        Render(text, projection);
     }
 }
 
-void TextRenderer::Render(Text *text, glm::mat4 projection)
+void TextRenderer::Render(TextPtr text, glm::mat4 projection)
 {
     shader->Start();
     shader->LoadTextColor(text->color);

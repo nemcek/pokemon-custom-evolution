@@ -27,7 +27,7 @@ void Animation::Init()
     animationTime = 0;
 }
 
-void Animation::Add(KeyFrame *keyFrame)
+void Animation::Add(KeyFramePtr keyFrame)
 {
     this->keyFrames.push_back(keyFrame);
 }

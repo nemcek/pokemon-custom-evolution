@@ -7,21 +7,21 @@
 #include <constants/Constants.hpp>
 #include "src/engine/rendering/StaticRenderer.hpp"
 
-StaticRenderer::StaticRenderer(StaticShader *shader)
+StaticRenderer::StaticRenderer(StaticShaderPtr shader)
 {
     this->shader = shader;
 }
 
 StaticRenderer::~StaticRenderer() { }
 
-void StaticRenderer::Render(std::vector<Quad *> quads)
+void StaticRenderer::Render(std::vector<QuadPtr> quads)
 {
-    for (std::vector<Quad *>::iterator it = quads.begin(); it != quads.end(); it++ ) {
-        Render(*it);
+    for (QuadPtr quad : quads ) {
+        Render(quad);
     }
 }
 
-void StaticRenderer::Render(Quad *quad)
+void StaticRenderer::Render(QuadPtr quad)
 {
     glBindVertexArray(quad->rawModel->vao);
     glBindBuffer(GL_ARRAY_BUFFER, quad->rawModel->vbo);

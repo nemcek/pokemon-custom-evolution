@@ -17,12 +17,11 @@ PngImage::PngImage(const char *file_name)
 
 PngImage::~PngImage()
 {
-    delete bitmap;
 }
 
 bool PngImage::CreateBitMap(png_bytep *row_pointers, int width, int height)
 {
-    BitMap *bitmap = new BitMap(width, height);
+    BitMapPtr bitmap = std::make_shared<BitMap>(width, height);
 
     for (int y = 0; y < height; y++)
     {

@@ -33,7 +33,7 @@ protected:
     void CalculatePosition(int index, float time);
     void CalculateScale(int index, float time);
 public:
-    std::vector<KeyFrame *> keyFrames;
+    std::vector<KeyFramePtr> keyFrames;
     bool repeat = true;
     glm::vec2 position;
     float scale;
@@ -43,7 +43,7 @@ public:
     Animation(bool repeat);
     virtual ~Animation();
     virtual AnimationStatus Animate(float delta);
-    void Add(KeyFrame *keyFrame);
+    void Add(KeyFramePtr keyFrame);
     void SetDelay(float delayTime);
 };
 

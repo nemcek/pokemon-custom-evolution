@@ -17,12 +17,12 @@ private:
     void Initialize();
 
 public:
-    TextShader *shader;
+    TextShaderPtr shader;
 
-    TextRenderer(TextShader *shader);
+    TextRenderer(TextShaderPtr shader);
     ~TextRenderer();
-    void Render(Text *text, glm::mat4 projection);
-    void Render(std::vector<Text *> text, glm::mat4 projection);
+    void Render(TextPtr text, glm::mat4 projection);
+    void Render(std::vector<TextPtr> text, glm::mat4 projection);
 };
 
 typedef std::shared_ptr<TextRenderer> TextRendererPtr;

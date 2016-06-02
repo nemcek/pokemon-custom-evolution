@@ -19,15 +19,15 @@ private:
     void Init();
 
 public:
-    RawModel *rawModel;
+    RawModelPtr rawModel;
     float scale;
     glm::vec2 position;
-    Loader *loader;
-    BitMap *bitMap;
+    LoaderPtr loader;
+    BitMapPtr bitMap;
     GLuint textureId;
-    Animation *animation = nullptr;
+    AnimationPtr animation = nullptr;
 
-    Quad(Loader *loader, glm::vec2 position, float scale, BitMap *bitMap);
+    Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap);
     virtual ~Quad();
     void ChangeToWhite();
     virtual void Animate(float delta);

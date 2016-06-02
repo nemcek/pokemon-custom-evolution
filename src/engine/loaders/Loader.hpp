@@ -19,11 +19,11 @@ private:
 public:
     Loader(GLuint programId);
     ~Loader();
-    RawModel *Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> textcoord_buffer);
-    GLuint LoadTexture(BitMap *bitMap);
+    RawModelPtr Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> textcoord_buffer);
+    GLuint LoadTexture(BitMapPtr bitMap);
     void LoadVertexBuffer(GLuint location, std::vector<GLfloat> vertex_buffer);
 };
 
-typedef std::shared_ptr<Loader> LoeaderPtr;
+typedef std::shared_ptr<Loader> LoaderPtr;
 
 #endif //POKEMON_CUSTOM_EVOLUTION_LOADER_HPP

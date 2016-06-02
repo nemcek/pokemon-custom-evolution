@@ -18,16 +18,16 @@ enum PicturePosition
 class Transformations
 {
 private:
-    static BitMap *Center(BitMap *background, BitMap *foreground);
+    static BitMapPtr Center(BitMapPtr background, BitMapPtr foreground);
 
 public:
-    static BitMap *Scale(BitMap *bitmap, int new_width, int new_height);
-    static BitMap *ChangeToWhite(BitMap *bitmap);
-    static BitMap *Concat(BitMap *background, BitMap *foreground, PicturePosition position);
+    static BitMapPtr Scale(BitMapPtr bitmap, int new_width, int new_height);
+    static BitMapPtr ChangeToWhite(BitMapPtr bitmap);
+    static BitMapPtr Concat(BitMapPtr background, BitMapPtr foreground, PicturePosition position);
     static glm::vec2 ToOpenGLCoords(glm::vec2 position, int window_width, int window_height);
     static glm::vec2 Lerp(glm::vec2 a, glm::vec2 b, float t);
     static float Lerp(float a, float b, float t);
-    static BitMap *Fade(BitMap *background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime);
+    static BitMapPtr Fade(BitMapPtr background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime);
 };
 
 #endif //POKEMON_CUSTOM_EVOLUTION_MANIPULATIONS_HPP

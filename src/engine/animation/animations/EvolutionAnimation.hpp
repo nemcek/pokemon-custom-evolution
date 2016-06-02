@@ -12,10 +12,11 @@ class EvolutionAnimation : public Animation
 {
 public:
     bool swap = false;
-    BitMap originalBitMap;
-    BitMap *bitMap = nullptr;
+    // TODO: vyskat, ci toto moze byt ako &originalBitMap
+    BitMapPtr &originalBitMap;
+    BitMapPtr bitMap = nullptr;
 
-    EvolutionAnimation(BitMap bitMap);
+    EvolutionAnimation(BitMapPtr &bitMap);
     ~EvolutionAnimation();
     AnimationStatus Animate(float delta) override ;
     void Fade(glm::vec3 color, float time);

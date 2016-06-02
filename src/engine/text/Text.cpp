@@ -5,7 +5,7 @@
 
 #include "src/engine/text/Text.hpp"
 
-Text::Text(glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font)
+Text::Text(glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr font)
         : position(position),
           scale(scale),
           color(color),
@@ -15,7 +15,7 @@ Text::Text(glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font)
     text = std::string("");
 }
 
-Text::Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, Font *font)
+Text::Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr font)
         : text(text),
           position(position),
           scale(scale),

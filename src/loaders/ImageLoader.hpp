@@ -23,6 +23,8 @@ struct png_image_t
     int height;
     int bit_depth;
     IMAGE_COLOR_TYPE color_type;
+
+    ~png_image_t() { free(row_pointers); }
 };
 
 class ImageLoader
