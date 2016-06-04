@@ -25,7 +25,7 @@
 /// THE SOFTWARE.
 ///
 /// @ref gtx_projection
-/// @file glm/gtx/_projection.inl
+/// @file glm/gtx/projection.inl
 /// @date 2005-12-21 / 2011-06-07
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////

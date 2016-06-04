@@ -152,21 +152,21 @@ namespace glm
 	}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec3<T, P> saturation(const T s, const tvec3<T, P>& _color)
+	GLM_FUNC_QUALIFIER tvec3<T, P> saturation(const T s, const tvec3<T, P>& color)
 	{
-		return tvec3<T, P>(saturation(s) * tvec4<T, P>(_color, T(0)));
+		return tvec3<T, P>(saturation(s) * tvec4<T, P>(color, T(0)));
 	}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec4<T, P> saturation(const T s, const tvec4<T, P>& _color)
+	GLM_FUNC_QUALIFIER tvec4<T, P> saturation(const T s, const tvec4<T, P>& color)
 	{
-		return saturation(s) * _color;
+		return saturation(s) * color;
 	}
 
 	template <typename T, precision P> 
-	GLM_FUNC_QUALIFIER T luminosity(const tvec3<T, P>& _color)
+	GLM_FUNC_QUALIFIER T luminosity(const tvec3<T, P>& color)
 	{
 		const tvec3<T, P> tmp = tvec3<T, P>(0.33, 0.59, 0.11);
-		return dot(_color, tmp);
+		return dot(color, tmp);
 	}
 }//namespace glm

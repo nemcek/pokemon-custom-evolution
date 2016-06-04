@@ -49,7 +49,7 @@ Windows DLL, and new APIs for accessing data in the info struct.
 Experimental functions include the ability to set weighting and cost
 factors for row filter selection, direct reads of integers from buffers
 on big-endian processors that support misaligned data access, faster
-methods of doing alpha composition, and more accurate 16->8 bit _color
+methods of doing alpha composition, and more accurate 16->8 bit color
 conversion.
 
 The additions since 0.89 include the ability to read from a PNG stream

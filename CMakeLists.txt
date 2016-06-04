@@ -2,7 +2,7 @@
 # It should find bundled binary dependencies automatically when using MinGW
 
 cmake_minimum_required ( VERSION 3.5 )
-project( pokemon-custom-_evolution CXX )
+project( pokemon-custom-evolution CXX )
 
 #
 # Configuration
@@ -111,7 +111,7 @@ target_link_libraries(evolutionlib ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_L
 # TARGETS
 #
 
-# _evolution
+# evolution
 set ( EVOLUTION_SRC
         ${evolution_main}
         ${evolution_shaders}
