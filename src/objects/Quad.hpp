@@ -22,12 +22,12 @@ public:
     RawModelPtr rawModel;
     float scale;
     glm::vec2 position;
-    LoaderPtr loader;
-    BitMapPtr bitMap;
+    const LoaderPtr &loader;
+    BitMapPtr *bitMap;
     GLuint textureId;
     AnimationPtr animation = nullptr;
 
-    Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap);
+    Quad(const LoaderPtr &loader, glm::vec2 position, float scale, BitMapPtr *bitMap);
     virtual ~Quad();
     void ChangeToWhite();
     virtual void Animate(float delta);

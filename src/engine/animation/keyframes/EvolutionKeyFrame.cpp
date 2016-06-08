@@ -4,13 +4,13 @@
 
 #include "EvolutionKeyFrame.hpp"
 
-EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, bool swap)
+EvolutionKeyFrame::EvolutionKeyFrame(float time, const glm::vec2 pos, float scale, bool swap)
     : KeyFrame(time, pos, scale)
 {
     this->swap = swap;
 }
 
-EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, bool swap)
+EvolutionKeyFrame::EvolutionKeyFrame(float time, const glm::vec2 pos, float scale, const glm::vec3 color, bool swap)
         : KeyFrame(time, pos, scale)
 {
     this->color = color;
@@ -18,7 +18,7 @@ EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm
     this->swap = swap;
 }
 
-EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color,
+EvolutionKeyFrame::EvolutionKeyFrame(float time, const glm::vec2 pos, float scale, const glm::vec3 color,
                                      std::function<void(void)> callback, bool swap)
     : KeyFrame(time, pos, scale, callback)
 {

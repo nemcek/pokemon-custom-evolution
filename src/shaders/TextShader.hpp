@@ -17,8 +17,8 @@ public:
     TextShader();
     ~TextShader();
     void GetAllUniformLocations() override ;
-    void LoadProjection(glm::mat4 projection);
-    void LoadTextColor(glm::vec3 color);
+    void LoadProjection(glm::mat4 projection) const;
+    void LoadTextColor(glm::vec3 color) const;
 };
 
 typedef std::shared_ptr<TextShader> TextShaderPtr;

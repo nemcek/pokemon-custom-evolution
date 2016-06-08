@@ -11,14 +11,15 @@
 class EvolutionQuad : public Quad
 {
 private:
-    BitMapPtr _firstStageOfEvolution;
-    BitMapPtr _secondStageOfEvolution;
+    BitMapPtr &_firstStageOfEvolution;
+    BitMapPtr &_secondStageOfEvolution;
     bool _firstStageOfEvolutionIsActive;
     bool _secondStageOfEvolutionIsActive;
 public:
     EvolutionAnimationPtr animation;
 
-    EvolutionQuad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr firstStageOfEvolution, BitMapPtr secondStageOfEvolution);
+    EvolutionQuad(const LoaderPtr &loader, glm::vec2 position, float scale, BitMapPtr &firstStageOfEvolution,
+                  BitMapPtr &secondStageOfEvolution, BitMapPtr *startingBitMap);
     ~EvolutionQuad();
     void Animate(float delta) override ;
 };

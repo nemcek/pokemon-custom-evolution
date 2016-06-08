@@ -8,14 +8,14 @@
 Font::Font(std::string ttfFile, unsigned int size)
 {
     // All functions return a value different than 0 whenever an error occurred
-    if (FT_Init_FreeType(&_ft))
+    if (FT_Init_FreeType(_ft))
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 
-    if (FT_New_Face(_ft, ttfFile.c_str(), 0, &_face))
+    if (FT_New_Face(*_ft, ttfFile.c_str(), 0, _face))
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
     // Set size to load glyphs as
-    FT_Set_Pixel_Sizes(_face, 0, size);
+    FT_Set_Pixel_Sizes(*_face, 0, size);
 
     InitCharacters();
 }
@@ -27,7 +27,7 @@ void Font::InitCharacters()
     for (GLubyte c = 0; c < 128; c++)
     {
         // Load character glyph
-        if (FT_Load_Char(_face, c, FT_LOAD_RENDER))
+        if (FT_Load_Char(*_face, c, FT_LOAD_RENDER))
         {
             std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
             continue;
@@ -40,12 +40,12 @@ void Font::InitCharacters()
                 GL_TEXTURE_2D,
                 0,
                 GL_RED,
-                _face->glyph->bitmap.width,
-                _face->glyph->bitmap.rows,
+                (*_face)->glyph->bitmap.width,
+                (*_face)->glyph->bitmap.rows,
                 0,
                 GL_RED,
                 GL_UNSIGNED_BYTE,
-                _face->glyph->bitmap.buffer
+                (*_face)->glyph->bitmap.buffer
         );
         // Set _texture options
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -55,10 +55,10 @@ void Font::InitCharacters()
         // Now store character for later use
         Character character = {
                 texture,
-                glm::ivec2(_face->glyph->bitmap.width, _face->glyph->bitmap.rows),
-                glm::ivec2(_face->glyph->bitmap_left, _face->glyph->bitmap_top),
-                _face->glyph->advance.x
+                glm::ivec2((*_face)->glyph->bitmap.width, (*_face)->glyph->bitmap.rows),
+                glm::ivec2((*_face)->glyph->bitmap_left, (*_face)->glyph->bitmap_top),
+                static_cast<GLuint>((*_face)->glyph->advance.x)
         };
-        characters.insert(std::pair<GLchar, Character>(c, character));
+        characters.insert(std::pair<GLchar, Character &>(c, character));
     }
 }

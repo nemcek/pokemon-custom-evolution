@@ -7,21 +7,21 @@
 #include <constants/Constants.hpp>
 #include "src/engine/rendering/StaticRenderer.hpp"
 
-StaticRenderer::StaticRenderer(StaticShaderPtr shader)
+StaticRenderer::StaticRenderer(StaticShaderPtr &shader)
 {
     this->shader = shader;
 }
 
 StaticRenderer::~StaticRenderer() { }
 
-void StaticRenderer::Render(std::vector<QuadPtr> quads)
+void StaticRenderer::Render(std::vector<QuadPtr> quads) const
 {
     for (QuadPtr quad : quads ) {
         Render(quad);
     }
 }
 
-void StaticRenderer::Render(QuadPtr quad)
+void StaticRenderer::Render(QuadPtr &quad) const
 {
     glBindVertexArray(quad->rawModel->vao);
     glBindBuffer(GL_ARRAY_BUFFER, quad->rawModel->vbo);
@@ -30,7 +30,7 @@ void StaticRenderer::Render(QuadPtr quad)
     this->shader->LoadPosition(coords);
 
     this->shader->LoadTexture(quad->textureId);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, quad->bitMap->width, quad->bitMap->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, quad->bitMap->buffer->data());
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (*quad->bitMap)->width, (*quad->bitMap)->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (*quad->bitMap->buffer)->data());
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }

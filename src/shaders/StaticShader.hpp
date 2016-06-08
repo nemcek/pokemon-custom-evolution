@@ -17,8 +17,8 @@ public:
     StaticShader();
     ~StaticShader();
     void GetAllUniformLocations() override ;
-    void LoadTexture(unsigned int textureId);
-    void LoadPosition(glm::vec2 position);
+    void LoadTexture(unsigned int textureId) const;
+    void LoadPosition(glm::vec2 position) const;
 };
 
 typedef std::shared_ptr<StaticShader> StaticShaderPtr;

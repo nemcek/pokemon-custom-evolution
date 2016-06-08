@@ -12,14 +12,13 @@ class EvolutionAnimation : public Animation
 {
 public:
     bool swap = false;
-    // TODO: vyskat, ci toto moze byt ako &originalBitMap
     BitMapPtr &originalBitMap;
-    BitMapPtr bitMap = nullptr;
+    BitMapPtr *bitMap = nullptr;
 
-    EvolutionAnimation(BitMapPtr &bitMap);
+    EvolutionAnimation(BitMapPtr& bitMap);
     ~EvolutionAnimation();
     AnimationStatus Animate(float delta) override ;
-    void Fade(glm::vec3 color, float time);
+    void Fade(const glm::vec3 color, float time);
 };
 
 typedef std::shared_ptr<EvolutionAnimation> EvolutionAnimationPtr;

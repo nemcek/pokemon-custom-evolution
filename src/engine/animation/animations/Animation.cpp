@@ -32,12 +32,12 @@ void Animation::Add(KeyFramePtr keyFrame)
     this->keyFrames.push_back(keyFrame);
 }
 
-float Animation::GetAnimationTime(int index)
+float Animation::GetAnimationTime(const int index)
 {
     return animationTime / (keyFrames[index + 1]->time - keyFrames[index]->time);
 }
 
-bool Animation::ShouldRepeat(int index)
+bool Animation::ShouldRepeat(const int index)
 {
     if (index + 1 >= this->keyFrames.size())
     {

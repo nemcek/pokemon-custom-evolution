@@ -17,12 +17,12 @@ void StaticShader::GetAllUniformLocations()
     this->_position = GetUniformLocation("quadPos");
 }
 
-void StaticShader::LoadTexture(unsigned int textureId)
+void StaticShader::LoadTexture(unsigned int textureId) const
 {
     ShaderProgram::LoadTexture(this->_texture, textureId);
 }
 
-void StaticShader::LoadPosition(glm::vec2 position)
+void StaticShader::LoadPosition(glm::vec2 position) const
 {
     this->LoadVector(this->_position, position);
 }

@@ -6,7 +6,7 @@
 
 Image::Image() { }
 
-Image::Image(BitMapPtr bitmap, int bit_depth, IMAGE_COLOR_TYPE color_type) : bitmap(bitmap)
+Image::Image(BitMapPtr *bitmap, int bit_depth, IMAGE_COLOR_TYPE color_type) : bitmap(bitmap)
 {
     this->bitDepth = bit_depth;
     this->colorType = color_type;

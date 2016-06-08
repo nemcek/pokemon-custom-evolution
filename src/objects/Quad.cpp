@@ -5,7 +5,7 @@
 #include <engine/Transformations.hpp>
 #include "src/objects/Quad.hpp"
 
-Quad::Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap)
+Quad::Quad(const LoaderPtr &loader, glm::vec2 position, float scale, BitMapPtr *bitMap)
     : loader(loader),
       position(position),
       scale(scale),
@@ -36,13 +36,13 @@ void Quad::Init()
             0.0f, 1.0f
     };
 
-    this->rawModel = this->loader->Load(_vertexBuffer, texcoord_buffer);
-    this->textureId = this->loader->LoadTexture(this->bitMap);
+    this->rawModel = *this->loader->Load(_vertexBuffer, texcoord_buffer);
+    this->textureId = this->loader->LoadTexture(*this->bitMap);
 }
 
 void Quad::ChangeToWhite()
 {
-    this->bitMap = Transformations::ChangeToWhite(this->bitMap);
+    this->bitMap = Transformations::ChangeToWhite(*this->bitMap);
 }
 
 void Quad::Animate(float delta)

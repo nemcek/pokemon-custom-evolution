@@ -38,7 +38,7 @@ AnimationStatus EvolutionAnimation::Animate(float delta)
     return AnimationStatus::Default;
 }
 
-void EvolutionAnimation::Fade(glm::vec3 color, float time)
+void EvolutionAnimation::Fade(const glm::vec3 color, float time)
 {
     bitMap = Transformations::Fade(originalBitMap, color, 286, time);
 }

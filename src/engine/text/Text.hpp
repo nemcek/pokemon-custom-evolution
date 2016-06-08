@@ -25,11 +25,11 @@ public:
     glm::vec2 position;
     GLfloat scale;
     glm::vec3 color;
-    FontPtr font;
+    FontPtr &font;
     TextAnimationPtr animation;
 
-    Text(glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr font);
-    Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr font);
+    Text(glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr &font);
+    Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr &font);
     ~Text();
     void SetText(std::string text);
     void Animate(float delta);

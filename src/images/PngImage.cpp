@@ -29,11 +29,11 @@ bool PngImage::CreateBitMap(png_bytep *row_pointers, int width, int height)
 
         for (int x = 0; x < width; x++) {
             png_byte* ptr = &(row[x*4]);
-            (*bitmap->buffer)[y * width + x] = { ptr[0], ptr[1], ptr[2], ptr[3] };
+            bitmap->buffer[y * width + x] = { ptr[0], ptr[1], ptr[2], ptr[3] };
         }
     }
 
-    this->bitmap = bitmap;
+    this->bitmap = &bitmap;
 
     return true;
 }

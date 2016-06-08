@@ -17,7 +17,19 @@ enum AnimationStatus
 
 class Animation
 {
-private:
+public:
+    std::vector<KeyFramePtr> keyFrames;
+    bool repeat = true;
+    glm::vec2 position;
+    float scale;
+    bool enabled;
+
+    Animation();
+    Animation(bool repeat);
+    virtual ~Animation();
+    virtual AnimationStatus Animate(float delta);
+    void Add(KeyFramePtr keyFrame);
+    void SetDelay(float delayTime);
 
 protected:
     float animationTime;
@@ -32,19 +44,9 @@ protected:
     void MoveToNextFrame();
     void CalculatePosition(int index, float time);
     void CalculateScale(int index, float time);
-public:
-    std::vector<KeyFramePtr> keyFrames;
-    bool repeat = true;
-    glm::vec2 position;
-    float scale;
-    bool enabled;
 
-    Animation();
-    Animation(bool repeat);
-    virtual ~Animation();
-    virtual AnimationStatus Animate(float delta);
-    void Add(KeyFramePtr keyFrame);
-    void SetDelay(float delayTime);
+private:
+
 };
 
 typedef std::shared_ptr<Animation> AnimationPtr;

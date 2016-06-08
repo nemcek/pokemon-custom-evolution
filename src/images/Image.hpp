@@ -15,10 +15,10 @@ class Image
 {
 public:
     Image();
-    Image(BitMapPtr bitmap, int bit_depth, IMAGE_COLOR_TYPE color_type);
+    Image(BitMapPtr *bitmap, int bit_depth, IMAGE_COLOR_TYPE color_type);
     virtual ~Image();
 
-    BitMapPtr bitmap;
+    BitMapPtr *bitmap;
     int bitDepth;
     IMAGE_COLOR_TYPE colorType;
 };

@@ -19,10 +19,10 @@ private:
 public:
     TextShaderPtr shader;
 
-    TextRenderer(TextShaderPtr shader);
+    TextRenderer(TextShaderPtr &shader);
     ~TextRenderer();
-    void Render(TextPtr text, glm::mat4 projection);
-    void Render(std::vector<TextPtr> text, glm::mat4 projection);
+    void Render(TextPtr &text, glm::mat4 projection);
+    void Render(std::vector<TextPtr &> text, glm::mat4 projection) const;
 };
 
 typedef std::shared_ptr<TextRenderer> TextRendererPtr;

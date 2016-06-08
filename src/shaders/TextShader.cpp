@@ -17,12 +17,12 @@ void TextShader::GetAllUniformLocations()
     this->_color = this->GetUniformLocation("textColor");
 }
 
-void TextShader::LoadProjection(glm::mat4 projection)
+void TextShader::LoadProjection(glm::mat4 projection) const
 {
     this->LoadMatrix(this->_projection, projection);
 }
 
-void TextShader::LoadTextColor(glm::vec3 color)
+void TextShader::LoadTextColor(glm::vec3 color) const
 {
     this->LoadVector(this->_color, color);
 }

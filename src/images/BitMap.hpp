@@ -25,7 +25,7 @@ private:
     Pixel _defaultValue = { 0, 0, 0, 0 };
 
 public:
-    std::vector<Pixel> *buffer;
+    std::vector<Pixel> buffer;
     int width;
     int height;
 

@@ -20,11 +20,11 @@
 class Scene
 {
 private:
-    std::vector<QuadPtr> _quads;
-    std::vector<TextPtr> _texts;
+    std::vector<QuadPtr &> _quads;
+    std::vector<TextPtr &> _texts;
     RenderManagerPtr _renderManager;
     glm::mat4 _projection;
-    InputManagerPtr _inputManager;
+    const InputManagerPtr &_inputManager;
     TextPtr _startEvolutionTextFirstPart;
     TextPtr _startEvolutionTextSecondPart;
     EvolutionQuadPtr _background;
@@ -39,11 +39,11 @@ private:
 
     void Init();
 public:
-    Scene(InputManagerPtr inputManager);
+    Scene(const InputManagerPtr &inputManager);
     ~Scene();
     void Animate(float delta);
-    void Render();
-    void Update();
+    void Render() const;
+    void Update() const;
     void Clean();
 };
 

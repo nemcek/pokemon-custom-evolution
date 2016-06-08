@@ -13,7 +13,7 @@ ShaderProgram::ShaderProgram(const std::string &vertex_shader_file, const std::s
 
 ShaderProgram::~ShaderProgram() { }
 
-GLuint ShaderProgram::LoadShader(const std::string &shader_file, GLuint type) {
+GLuint ShaderProgram::LoadShader(const std::string &shader_file, GLuint type) const {
     GLint result;
     GLuint shader_id;
     GLint info_length;
@@ -46,7 +46,7 @@ GLuint ShaderProgram::LoadShader(const std::string &shader_file, GLuint type) {
     return shader_id;
 }
 
-GLuint ShaderProgram::CreateProgram(GLuint vertex_shader_id, GLuint fragment_shader_id) {
+GLuint ShaderProgram::CreateProgram(GLuint vertex_shader_id, GLuint fragment_shader_id) const {
     auto result = GL_FALSE;
     auto info_length = 0;
 
@@ -73,15 +73,15 @@ GLuint ShaderProgram::CreateProgram(GLuint vertex_shader_id, GLuint fragment_sha
     return program_id;
 }
 
-void ShaderProgram::Start() {
+void ShaderProgram::Start() const {
     glUseProgram(programId);
 }
 
-void ShaderProgram::Stop() {
+void ShaderProgram::Stop() const {
     glUseProgram(0);
 }
 
-void ShaderProgram::Clean() {
+void ShaderProgram::Clean() const {
     Stop();
     glDetachShader(programId, this->_vertexShaderProgramId);
     glDetachShader(programId, this->_fragmentShaderProgramId);
@@ -92,38 +92,37 @@ void ShaderProgram::Clean() {
     glDeleteProgram(programId);
 }
 
-void ShaderProgram::BindAttributes() {}
+void ShaderProgram::BindAttributes() const {}
 
-void ShaderProgram::BindAttribute(unsigned int attribute, const std::string &varname) {
+void ShaderProgram::BindAttribute(unsigned int attribute, const std::string &varname) const {
     glBindAttribLocation(programId, attribute, varname.c_str());
 }
 
-GLint ShaderProgram::GetUniformLocation(const std::string uniformName) {
+GLint ShaderProgram::GetUniformLocation(const std::string uniformName) const {
     return glGetUniformLocation(programId, uniformName.c_str());
 }
 
-void ShaderProgram::LoadFloat(GLint location, float value) {
+void ShaderProgram::LoadFloat(GLint location, float value) const {
     glUniform1f(location, value);
 }
 
-void ShaderProgram::LoadInt(GLint location, int value) {
+void ShaderProgram::LoadInt(GLint location, int value) const {
     glUniform1i(location, value);
 }
 
-void ShaderProgram::LoadVector(GLint location, glm::vec3 vector) {
+void ShaderProgram::LoadVector(GLint location, glm::vec3 vector) const {
     glUniform3f(location, vector.x, vector.y, vector.z);
 }
 
-void ShaderProgram::LoadVector(GLint location, glm::vec2 vector)
-{
+void ShaderProgram::LoadVector(GLint location, glm::vec2 vector) const {
     glUniform2f(location, vector.x, vector.y);
 }
 
-void ShaderProgram::LoadMatrix(GLint location, glm::mat4 matrix) {
+void ShaderProgram::LoadMatrix(GLint location, glm::mat4 matrix) const {
     glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void ShaderProgram::LoadBoolean(GLint location, bool value) {
+void ShaderProgram::LoadBoolean(GLint location, bool value) const {
     float load;
     if (value)
         load = 1;
@@ -133,7 +132,7 @@ void ShaderProgram::LoadBoolean(GLint location, bool value) {
     glUniform1f(location, load);
 }
 
-void ShaderProgram::LoadTexture(GLint location, GLuint texture_id) {
+void ShaderProgram::LoadTexture(GLint location, GLuint texture_id) const {
     // Bind the _texture to "Texture" uniform in program
     glUniform1i(location, 0);
     glActiveTexture(GL_TEXTURE0 + 0);

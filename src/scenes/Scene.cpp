@@ -5,7 +5,7 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(InputManagerPtr inputManager)
+Scene::Scene(const InputManagerPtr &inputManager)
     : _inputManager(inputManager)
 {
     Init();
@@ -13,11 +13,6 @@ Scene::Scene(InputManagerPtr inputManager)
 
 Scene::~Scene()
 {
-//    delete _renderManager;
-//    delete _evolution;
-//    delete _background;
-//    delete _startEvolutionTextFirstPart;
-//    delete _startEvolutionTextSecondPart;
     _quads.clear();
     _texts.clear();
 }
@@ -31,6 +26,7 @@ void Scene::Init()
     PngImagePtr backgroundImage = std::make_shared<PngImage>("data/evolution_background.png");
     PngImagePtr arrow = std::make_shared<PngImage>("data/evolution_arrow.png");
     PngImagePtr googleImage = std::make_shared<PngImage>("_data/google.png");
+    PngImagePtr particleImage = std::make_shared<PngImage>("data/evolution_particle_circle.png");
 
     TextShaderPtr textShader = std::make_shared<TextShader>();
     TextRendererPtr textRenderer = std::make_shared<TextRenderer>(textShader);
@@ -40,6 +36,7 @@ void Scene::Init()
     _evolution = std::make_shared<EvolutionQuad>(loader, mainQuadPos, 0.5f, png_image->bitmap, googleImage->bitmap);
     _background = std::make_shared<EvolutionQuad>(loader, glm::vec2(Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2), 1.0f, backgroundImage->bitmap, nullptr);
     QuadPtr arrowQuad = std::make_shared<Quad>(loader, glm::vec2(900.0f, 50.0f), 0.04f, arrow->bitmap);
+    QuadPtr particle = std::make_shared<Quad>(loader, glm::vec2(Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2), 0.05f, particleImage->bitmap);
 
     _renderManager->ProcessProjection(_projection);
 
@@ -59,10 +56,12 @@ void Scene::Init()
     this->_texts.push_back(_startEvolutionTextSecondPart);
 
     // TODO: hodnota namiesto referencie?
+    EvolutionKeyFramePtr k1 = std::make_shared<EvolutionKeyFrame>(0.0f, mainQuadPos, 1.0f);
+    EvolutionKeyFramePtr k2 = std::make_shared<EvolutionKeyFrame>(1.0f, mainQuadPos, .0f, true);
     _evolution->animation = std::make_shared<EvolutionAnimation>(_evolution->bitMap);
     _evolution->animation->enabled = false;
-    _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, mainQuadPos, 1.0f));
-    _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(1.0f, mainQuadPos, .0f, true));
+    _evolution->animation->Add(k1);
+    _evolution->animation->Add(k2);
     _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(2.0f, mainQuadPos, 1.0f));
 
     arrowQuad->animation = std::make_shared<Animation>();
@@ -100,6 +99,7 @@ void Scene::Init()
     this->_quads.push_back(_background);
     this->_quads.push_back(_evolution);
     this->_quads.push_back(arrowQuad);
+    this->_quads.push_back(particle);
 
     for (QuadPtr quad : this->_quads)
         _renderManager->ProcessQuad(quad);
@@ -117,7 +117,7 @@ void Scene::Animate(float delta)
         text->Animate(delta);
 }
 
-void Scene::Render()
+void Scene::Render() const
 {
 //    for (Quad *quad : this->_quads)
 //        _renderManager->ProcessQuad(quad);
@@ -129,7 +129,7 @@ void Scene::Render()
     _renderManager->Render(this->_projection);
 }
 
-void Scene::Update()
+void Scene::Update() const
 {
     if (_inputManager->IsAPressed() && _startEvolutionTextDrawEnabled)
         _startEvolutionTextFirstPart->animation->enabled = true;

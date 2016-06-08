@@ -13,18 +13,18 @@ class RenderManager
 private:
     std::vector<TextPtr> _texts;
     std::vector<QuadPtr> _quads;
-    TextRendererPtr _textRenderer;
-    StaticRendererPtr _staticRenderer;
+    TextRendererPtr &_textRenderer;
+    StaticRendererPtr &_staticRenderer;
 
 public:
-    RenderManager(TextRendererPtr textRenderer, StaticRendererPtr staticRenderer);
+    RenderManager(TextRendererPtr &textRenderer, StaticRendererPtr &staticRenderer);
     ~RenderManager();
-    void Render(glm::mat4 projection);
-    void ProcessText(TextPtr text);
+    void Render(glm::mat4 projection) const;
+    void ProcessText(TextPtr &text);
     void ProcessProjection(glm::mat4 projection);
-    void ProcessQuad(QuadPtr quad);
-    void Prepare();
-    void Clean();
+    void ProcessQuad(QuadPtr &quad);
+    void Prepare() const;
+    void Clean() const;
 };
 
 typedef std::shared_ptr<RenderManager> RenderManagerPtr;

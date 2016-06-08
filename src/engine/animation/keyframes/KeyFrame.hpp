@@ -13,7 +13,7 @@
 class KeyFrame
 {
 private:
-    void Init(float time, glm::vec2 pos, float scale);
+    void Init(float time, const glm::vec2 pos, float scale);
 
 public:
     glm::vec2 position;
@@ -21,8 +21,8 @@ public:
     float scale;
     std::function<void (void)> callback;
 
-    KeyFrame(float time, glm::vec2 pos, float scale);
-    KeyFrame(float time, glm::vec2 pos, float scale, std::function<void (void)> callback);
+    KeyFrame(float time, const glm::vec2 pos, float scale);
+    KeyFrame(float time, const glm::vec2 pos, float scale, std::function<void (void)> callback);
     virtual ~KeyFrame();
 };
 

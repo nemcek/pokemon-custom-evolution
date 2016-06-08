@@ -23,10 +23,10 @@ struct Character {
 class Font
 {
 private:
-    FT_Library _ft;
-    FT_Face _face;
+    FT_Library *_ft;
+    FT_Face *_face;
 public:
-    std::map<GLchar, Character> characters;
+    std::map<GLchar, Character &> characters;
 
     Font(std::string ttfFile, unsigned int size);
     ~Font();

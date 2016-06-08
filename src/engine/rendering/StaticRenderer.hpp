@@ -16,10 +16,10 @@ private:
 public:
     StaticShaderPtr shader;
 
-    StaticRenderer(StaticShaderPtr shader);
+    StaticRenderer(StaticShaderPtr &shader);
     ~StaticRenderer();
-    void Render(std::vector<QuadPtr> quad);
-    void Render(QuadPtr quad);
+    void Render(std::vector<QuadPtr &> quad) const;
+    void Render(QuadPtr &quad) const;
 };
 
 typedef std::shared_ptr<StaticRenderer> StaticRendererPtr;

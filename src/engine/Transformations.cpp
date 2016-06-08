@@ -5,7 +5,7 @@
 #include <iostream>
 #include "src/engine/Transformations.hpp"
 
-BitMapPtr Transformations::Scale(BitMapPtr bitmap, int new_width, int new_height)
+const BitMapPtr &Transformations::Scale(const BitMapPtr &bitmap, int new_width, int new_height)
 {
     BitMapPtr scaled = std::make_shared<BitMap>(new_width, new_height);
     Pixel a, b, c, d;
@@ -23,10 +23,10 @@ BitMapPtr Transformations::Scale(BitMapPtr bitmap, int new_width, int new_height
             x_diff = (x_ratio * j) - x;
             y_diff = (y_ratio * i) - y;
             index = (y * bitmap->width + x);
-            a = (*bitmap->buffer)[index];
-            b = (*bitmap->buffer)[index + 1];
-            c = (*bitmap->buffer)[index + bitmap->width];
-            d = (*bitmap->buffer)[index + bitmap->width + 1];
+            a = bitmap->buffer[index];
+            b = bitmap->buffer[index + 1];
+            c = bitmap->buffer[index + bitmap->width];
+            d = bitmap->buffer[index + bitmap->width + 1];
 
             // blue element
             // Yb = Ab(1-w)(1-h) + Bb(w)(1-h) + Cb(h)(1-w) + Db(wh)
@@ -47,13 +47,13 @@ BitMapPtr Transformations::Scale(BitMapPtr bitmap, int new_width, int new_height
             alpha = a.A * (1 - x_diff) * (1 - y_diff) + b.A * (x_diff) * (1 - y_diff) +
                     c.A * (y_diff) * (1 - x_diff) + d.A * (x_diff * y_diff);
 
-            (*scaled->buffer)[i * new_width + j] = { (unsigned char)red, (unsigned char)green, (unsigned char)blue, (unsigned char)alpha };
+            scaled->buffer[i * new_width + j] = { (unsigned char)red, (unsigned char)green, (unsigned char)blue, (unsigned char)alpha };
         }
     }
     return scaled;
 }
 
-BitMapPtr Transformations::ChangeToWhite(BitMapPtr bitmap)
+BitMapPtr &Transformations::ChangeToWhite(BitMapPtr &bitmap)
 {
     BitMapPtr changed = std::make_shared<BitMap>(bitmap->width, bitmap->height);
 
@@ -61,14 +61,14 @@ BitMapPtr Transformations::ChangeToWhite(BitMapPtr bitmap)
     {
         for (int x = 0; x < bitmap->width; x++)
         {
-            if ((*bitmap->buffer)[y * bitmap->width + x].A == 0)
-                (*changed->buffer)[y * bitmap->width + x] = (*bitmap->buffer)[y * bitmap->width + x];
+            if ((bitmap->buffer)[y * bitmap->width + x].A == 0)
+                (changed->buffer)[y * bitmap->width + x] = (bitmap->buffer)[y * bitmap->width + x];
             else
             {
-                (*changed->buffer)[y * bitmap->width + x].R = 255;
-                (*changed->buffer)[y * bitmap->width + x].G = 255;
-                (*changed->buffer)[y * bitmap->width + x].B = 255;
-                (*changed->buffer)[y * bitmap->width + x].A = (*bitmap->buffer)[y * bitmap->width + x].A;
+                (changed->buffer)[y * bitmap->width + x].R = 255;
+                (changed->buffer)[y * bitmap->width + x].G = 255;
+                (changed->buffer)[y * bitmap->width + x].B = 255;
+                (changed->buffer)[y * bitmap->width + x].A = (bitmap->buffer)[y * bitmap->width + x].A;
             }
         }
     }
@@ -76,7 +76,7 @@ BitMapPtr Transformations::ChangeToWhite(BitMapPtr bitmap)
     return changed;
 }
 
-BitMapPtr Transformations::Concat(BitMapPtr background, BitMapPtr foreground, PicturePosition position)
+const BitMapPtr &Transformations::Concat(const BitMapPtr &background, const BitMapPtr &foreground, PicturePosition position)
 {
     switch (position)
     {
@@ -87,7 +87,7 @@ BitMapPtr Transformations::Concat(BitMapPtr background, BitMapPtr foreground, Pi
     return nullptr;
 }
 
-BitMapPtr Transformations::Center(BitMapPtr background, BitMapPtr foreground)
+const BitMapPtr &Transformations::Center(const BitMapPtr &background, const BitMapPtr &foreground)
 {
     int top_margin = ((background->height - foreground->height) / 2) * background->width;
     int left_margin = (background->width - foreground->width) / 2;
@@ -97,7 +97,7 @@ BitMapPtr Transformations::Center(BitMapPtr background, BitMapPtr foreground)
     {
         for (int x = 0; x < foreground->width; x++)
         {
-            (*background->buffer)[top_margin + y * foreground->width + x + left_margin + offset] = (*foreground->buffer)[y * foreground->width + x];
+            (background->buffer)[top_margin + y * foreground->width + x + left_margin + offset] = (foreground->buffer)[y * foreground->width + x];
         }
 
         offset += 2 * left_margin;
@@ -133,7 +133,7 @@ float Transformations::Lerp(float a, float b, float t)
     return a * (1 - t) + b * t;
 }
 
-BitMapPtr Transformations::Fade(BitMapPtr background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime)
+const BitMapPtr &Transformations::Fade(const BitMapPtr &background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime)
 {
     BitMapPtr faded = std::make_shared<BitMap>(background->width, background->height);
 
@@ -142,16 +142,16 @@ BitMapPtr Transformations::Fade(BitMapPtr background, glm::vec3 fadeColor, unsig
         for (unsigned int x = 0; x < background->width; x++)
         {
             if (y < background->height - yOffset) {
-                (*faded->buffer)[y * background->width + x].R = (unsigned char) Transformations::Lerp(
-                        (*background->buffer)[y * background->width + x].R, fadeColor.x, fadeTime);
-                (*faded->buffer)[y * background->width + x].G = (unsigned char) Transformations::Lerp(
-                        (*background->buffer)[y * background->width + x].G, fadeColor.y, fadeTime);
-                (*faded->buffer)[y * background->width + x].B = (unsigned char) Transformations::Lerp(
-                        (*background->buffer)[y * background->width + x].B, fadeColor.z, fadeTime);
-                (*faded->buffer)[y * background->width + x].A = (*background->buffer)[y * background->width + x].A;
+                (faded->buffer)[y * background->width + x].R = (unsigned char) Transformations::Lerp(
+                        (background->buffer)[y * background->width + x].R, fadeColor.x, fadeTime);
+                (faded->buffer)[y * background->width + x].G = (unsigned char) Transformations::Lerp(
+                        (background->buffer)[y * background->width + x].G, fadeColor.y, fadeTime);
+                (faded->buffer)[y * background->width + x].B = (unsigned char) Transformations::Lerp(
+                        (background->buffer)[y * background->width + x].B, fadeColor.z, fadeTime);
+                (faded->buffer)[y * background->width + x].A = (background->buffer)[y * background->width + x].A;
             }
             else
-                (*faded->buffer)[y * background->width + x] = (*background->buffer)[y * background->width + x];
+                (faded->buffer)[y * background->width + x] = (background->buffer)[y * background->width + x];
         }
     }
 

@@ -17,7 +17,7 @@ public:
     InputManager();
     ~InputManager();
     void OnKeyPress(GLFWwindow *, int key, int , int action, int mods);
-    bool IsAPressed();
+    bool IsAPressed() const;
 };
 
 typedef std::shared_ptr<InputManager> InputManagerPtr;

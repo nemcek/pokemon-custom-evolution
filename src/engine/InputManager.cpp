@@ -26,7 +26,7 @@ void InputManager::OnKeyPress(GLFWwindow *window, int key, int , int action, int
     }
 }
 
-bool InputManager::IsAPressed()
+bool InputManager::IsAPressed() const
 {
     return this->_keys[GLFW_KEY_A];
 }
