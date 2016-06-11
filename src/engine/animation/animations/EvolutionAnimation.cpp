@@ -34,6 +34,7 @@ namespace Engine
 
                     if (status == AnimationStatus::MovedToNext) {
                         swap = std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex])->swap;
+                        return status;
                     }
                 }
 

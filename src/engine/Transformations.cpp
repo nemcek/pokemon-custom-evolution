@@ -121,6 +121,11 @@ namespace Engine {
         return a * (1 - t) + b * t;
     }
 
+    void Transformations::Lerp(Point &dest, const Point &a, const Point &b, const float t) {
+        dest.X = static_cast<unsigned int>(Transformations::Lerp(a.X, b.X, t));
+        dest.Y = static_cast<unsigned int>(Transformations::Lerp(a.Y, b.Y, t));
+    }
+
     BitMapPtr Transformations::Fade(BitMapPtr background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime) {
         BitMapPtr faded = std::make_shared<BitMap>(background->width, background->height);
 
@@ -141,5 +146,16 @@ namespace Engine {
         }
 
         return faded;
+    }
+
+    void Transformations::Bezier(Point &dest, const Point &a, const Point &b, const Point &c, const Point &d, const float t) {
+        Point ab, bc, cd, abbc, bccd;
+
+        Transformations::Lerp(ab, a, b, t);
+        Transformations::Lerp(bc, b, c, t);
+        Transformations::Lerp(cd, c, d, t);
+        Transformations::Lerp(abbc, ab, bc, t);
+        Transformations::Lerp(bccd, bc, cd, t);
+        Transformations::Lerp(dest, abbc, bccd, t);
     }
 }

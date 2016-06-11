@@ -12,11 +12,6 @@ namespace Objects
 {
     class EvolutionQuad : public Quad
     {
-    private:
-        BitMapPtr _firstStageOfEvolution;
-        BitMapPtr _secondStageOfEvolution;
-        bool _firstStageOfEvolutionIsActive;
-        bool _secondStageOfEvolutionIsActive;
     public:
         EvolutionAnimationPtr animation;
 
@@ -26,6 +21,12 @@ namespace Objects
         ~EvolutionQuad();
 
         void Animate(float delta) override;
+
+    protected:
+        BitMapPtr _firstStageOfEvolution;
+        BitMapPtr _secondStageOfEvolution;
+        bool _firstStageOfEvolutionIsActive;
+        bool _secondStageOfEvolutionIsActive;
     };
 
     typedef std::shared_ptr<EvolutionQuad> EvolutionQuadPtr;

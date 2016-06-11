@@ -24,7 +24,7 @@ namespace Engine
                 BitMapPtr bitMap = nullptr;
                 EvolutionAnimation(BitMapPtr &bitMap);
                 ~EvolutionAnimation();
-                AnimationStatus Animate(float delta) override;
+                virtual AnimationStatus Animate(float delta) override;
                 void Fade(glm::vec3 color, float time);
             };
 

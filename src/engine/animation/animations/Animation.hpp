@@ -6,6 +6,7 @@
 #define POKEMON_CUSTOM_EVOLUTION_ANIMATION_HPP
 
 #include <vector>
+#include <engine/animation/keyframes/EvolutionKeyFrame.hpp>
 #include "engine/animation/keyframes/KeyFrame.hpp"
 
 using namespace Engine::nsAnimation::KeyFrames;

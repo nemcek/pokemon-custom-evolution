@@ -19,6 +19,12 @@ namespace Engine
         Center
     };
 
+    struct Point
+    {
+        unsigned int X;
+        unsigned int Y;
+    };
+
     class Transformations
     {
     public:
@@ -28,7 +34,9 @@ namespace Engine
         static glm::vec2 ToOpenGLCoords(glm::vec2 position, int window_width, int window_height);
         static glm::vec2 Lerp(glm::vec2 a, glm::vec2 b, float t);
         static float Lerp(float a, float b, float t);
+        static void Lerp(Point& dest, const Point& a, const Point& b, const float t);
         static BitMapPtr Fade(BitMapPtr background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime);
+        static void Bezier(Point &dest, const Point& a, const Point& b, const Point& c, const Point& d, const float t);
     private:
         static BitMapPtr Center(BitMapPtr background, BitMapPtr foreground);
     };
