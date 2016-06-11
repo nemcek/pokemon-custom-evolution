@@ -8,17 +8,20 @@
 #include <GL/glew.h>
 #include <memory>
 
-class RawModel
+namespace Objects
 {
-public:
-    GLuint vao;
-    GLuint vbo;
-    GLuint tbo;
+    class RawModel
+    {
+    public:
+        GLuint vao;
+        GLuint vbo;
+        GLuint tbo;
 
-    RawModel();
-    ~RawModel();
-};
+        RawModel();
 
-typedef std::shared_ptr<RawModel> RawModelPtr;
+        ~RawModel();
+    };
 
+    typedef std::shared_ptr<RawModel> RawModelPtr;
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_RAWMODEL_HPP

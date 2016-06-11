@@ -17,36 +17,46 @@
 #include <engine/text/Text.hpp>
 #include <engine/InputManager.hpp>
 
-class Scene
+using namespace Engine;
+using namespace Objects;
+using namespace Engine::Rendering;
+using namespace Engine::Texts;
+using namespace Shaders;
+using namespace Engine::nsAnimation::Animations;
+using namespace Engine::nsAnimation::KeyFrames;
+
+namespace Scenes
 {
-private:
-    std::vector<QuadPtr> _quads;
-    std::vector<TextPtr> _texts;
-    RenderManagerPtr _renderManager;
-    glm::mat4 _projection;
-    InputManagerPtr _inputManager;
-    TextPtr _startEvolutionTextFirstPart;
-    TextPtr _startEvolutionTextSecondPart;
-    EvolutionQuadPtr _background;
-    EvolutionQuadPtr _evolution;
+    class Scene
+    {
+    private:
+        std::vector<QuadPtr> _quads;
+        std::vector<TextPtr> _texts;
+        RenderManagerPtr _renderManager;
+        glm::mat4 _projection;
+        InputManagerPtr _inputManager;
+        TextPtr _startEvolutionTextFirstPart;
+        TextPtr _startEvolutionTextSecondPart;
+        EvolutionQuadPtr _background;
+        EvolutionQuadPtr _evolution;
 
-    // callbacks
-    void WhatTextDrawFinishedCallback();
-    void StartEvolutionTextFirstPartDrawFinishedCallback();
-    void StartEvolutionTextDrawFinishedCallback();
-    void EvolutionSceneFadeCompletedCallback();
-    bool _startEvolutionTextDrawEnabled = false;
+        // callbacks
+        void WhatTextDrawFinishedCallback();
+        void StartEvolutionTextFirstPartDrawFinishedCallback();
+        void StartEvolutionTextDrawFinishedCallback();
+        void EvolutionSceneFadeCompletedCallback();
+        bool _startEvolutionTextDrawEnabled = false;
+        void Init();
 
-    void Init();
-public:
-    Scene(InputManagerPtr inputManager);
-    ~Scene();
-    void Animate(float delta);
-    void Render();
-    void Update();
-    void Clean();
-};
+    public:
+        Scene(InputManagerPtr inputManager);
+        ~Scene();
+        void Animate(float delta);
+        void Render();
+        void Update();
+        void Clean();
+    };
 
-typedef std::shared_ptr<Scene> ScenePtr;
-
+    typedef std::shared_ptr<Scene> ScenePtr;
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_SCENE_HPP

@@ -6,39 +6,43 @@
 #include <engine/Transformations.hpp>
 #include "EvolutionAnimation.hpp"
 
-EvolutionAnimation::EvolutionAnimation(BitMapPtr &bitMap) : Animation(), originalBitMap(bitMap)
+namespace Engine
 {
-}
-
-EvolutionAnimation::~EvolutionAnimation()
-{
-}
-
-AnimationStatus EvolutionAnimation::Animate(float delta)
-{
-    AnimationStatus status = Animation::Animate(delta);
-
-    if (status == AnimationStatus::Default || status == AnimationStatus::MovedToNext)
+    namespace nsAnimation
     {
-        if (currentKeyFrameIndex + 1 >= keyFrames.size())
-            return AnimationStatus::Default;
-
-        if (std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->colorEnabled)
+        namespace Animations
         {
-            float t = GetAnimationTime(currentKeyFrameIndex);
-            Fade(std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->color, t);
-        }
+            EvolutionAnimation::EvolutionAnimation(BitMapPtr &bitMap) : Animation(), originalBitMap(bitMap) {
+            }
 
-        if (status == AnimationStatus::MovedToNext)
-        {
-            swap = std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex])->swap;
+            EvolutionAnimation::~EvolutionAnimation() {
+            }
+
+            AnimationStatus EvolutionAnimation::Animate(float delta) {
+                AnimationStatus status = Animation::Animate(delta);
+
+                if (status == AnimationStatus::Default || status == AnimationStatus::MovedToNext) {
+                    if (currentKeyFrameIndex + 1 >= keyFrames.size())
+                        return AnimationStatus::Default;
+
+                    if (std::static_pointer_cast<EvolutionKeyFrame>(
+                            keyFrames[currentKeyFrameIndex + 1])->colorEnabled) {
+                        float t = GetAnimationTime(currentKeyFrameIndex);
+                        Fade(std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->color,
+                             t);
+                    }
+
+                    if (status == AnimationStatus::MovedToNext) {
+                        swap = std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex])->swap;
+                    }
+                }
+
+                return AnimationStatus::Default;
+            }
+
+            void EvolutionAnimation::Fade(glm::vec3 color, float time) {
+                bitMap = Transformations::Fade(originalBitMap, color, 286, time);
+            }
         }
     }
-
-    return AnimationStatus::Default;
-}
-
-void EvolutionAnimation::Fade(glm::vec3 color, float time)
-{
-    bitMap = Transformations::Fade(originalBitMap, color, 286, time);
 }

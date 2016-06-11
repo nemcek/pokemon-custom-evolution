@@ -8,16 +8,18 @@
 #include <memory>
 #include "Image.hpp"
 
-class PngImage : public Image
+namespace Images
 {
-private:
-    bool CreateBitMap(png_bytep *row_pointers, int width, int height);
+    class PngImage : public Image
+    {
+    private:
+        bool CreateBitMap(png_bytep *row_pointers, int width, int height);
 
-public:
-    PngImage(const char *file_name);
-    ~PngImage();
-};
+    public:
+        PngImage(const char *file_name);
+        ~PngImage();
+    };
 
-typedef std::shared_ptr<PngImage> PngImagePtr;
-
+    typedef std::shared_ptr<PngImage> PngImagePtr;
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_PNGIMAGE_HPP

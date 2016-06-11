@@ -7,20 +7,22 @@
 
 #include "ShaderProgram.hpp"
 
-class StaticShader : public ShaderProgram
+namespace Shaders
 {
-private:
-    GLint _texture;
-    GLint _position;
+    class StaticShader : public ShaderProgram
+    {
+    private:
+        GLint _texture;
+        GLint _position;
 
-public:
-    StaticShader();
-    ~StaticShader();
-    void GetAllUniformLocations() override ;
-    void LoadTexture(unsigned int textureId);
-    void LoadPosition(glm::vec2 position);
-};
+    public:
+        StaticShader();
+        ~StaticShader();
+        void GetAllUniformLocations() override;
+        void LoadTexture(unsigned int textureId);
+        void LoadPosition(glm::vec2 position);
+    };
 
-typedef std::shared_ptr<StaticShader> StaticShaderPtr;
-
+    typedef std::shared_ptr<StaticShader> StaticShaderPtr;
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_STATICSHADER_HPP

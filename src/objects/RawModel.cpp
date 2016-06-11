@@ -4,6 +4,9 @@
 
 #include "src/objects/RawModel.hpp"
 
-RawModel::RawModel() { }
+namespace Objects
+{
+    RawModel::RawModel() { }
 
-RawModel::~RawModel() { }
+    RawModel::~RawModel() { }
+}

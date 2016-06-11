@@ -13,26 +13,33 @@
 #include <memory>
 #include FT_FREETYPE_H
 
-struct Character {
-    GLuint TextureID;   // ID handle of the glyph _texture
-    glm::ivec2 Size;    // Size of glyph
-    glm::ivec2 Bearing;  // Offset from baseline to left/top of glyph
-    GLuint Advance;    // Horizontal offset to advance to next glyph
-};
-
-class Font
+namespace Engine
 {
-private:
-    FT_Library _ft;
-    FT_Face _face;
-public:
-    std::map<GLchar, Character> characters;
+    namespace Texts
+    {
+        struct Character {
+            GLuint TextureID;   // ID handle of the glyph _texture
+            glm::ivec2 Size;    // Size of glyph
+            glm::ivec2 Bearing;  // Offset from baseline to left/top of glyph
+            GLuint Advance;    // Horizontal offset to advance to next glyph
+        };
 
-    Font(std::string ttfFile, unsigned int size);
-    ~Font();
-    void InitCharacters();
-};
+        class Font
+        {
+        private:
+            FT_Library _ft;
+            FT_Face _face;
+        public:
+            std::map<GLchar, Character> characters;
 
-typedef std::shared_ptr<Font> FontPtr;
+            Font(std::string ttfFile, unsigned int size);
 
+            ~Font();
+
+            void InitCharacters();
+        };
+
+        typedef std::shared_ptr<Font> FontPtr;
+    }
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_FONT_HPP

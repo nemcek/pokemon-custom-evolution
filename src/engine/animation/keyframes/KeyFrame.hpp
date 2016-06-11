@@ -10,22 +10,30 @@
 #include <glm/vec3.hpp>
 #include <memory>
 
-class KeyFrame
+namespace Engine
 {
-private:
-    void Init(float time, glm::vec2 pos, float scale);
+    namespace nsAnimation
+    {
+        namespace KeyFrames
+        {
+            class KeyFrame
+            {
+            private:
+                void Init(float time, glm::vec2 pos, float scale);
 
-public:
-    glm::vec2 position;
-    float time;
-    float scale;
-    std::function<void (void)> callback;
+            public:
+                glm::vec2 position;
+                float time;
+                float scale;
+                std::function<void(void)> callback;
 
-    KeyFrame(float time, glm::vec2 pos, float scale);
-    KeyFrame(float time, glm::vec2 pos, float scale, std::function<void (void)> callback);
-    virtual ~KeyFrame();
-};
+                KeyFrame(float time, glm::vec2 pos, float scale);
+                KeyFrame(float time, glm::vec2 pos, float scale, std::function<void(void)> callback);
+                virtual ~KeyFrame();
+            };
 
-typedef std::shared_ptr<KeyFrame> KeyFramePtr;
-
+            typedef std::shared_ptr<KeyFrame> KeyFramePtr;
+        }
+    }
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_KEYFRAME_HPP

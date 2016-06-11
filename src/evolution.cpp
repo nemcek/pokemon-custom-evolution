@@ -5,6 +5,9 @@
 #include <engine/InputManager.hpp>
 #include <constants/Constants.hpp>
 
+using namespace Windows;
+using namespace Scenes;
+
 float currentFrameTime;
 float lastFrameTime;
 float frameTimeDelta;

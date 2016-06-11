@@ -7,17 +7,25 @@
 
 #include "Animation.hpp"
 
-class TextAnimation : public Animation
+namespace Engine
 {
-public:
-    std::string text;
+    namespace nsAnimation
+    {
+        namespace Animations
+        {
+            class TextAnimation : public Animation
+            {
+            public:
+                std::string text;
 
-    TextAnimation();
-    TextAnimation(bool repeat);
-    ~TextAnimation();
-    AnimationStatus Animate(float delta) override ;
-};
+                TextAnimation();
+                TextAnimation(bool repeat);
+                ~TextAnimation();
+                AnimationStatus Animate(float delta) override;
+            };
 
-typedef std::shared_ptr<TextAnimation> TextAnimationPtr;
-
+            typedef std::shared_ptr<TextAnimation> TextAnimationPtr;
+        }
+    }
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_TEXTANIMATION_HPP

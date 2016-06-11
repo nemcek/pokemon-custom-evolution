@@ -8,23 +8,29 @@
 #include <shaders/TextShader.hpp>
 #include <engine/text/Text.hpp>
 
-class TextRenderer
+using namespace Shaders;
+using namespace Engine::Texts;
+
+namespace Engine
 {
-private:
-    GLuint _vao;
-    GLuint _vbo;
+    namespace Rendering
+    {
+        class TextRenderer
+        {
+        private:
+            GLuint _vao;
+            GLuint _vbo;
 
-    void Initialize();
+            void Initialize();
+        public:
+            TextShaderPtr shader;
+            TextRenderer(TextShaderPtr shader);
+            ~TextRenderer();
+            void Render(TextPtr text, glm::mat4 projection);
+            void Render(std::vector<TextPtr> text, glm::mat4 projection);
+        };
 
-public:
-    TextShaderPtr shader;
-
-    TextRenderer(TextShaderPtr shader);
-    ~TextRenderer();
-    void Render(TextPtr text, glm::mat4 projection);
-    void Render(std::vector<TextPtr> text, glm::mat4 projection);
-};
-
-typedef std::shared_ptr<TextRenderer> TextRendererPtr;
-
+        typedef std::shared_ptr<TextRenderer> TextRendererPtr;
+    }
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_TEXTRENDERER_HPP

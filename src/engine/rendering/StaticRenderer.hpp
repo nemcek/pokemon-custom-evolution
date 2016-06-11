@@ -9,19 +9,25 @@
 #include <images/BitMap.hpp>
 #include <objects/Quad.hpp>
 
-class StaticRenderer
+using namespace Shaders;
+
+namespace Engine
 {
-private:
+    namespace Rendering
+    {
+        class StaticRenderer
+        {
+        private:
 
-public:
-    StaticShaderPtr shader;
+        public:
+            StaticShaderPtr shader;
+            StaticRenderer(StaticShaderPtr shader);
+            ~StaticRenderer();
+            void Render(std::vector<QuadPtr> quad);
+            void Render(QuadPtr quad);
+        };
 
-    StaticRenderer(StaticShaderPtr shader);
-    ~StaticRenderer();
-    void Render(std::vector<QuadPtr> quad);
-    void Render(QuadPtr quad);
-};
-
-typedef std::shared_ptr<StaticRenderer> StaticRendererPtr;
-
+        typedef std::shared_ptr<StaticRenderer> StaticRendererPtr;
+    }
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_STATICRENDERER_HPP

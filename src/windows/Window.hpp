@@ -12,20 +12,22 @@
 #include <shaders/ShaderProgram.hpp>
 #include "src/images/Image.hpp"
 
-class Window
+namespace Windows
 {
-private:
+    class Window
+    {
+    private:
 
-public:
-    Window(int width, int height);
-    ~Window();
-    bool Show();
+    public:
+        Window(int width, int height);
+        ~Window();
+        bool Show();
 
-    GLFWwindow *window;
-    int width;
-    int height;
-};
+        GLFWwindow *window;
+        int width;
+        int height;
+    };
 
-typedef std::shared_ptr<Window> WindowPtr;
-
+    typedef std::shared_ptr<Window> WindowPtr;
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_WINDOW_HPP

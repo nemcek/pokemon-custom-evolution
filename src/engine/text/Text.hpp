@@ -17,24 +17,30 @@
 #include <engine/animation/animations/TextAnimation.hpp>
 #include "Font.hpp"
 
+using namespace Engine::nsAnimation::Animations;
 
-class Text
+namespace Engine
 {
-public:
-    std::string text;
-    glm::vec2 position;
-    GLfloat scale;
-    glm::vec3 color;
-    FontPtr font;
-    TextAnimationPtr animation;
+    namespace Texts
+    {
+        class Text
+        {
+        public:
+            std::string text;
+            glm::vec2 position;
+            GLfloat scale;
+            glm::vec3 color;
+            FontPtr font;
+            TextAnimationPtr animation;
 
-    Text(glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr font);
-    Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr font);
-    ~Text();
-    void SetText(std::string text);
-    void Animate(float delta);
-};
+            Text(glm::vec2 position, float scale, glm::vec3 color, FontPtr font);
+            Text(std::string text, glm::vec2 position, GLfloat scale, glm::vec3 color, FontPtr font);
+            ~Text();
+            void SetText(std::string text);
+            void Animate(float delta);
+        };
 
-typedef std::shared_ptr<Text> TextPtr;
-
+        typedef std::shared_ptr<Text> TextPtr;
+    }
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_TEXT_HPP

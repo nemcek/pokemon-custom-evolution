@@ -8,20 +8,28 @@
 #include "Animation.hpp"
 #include <src/images/BitMap.hpp>
 
-class EvolutionAnimation : public Animation
+using namespace Images;
+
+namespace Engine
 {
-public:
-    bool swap = false;
-    // TODO: vyskat, ci toto moze byt ako &originalBitMap
-    BitMapPtr &originalBitMap;
-    BitMapPtr bitMap = nullptr;
+    namespace nsAnimation
+    {
+        namespace Animations
+        {
+            class EvolutionAnimation : public Animation
+            {
+            public:
+                bool swap = false;
+                BitMapPtr &originalBitMap;
+                BitMapPtr bitMap = nullptr;
+                EvolutionAnimation(BitMapPtr &bitMap);
+                ~EvolutionAnimation();
+                AnimationStatus Animate(float delta) override;
+                void Fade(glm::vec3 color, float time);
+            };
 
-    EvolutionAnimation(BitMapPtr &bitMap);
-    ~EvolutionAnimation();
-    AnimationStatus Animate(float delta) override ;
-    void Fade(glm::vec3 color, float time);
-};
-
-typedef std::shared_ptr<EvolutionAnimation> EvolutionAnimationPtr;
-
+            typedef std::shared_ptr<EvolutionAnimation> EvolutionAnimationPtr;
+        }
+    }
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_EVOLUTIONANIMATION_HPP

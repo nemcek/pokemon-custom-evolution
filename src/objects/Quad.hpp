@@ -11,29 +11,36 @@
 #include <images/BitMap.hpp>
 #include <engine/animation/animations/Animation.hpp>
 
-class Quad
+using namespace Engine;
+using namespace Engine::Loaders;
+using namespace Images;
+using namespace Engine::nsAnimation::Animations;
+
+namespace Objects
 {
-private:
-    std::vector<GLfloat> _vertexBuffer;
+    class Quad
+    {
+    private:
+        std::vector<GLfloat> _vertexBuffer;
 
-    void Init();
+        void Init();
+    public:
+        RawModelPtr rawModel;
+        float scale;
+        glm::vec2 position;
+        LoaderPtr loader;
+        BitMapPtr bitMap;
+        GLuint textureId;
+        AnimationPtr animation = nullptr;
 
-public:
-    RawModelPtr rawModel;
-    float scale;
-    glm::vec2 position;
-    LoaderPtr loader;
-    BitMapPtr bitMap;
-    GLuint textureId;
-    AnimationPtr animation = nullptr;
+        Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap);
 
-    Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap);
-    virtual ~Quad();
-    void ChangeToWhite();
-    virtual void Animate(float delta);
-    std::vector<GLfloat> Scale(float scale);
-};
+        virtual ~Quad();
+        void ChangeToWhite();
+        virtual void Animate(float delta);
+        std::vector<GLfloat> Scale(float scale);
+    };
 
-typedef std::shared_ptr<Quad> QuadPtr;
-
+    typedef std::shared_ptr<Quad> QuadPtr;
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_QUAD_HPP

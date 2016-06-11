@@ -11,19 +11,27 @@
 #include <images/BitMap.hpp>
 #include <memory>
 
-class Loader
+using namespace Images;
+using namespace Objects;
+
+namespace Engine
 {
-private:
-    GLuint _programId;
+    namespace Loaders
+    {
+        class Loader
+        {
+        public:
+            Loader(GLuint programId);
+            ~Loader();
+            RawModelPtr Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> textcoord_buffer);
+            GLuint LoadTexture(BitMapPtr bitMap);
+            void LoadVertexBuffer(GLuint location, std::vector<GLfloat> vertex_buffer);
 
-public:
-    Loader(GLuint programId);
-    ~Loader();
-    RawModelPtr Load(std::vector<GLfloat> vertex_buffer, std::vector<GLfloat> textcoord_buffer);
-    GLuint LoadTexture(BitMapPtr bitMap);
-    void LoadVertexBuffer(GLuint location, std::vector<GLfloat> vertex_buffer);
-};
+        private:
+            GLuint _programId;
+        };
 
-typedef std::shared_ptr<Loader> LoaderPtr;
-
+        typedef std::shared_ptr<Loader> LoaderPtr;
+    }
+}
 #endif //POKEMON_CUSTOM_EVOLUTION_LOADER_HPP

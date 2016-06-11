@@ -4,19 +4,25 @@
 
 #include "TextKeyFrame.hpp"
 
-TextKeyFrame::TextKeyFrame(float time, glm::vec2 pos, float scale, std::string text)
-    : KeyFrame(time, pos, scale),
-      text(text)
+namespace Engine
 {
-}
+    namespace nsAnimation
+    {
+        namespace KeyFrames
+        {
+            TextKeyFrame::TextKeyFrame(float time, glm::vec2 pos, float scale, std::string text)
+                    : KeyFrame(time, pos, scale),
+                      text(text) {
+            }
 
-TextKeyFrame::TextKeyFrame(float time, glm::vec2 pos, float scale, std::string text,
-                           std::function<void(void)> callback)
-    : KeyFrame(time, pos, scale, callback),
-      text(text)
-{
-}
+            TextKeyFrame::TextKeyFrame(float time, glm::vec2 pos, float scale, std::string text,
+                                       std::function<void(void)> callback)
+                    : KeyFrame(time, pos, scale, callback),
+                      text(text) {
+            }
 
-TextKeyFrame::~TextKeyFrame()
-{
+            TextKeyFrame::~TextKeyFrame() {
+            }
+        }
+    }
 }

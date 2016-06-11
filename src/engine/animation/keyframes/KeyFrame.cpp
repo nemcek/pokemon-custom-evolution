@@ -4,24 +4,29 @@
 
 #include "KeyFrame.hpp"
 
-KeyFrame::KeyFrame(float time, glm::vec2 pos, float scale)
+namespace Engine
 {
-    Init(time, pos, scale);
-}
+    namespace nsAnimation
+    {
+        namespace KeyFrames
+        {
+            KeyFrame::KeyFrame(float time, glm::vec2 pos, float scale) {
+                Init(time, pos, scale);
+            }
 
-KeyFrame::KeyFrame(float time, glm::vec2 pos, float scale, std::function<void(void)> callback)
-{
-    Init(time, pos, scale);
-    this->callback = callback;
-}
+            KeyFrame::KeyFrame(float time, glm::vec2 pos, float scale, std::function<void(void)> callback) {
+                Init(time, pos, scale);
+                this->callback = callback;
+            }
 
-KeyFrame::~KeyFrame()
-{
-}
+            KeyFrame::~KeyFrame() {
+            }
 
-void KeyFrame::Init(float time, glm::vec2 pos, float scale)
-{
-    this->time = time;
-    this->position = pos;
-    this->scale = scale;
+            void KeyFrame::Init(float time, glm::vec2 pos, float scale) {
+                this->time = time;
+                this->position = pos;
+                this->scale = scale;
+            }
+        }
+    }
 }
