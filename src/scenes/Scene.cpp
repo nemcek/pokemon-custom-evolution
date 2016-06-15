@@ -34,9 +34,9 @@ namespace Scenes
         PngImagePtr backgroundImage = std::make_shared<PngImage>("data/evolution_background.png");
         PngImagePtr arrow = std::make_shared<PngImage>("data/evolution_arrow.png");
         PngImagePtr googleImage = std::make_shared<PngImage>("_data/google.png");
-//        PngImagePtr particleCircleImage = std::make_shared<PngImage>("data/evolution_particle_circle.png");
-//        PngImagePtr particleCrossImage = std::make_shared<PngImage>("data/evolution_particle_cross.png");
-//        PngImagePtr particleQuadImage = std::make_shared<PngImage>("data/evolution_particle_quad.png");
+        PngImagePtr particleCircleImage = std::make_shared<PngImage>("data/evolution_particle_circle.png");
+        PngImagePtr particleCrossImage = std::make_shared<PngImage>("data/evolution_particle_cross.png");
+        PngImagePtr particleQuadImage = std::make_shared<PngImage>("data/evolution_particle_quad.png");
 
         TextShaderPtr textShader = std::make_shared<TextShader>();
         TextRendererPtr textRenderer = std::make_shared<TextRenderer>(textShader);
@@ -48,13 +48,13 @@ namespace Scenes
                                                                         Constants::WINDOW_HEIGHT / 2), 1.0f,
                                                       backgroundImage->bitmap, nullptr);
         QuadPtr arrowQuad = std::make_shared<Quad>(loader, glm::vec2(900.0f, 50.0f), 0.04f, arrow->bitmap);
-//        EvolutionParticlePtr particleCircle = std::make_shared<EvolutionParticle>(loader,
-//                                                                                  glm::vec2(Constants::WINDOW_WIDTH / 2,
-//                                                                                            Constants::WINDOW_HEIGHT / 2),
-//                                                                                  0.05f,
-//                                                                                  particleCircleImage->bitmap,
-//                                                                                  particleQuadImage->bitmap,
-//                                                                                  particleCrossImage->bitmap);
+        EvolutionParticlePtr particleCircle = std::make_shared<EvolutionParticle>(loader,
+                                                                                  glm::vec2(Constants::WINDOW_WIDTH / 2,
+                                                                                            Constants::WINDOW_HEIGHT / 2),
+                                                                                  0.05f,
+                                                                                  particleCircleImage->bitmap,
+                                                                                  particleQuadImage->bitmap,
+                                                                                  particleCrossImage->bitmap, 0.0f);
 
         _renderManager->ProcessProjection(_projection);
 
@@ -73,32 +73,32 @@ namespace Scenes
         this->_texts.push_back(_startEvolutionTextFirstPart);
         this->_texts.push_back(_startEvolutionTextSecondPart);
 
-//        PointCompound4 pointCompound = {{74, 467},
-//                                        {115, 522},
-//                                        {681, 679},
-//                                        {797, 623}};
+        PointCompound4 pointCompound = {{884, 395},
+                                        {676, 299},
+                                        {2, 394},
+                                        {177, 573}};
+
+        PointCompound4 pointCompound2 = {{177, 573},
+                                         {332, 705},
+                                         {545, 785},
+                                         {691, 801}};
+
+        PointCompound4 pointCompound3 = {{691, 801},
+                                         {534, 854},
+                                         {515, 922},
+                                         {514, 957}};
 //
-//        PointCompound4 pointCompound2 = {{797, 618},
-//                                         {624, 607},
-//                                         {81, 647},
-//                                         {238, 799}};
 //
-//        PointCompound4 pointCompound3 = {{238, 799},
-//                                         {361, 863},
-//                                         {391, 888},
-//                                         {398, 958}};
-//
-//
-//        particleCircle->animation = std::make_shared<ParticleAnimation>(particleCircle->bitMap);
-//        particleCircle->animation->enabled = true;
-//        particleCircle->animation->Add(std::make_shared<ParticleKeyFrame>(0.0f, particleCircle->position, 1.0f,
-//                                                                             pointCompound));
-//        particleCircle->animation->Add(std::make_shared<ParticleKeyFrame>(1.0f, particleCircle->position, .66f,
-//                                                                          pointCompound2, true));
-//        particleCircle->animation->Add(std::make_shared<ParticleKeyFrame>(2.0f, particleCircle->position, .33f,
-//                                                                          pointCompound3, true));
-//        particleCircle->animation->Add(std::make_shared<ParticleKeyFrame>(2.33f, particleCircle->position, .1f,
-//                                                                          pointCompound3, true));
+        particleCircle->animation = std::make_shared<ParticleAnimation>(particleCircle->bitMap);
+        particleCircle->animation->enabled = true;
+        particleCircle->animation->Add(std::make_shared<ParticleKeyFrame>(0.0f, particleCircle->position, 1.0f,
+                                                                             pointCompound));
+        particleCircle->animation->Add(std::make_shared<ParticleKeyFrame>(5.0f, particleCircle->position, .66f,
+                                                                          pointCompound2, true));
+        particleCircle->animation->Add(std::make_shared<ParticleKeyFrame>(9.0f, particleCircle->position, .33f,
+                                                                          pointCompound3, true));
+        particleCircle->animation->Add(std::make_shared<ParticleKeyFrame>(12.33f, particleCircle->position, .1f,
+                                                                          pointCompound3, true));
 
         _evolution->animation = std::make_shared<EvolutionAnimation>(_evolution->bitMap);
         _evolution->animation->enabled = false;
