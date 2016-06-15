@@ -53,7 +53,7 @@ namespace Scenes
         ~Scene();
         void Animate(float delta);
         void Render();
-        void Update();
+        void Update(float delta);
         void Clean();
     };
 

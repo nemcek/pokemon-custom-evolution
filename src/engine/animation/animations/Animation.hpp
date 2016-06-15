@@ -39,6 +39,7 @@ namespace Engine
                 virtual AnimationStatus Animate(float delta);
                 void Add(KeyFramePtr keyFrame);
                 void SetDelay(float delayTime);
+                void Init();
 
             protected:
                 float animationTime;
@@ -47,7 +48,6 @@ namespace Engine
                 float delayTime = 0;
 
                 float GetAnimationTime(int index);
-                void Init();
                 bool ShouldRepeat(int index);
                 bool ShouldMoveToNextFrame(int index, float delta);
                 void MoveToNextFrame();

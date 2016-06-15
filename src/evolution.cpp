@@ -17,6 +17,14 @@ void OnKeyPress(GLFWwindow* window, int key, int scancode, int action, int mods)
     inputManager->OnKeyPress(window, key, scancode, action, mods);
 }
 
+void OnMouseMove(GLFWwindow* window, double xpos, double ypos) {
+    inputManager->OnMouseMove(window, xpos, ypos);
+}
+
+void OnMouseButtonClick(GLFWwindow* window, int button, int action, int mods) {
+    inputManager->OnMouseButtonClick(window, button, action, mods);
+}
+
 float getCurrentTime() {
     return (float) (glfwGetTime() * 1000.0f);
 }
@@ -29,13 +37,15 @@ int main()
     ScenePtr scene = std::make_shared<Scene>(inputManager);
 
     glfwSetKeyCallback(window->window, OnKeyPress);
+    glfwSetCursorPosCallback(window->window, OnMouseMove);
+    glfwSetMouseButtonCallback(window->window, OnMouseButtonClick);
 
     while (!glfwWindowShouldClose(window->window))
     {
         // Check and call events
         glfwPollEvents();
 
-        scene->Update();
+        scene->Update(frameTimeDelta);
         scene->Animate(frameTimeDelta);
         scene->Render();
 

@@ -24,6 +24,10 @@ namespace Engine
         }
 
         void StaticRenderer::Render(QuadPtr quad) {
+            if (!quad->renderAllowed) {
+                return;
+            }
+
             glBindVertexArray(quad->rawModel->vao);
             glBindBuffer(GL_ARRAY_BUFFER, quad->rawModel->vbo);
 

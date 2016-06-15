@@ -32,12 +32,14 @@ namespace Objects
         BitMapPtr bitMap;
         GLuint textureId;
         AnimationPtr animation = nullptr;
+        bool renderAllowed = true;
 
         Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap);
 
         virtual ~Quad();
         void ChangeToWhite();
         virtual void Animate(float delta);
+        virtual void Update(float delta);
         std::vector<GLfloat> Scale(float scale);
     };
 

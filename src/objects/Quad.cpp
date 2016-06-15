@@ -52,6 +52,10 @@ namespace Objects
         }
     }
 
+    void Quad::Update(float delta) {
+        return;
+    }
+
     std::vector<GLfloat> Quad::Scale(float scale) {
         std::vector<GLfloat> scaled(this->_vertexBuffer.size());
 

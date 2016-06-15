@@ -8,10 +8,12 @@ namespace Objects
 {
     EvolutionParticle::EvolutionParticle(LoaderPtr loader, glm::vec2 position, float scale,
                                          BitMapPtr firstStage, BitMapPtr secondStage,
-                                         BitMapPtr thirdStage)
+                                         BitMapPtr thirdStage, float renderDelay)
             : EvolutionQuad(loader, position, scale, firstStage, secondStage)
+            , _renderDelay(renderDelay)
             , _thirdsStage(thirdStage) {
         this->_thirdStageIsActive = false;
+        this->renderAllowed = false;
     }
 
     void EvolutionParticle::Animate(float delta) {
@@ -48,6 +50,16 @@ namespace Objects
 
             this->position = this->animation->position;
             this->Scale(this->animation->scale);
+        }
+    }
+
+    void EvolutionParticle::Update(float delta) {
+        _timeDelayed += delta;
+
+        if (_timeDelayed >= _renderDelay) {
+            renderAllowed = true;
+        } else {
+            animation->Init();
         }
     }
 }
