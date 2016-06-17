@@ -15,16 +15,26 @@ namespace Engine
                 this->swap = swap;
             }
 
-            EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, bool swap)
-                    : KeyFrame(time, pos, scale) {
+            EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, std::function<void(void)> callback,
+                                                 bool swap)
+                    : KeyFrame(time, pos, scale, callback) {
+                this->swap = swap;
+            }
+
+            EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, unsigned int yColorOffset,
+                                                 bool swap, bool changeToWhite)
+                    : KeyFrame(time, pos, scale)
+                    , yColorOffset(yColorOffset)
+                    , changeToWhite(changeToWhite) {
                 this->color = color;
                 this->colorEnabled = true;
                 this->swap = swap;
             }
 
-            EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color,
+            EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, unsigned int yColorOffset,
                                                  std::function<void(void)> callback, bool swap)
-                    : KeyFrame(time, pos, scale, callback) {
+                    : KeyFrame(time, pos, scale, callback)
+                    , yColorOffset(yColorOffset) {
                 this->color = color;
                 this->colorEnabled = true;
                 this->swap = swap;

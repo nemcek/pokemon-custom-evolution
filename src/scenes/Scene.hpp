@@ -39,13 +39,21 @@ namespace Scenes
         TextPtr _startEvolutionTextSecondPart;
         EvolutionQuadPtr _background;
         EvolutionQuadPtr _evolution;
+        LoaderPtr _loader;
+        glm::vec2 _mainQuadPos;
 
         // callbacks
         void WhatTextDrawFinishedCallback();
         void StartEvolutionTextFirstPartDrawFinishedCallback();
         void StartEvolutionTextDrawFinishedCallback();
         void EvolutionSceneFadeCompletedCallback();
+        void EvolutionSceneFlyAroundsCompletedCallBack();
+        void EvolutionSceneRainCompleted();
+        void EvolutionSceneEvolutionCompletedCallback();
         bool _startEvolutionTextDrawEnabled = false;
+        bool _flyAroundsActivated = false;
+        bool _rainActivated = false;
+        bool _circlesActivated = false;
         void Init();
 
     public:

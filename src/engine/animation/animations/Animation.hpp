@@ -40,7 +40,7 @@ namespace Engine
                 void Add(KeyFramePtr keyFrame);
                 void SetDelay(float delayTime);
                 void Init();
-
+                KeyFramePtr GetLastKetFrame();
             protected:
                 float animationTime;
                 int currentKeyFrameIndex;

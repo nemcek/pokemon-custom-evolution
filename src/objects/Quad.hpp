@@ -33,14 +33,18 @@ namespace Objects
         GLuint textureId;
         AnimationPtr animation = nullptr;
         bool renderAllowed = true;
+        float renderDelay = 0.0f;
 
         Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap);
-
         virtual ~Quad();
         void ChangeToWhite();
         virtual void Animate(float delta);
         virtual void Update(float delta);
         std::vector<GLfloat> Scale(float scale);
+
+    protected:
+        float _timeDelayed = 0.0f;
+
     };
 
     typedef std::shared_ptr<Quad> QuadPtr;

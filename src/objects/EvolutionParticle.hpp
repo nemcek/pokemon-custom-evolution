@@ -14,16 +14,15 @@ namespace Objects
     {
     public:
         EvolutionParticle(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr firstStage,
+                          float renderDelay);
+        EvolutionParticle(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr firstStage,
             BitMapPtr secondStage, BitMapPtr thirdStage, float renderDelay);
 
         void Animate(float delta) override;
         void Update(float delta) override;
-        float _renderDelay;
     private:
         BitMapPtr _thirdsStage;
         bool _thirdStageIsActive;
-
-        float _timeDelayed = 0.0f;
     };
 
     typedef std::shared_ptr<EvolutionParticle> EvolutionParticlePtr;

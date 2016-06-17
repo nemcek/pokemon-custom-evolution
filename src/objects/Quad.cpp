@@ -53,7 +53,16 @@ namespace Objects
     }
 
     void Quad::Update(float delta) {
-        return;
+        _timeDelayed += delta;
+
+        if (_timeDelayed >= renderDelay) {
+            renderAllowed = true;
+        } else {
+            if (animation == nullptr)
+                return;
+
+            animation->Init();
+        }
     }
 
     std::vector<GLfloat> Quad::Scale(float scale) {

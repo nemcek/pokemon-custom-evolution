@@ -20,12 +20,14 @@ namespace Engine
             {
             public:
                 bool swap = false;
+                bool changeToWhite = false;
                 BitMapPtr &originalBitMap;
                 BitMapPtr bitMap = nullptr;
+
                 EvolutionAnimation(BitMapPtr &bitMap);
                 ~EvolutionAnimation();
                 virtual AnimationStatus Animate(float delta) override;
-                void Fade(glm::vec3 color, float time);
+                void Fade(glm::vec3 color, float time, unsigned int yOffset);
             };
 
             typedef std::shared_ptr<EvolutionAnimation> EvolutionAnimationPtr;

@@ -21,8 +21,8 @@ namespace Engine
 
     struct Point
     {
-        unsigned int X;
-        unsigned int Y;
+        int X;
+        int Y;
     };
 
     class Transformations

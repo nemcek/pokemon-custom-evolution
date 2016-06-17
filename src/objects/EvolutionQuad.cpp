@@ -2,6 +2,7 @@
 // Created by martin on 26.05.2016.
 //
 
+#include <engine/Transformations.hpp>
 #include "EvolutionQuad.hpp"
 
 namespace Objects
@@ -21,6 +22,13 @@ namespace Objects
         if (this->animation != nullptr) {
             this->animation->Animate(delta);
 
+            if (this->animation->changeToWhite) {
+                this->_firstStageOfEvolution = Transformations::ChangeToWhite(this->_firstStageOfEvolution);
+                this->_secondStageOfEvolution = Transformations::ChangeToWhite(this->_secondStageOfEvolution);
+
+                this->animation->changeToWhite = false;
+            }
+
             if (this->animation->swap) {
                 if (_firstStageOfEvolutionIsActive) {
                     this->bitMap = _secondStageOfEvolution;
@@ -35,8 +43,7 @@ namespace Objects
 
                 this->animation->swap = false;
             }
-
-            if (this->animation->bitMap != nullptr) {
+            else if (this->animation->bitMap != nullptr) {
                 this->bitMap = this->animation->bitMap;
                 this->animation->bitMap = nullptr;
             }

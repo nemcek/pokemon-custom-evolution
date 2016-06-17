@@ -33,6 +33,10 @@ namespace Engine
                 this->keyFrames.push_back(keyFrame);
             }
 
+            KeyFramePtr Animation::GetLastKetFrame() {
+                return this->keyFrames[this->keyFrames.size() - 1];
+            }
+
             float Animation::GetAnimationTime(int index) {
                 return animationTime / (keyFrames[index + 1]->time - keyFrames[index]->time);
             }
