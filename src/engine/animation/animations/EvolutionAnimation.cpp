@@ -28,8 +28,15 @@ namespace Engine
                     if (std::static_pointer_cast<EvolutionKeyFrame>(
                             keyFrames[currentKeyFrameIndex + 1])->colorEnabled) {
                         float t = GetAnimationTime(currentKeyFrameIndex);
+
+                        if (std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->fadeBitMap !=
+                                nullptr) {
+                            Fade(std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->fadeBitMap,
+                                 t, std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->yColorOffset);
+                        } else {
                         Fade(std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->color,
                              t, std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->yColorOffset);
+                        }
                     }
 
                     if (status == AnimationStatus::MovedToNext) {
@@ -45,6 +52,10 @@ namespace Engine
 
             void EvolutionAnimation::Fade(glm::vec3 color, float time, unsigned int yOffset) {
                 bitMap = Transformations::Fade(originalBitMap, color, yOffset, time);
+            }
+
+            void EvolutionAnimation::Fade(BitMapPtr fadeBitMap, float time, unsigned int yOffset) {
+                bitMap = Transformations::Fade(originalBitMap, fadeBitMap, yOffset, time);
             }
         }
     }

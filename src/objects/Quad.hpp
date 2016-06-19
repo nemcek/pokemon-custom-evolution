@@ -26,7 +26,8 @@ namespace Objects
         void Init();
     public:
         RawModelPtr rawModel;
-        float scale;
+        float scaleX;
+        float scaleY;
         glm::vec2 position;
         LoaderPtr loader;
         BitMapPtr bitMap;
@@ -36,6 +37,7 @@ namespace Objects
         float renderDelay = 0.0f;
 
         Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap);
+        Quad(LoaderPtr loader, glm::vec2 position, float scaleX, float scaleY, BitMapPtr bitMap);
         virtual ~Quad();
         void ChangeToWhite();
         virtual void Animate(float delta);

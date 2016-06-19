@@ -28,6 +28,7 @@ namespace Engine
                 ~EvolutionAnimation();
                 virtual AnimationStatus Animate(float delta) override;
                 void Fade(glm::vec3 color, float time, unsigned int yOffset);
+                void Fade(BitMapPtr fadeBitMap, float time, unsigned int yOffset);
             };
 
             typedef std::shared_ptr<EvolutionAnimation> EvolutionAnimationPtr;

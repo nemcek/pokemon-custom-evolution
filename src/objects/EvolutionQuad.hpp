@@ -17,6 +17,8 @@ namespace Objects
 
         EvolutionQuad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr firstStageOfEvolution,
                       BitMapPtr secondStageOfEvolution);
+        EvolutionQuad(LoaderPtr loader, glm::vec2 position, float scaleX, float scaleY, BitMapPtr firstStageOfEvolution,
+                      BitMapPtr secondStageOfEvolution);
 
         ~EvolutionQuad();
 

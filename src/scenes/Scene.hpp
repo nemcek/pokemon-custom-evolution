@@ -41,6 +41,10 @@ namespace Scenes
         EvolutionQuadPtr _evolution;
         LoaderPtr _loader;
         glm::vec2 _mainQuadPos;
+        PngImagePtr _backgroundImage;
+        PngImagePtr _evolutionFirstStageImg;
+        PngImagePtr _evolutionSecondStageImg;
+        PngImagePtr _evolutionSecondStageImg2;
 
         // callbacks
         void WhatTextDrawFinishedCallback();
@@ -50,10 +54,13 @@ namespace Scenes
         void EvolutionSceneFlyAroundsCompletedCallBack();
         void EvolutionSceneRainCompleted();
         void EvolutionSceneEvolutionCompletedCallback();
+        void EvolutionSceneCirclesCompletedCallback();
+        void EvolutionSceneFadeToWhiteCompletedCallback();
         bool _startEvolutionTextDrawEnabled = false;
         bool _flyAroundsActivated = false;
         bool _rainActivated = false;
         bool _circlesActivated = false;
+        bool _fadeToWhiteCompleted = false;
         void Init();
 
     public:

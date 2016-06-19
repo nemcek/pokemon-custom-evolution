@@ -41,6 +41,10 @@ if ( MINGW )
     set ( CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${CMAKE_SOURCE_DIR}/dependencies/mingw/lib/" )
 endif ()
 
+#INCLUDE(FindPkgConfig)
+
+#PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+
 # Find dependencies
 find_package ( GLFW3 REQUIRED )
 find_package ( GLEW REQUIRED )
@@ -105,7 +109,12 @@ add_library(evolutionlib STATIC
         ${evolution_scenes}
         ${evolution_constants})
 
-target_link_libraries(evolutionlib ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARY} ${GLUT_LIBRARIES} ${FREETYPE_LIBRARIES})
+target_link_libraries(evolutionlib
+        ${OPENGL_LIBRARIES}
+        ${GLEW_LIBRARIES}
+        ${PNG_LIBRARY}
+        ${GLUT_LIBRARIES}
+        ${FREETYPE_LIBRARIES})
 
 #
 # TARGETS

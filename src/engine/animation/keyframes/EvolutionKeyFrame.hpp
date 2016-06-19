@@ -3,9 +3,12 @@
 //
 
 #include "KeyFrame.hpp"
+#include "images/BitMap.hpp"
 
 #ifndef POKEMON_CUSTOM_EVOLUTION_EVOLUTIONKEYFRAME_HPP
 #define POKEMON_CUSTOM_EVOLUTION_EVOLUTIONKEYFRAME_HPP
+
+using namespace Images;
 
 namespace Engine
 {
@@ -21,10 +24,13 @@ namespace Engine
                 bool colorEnabled = false;
                 unsigned int yColorOffset;
                 bool changeToWhite;
+                BitMapPtr fadeBitMap = nullptr;
 
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, bool swap = false);
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, std::function<void(void)> callback, bool swap = false);
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, unsigned int yColorOffset,
+                                  bool swap = false, bool changeToWhite = false);
+                EvolutionKeyFrame(float time, glm::vec2 pos, float scale, BitMapPtr fadeBitMap, unsigned int yColorOffset,
                                   bool swap = false, bool changeToWhite = false);
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, unsigned int yColorOffset,
                                   std::function<void(void)> callback, bool swap = false);

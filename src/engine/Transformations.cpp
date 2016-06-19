@@ -148,6 +148,30 @@ namespace Engine {
         return faded;
     }
 
+    BitMapPtr Transformations::Fade(BitMapPtr background, BitMapPtr fadeBitMap, unsigned int yOffset,
+                                    float fadeTime) {
+        BitMapPtr faded = std::make_shared<BitMap>(background->width, background->height);
+
+        for (unsigned int y = 0; y < background->height; y++) {
+            for (unsigned int x = 0; x < background->width; x++) {
+                if (y < background->height - yOffset) {
+                    (*faded->buffer)[y * background->width + x].R = (unsigned char) Transformations::Lerp(
+                            (*background->buffer)[y * background->width + x].R, (*fadeBitMap->buffer)[y * fadeBitMap->width + x].R, fadeTime);
+                    (*faded->buffer)[y * background->width + x].G = (unsigned char) Transformations::Lerp(
+                            (*background->buffer)[y * background->width + x].G, (*fadeBitMap->buffer)[y * fadeBitMap->width + x].G, fadeTime);
+                    (*faded->buffer)[y * background->width + x].B = (unsigned char) Transformations::Lerp(
+                            (*background->buffer)[y * background->width + x].B, (*fadeBitMap->buffer)[y * fadeBitMap->width + x].B, fadeTime);
+                    (*faded->buffer)[y * background->width + x].A = (*background->buffer)[y * background->width + x].A;
+                }
+                else
+                    (*faded->buffer)[y * background->width + x] = (*background->buffer)[y * background->width + x];
+            }
+        }
+
+        return faded;
+
+    }
+
     void Transformations::Bezier(Point &dest, const Point &a, const Point &b, const Point &c, const Point &d, const float t) {
         Point ab, bc, cd, abbc, bccd;
 

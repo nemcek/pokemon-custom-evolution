@@ -36,6 +36,7 @@ namespace Engine
         static float Lerp(float a, float b, float t);
         static void Lerp(Point& dest, const Point& a, const Point& b, const float t);
         static BitMapPtr Fade(BitMapPtr background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime);
+        static BitMapPtr Fade(BitMapPtr background, BitMapPtr fadeBitMap, unsigned int yOffset, float fadeTime);
         static void Bezier(Point &dest, const Point& a, const Point& b, const Point& c, const Point& d, const float t);
     private:
         static BitMapPtr Center(BitMapPtr background, BitMapPtr foreground);

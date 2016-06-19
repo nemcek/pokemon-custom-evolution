@@ -10,10 +10,20 @@ namespace Objects
     Quad::Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap)
             : loader(loader),
               position(position),
-              scale(scale),
+              scaleX(scale),
+              scaleY(scale),
               bitMap(bitMap) {
         Init();
     }
+
+    Quad::Quad(LoaderPtr loader, glm::vec2 position, float scaleX, float scaleY, BitMapPtr bitMap)
+        : loader(loader)
+        , position(position)
+        , scaleX(scaleX)
+        , scaleY(scaleY)
+        , bitMap(bitMap) {
+            Init();
+        }
 
     Quad::~Quad() { }
 
@@ -21,10 +31,10 @@ namespace Objects
         // Setup geometry
         _vertexBuffer = {
                 // x, y
-                1.0f * scale, 1.0f * scale,
-                -1.0f * scale, 1.0f * scale,
-                1.0f * scale, -1.0f * scale,
-                -1.0f * scale, -1.0f * scale
+                1.0f * scaleX, 1.0f * scaleY,
+                -1.0f * scaleX, 1.0f * scaleY,
+                1.0f * scaleX, -1.0f * scaleY,
+                -1.0f * scaleX, -1.0f * scaleY
         };
 
         // Generate another vertex buffer object for _texture coordinates

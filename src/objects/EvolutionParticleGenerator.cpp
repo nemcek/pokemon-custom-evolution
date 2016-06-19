@@ -164,7 +164,7 @@ namespace Objects
         particle->animation = std::make_shared<EvolutionAnimation>(particle->bitMap);
         particle->animation->enabled = true;
         particle->animation->repeat = false;
-        particle->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, particle->position, particle->scale));
+        particle->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, particle->position, particle->scaleX));
         particle->animation->Add(std::make_shared<EvolutionKeyFrame>(1.5f, particle->position, 0.0f));
 
         particles->push_back(particle);

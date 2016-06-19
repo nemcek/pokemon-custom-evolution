@@ -16,6 +16,15 @@ namespace Objects
         _secondStageOfEvolutionIsActive = false;
     }
 
+    EvolutionQuad::EvolutionQuad(LoaderPtr loader, glm::vec2 position, float scaleX, float scaleY,
+                                 BitMapPtr firstStageOfEvolution, BitMapPtr secondStageOfEvolution)
+            : Quad(loader, position, scaleX, scaleY, firstStageOfEvolution) {
+        this->_firstStageOfEvolution = firstStageOfEvolution;
+        this->_secondStageOfEvolution = secondStageOfEvolution;
+        _firstStageOfEvolutionIsActive = true;
+        _secondStageOfEvolutionIsActive = false;
+    }
+
     EvolutionQuad::~EvolutionQuad() { }
 
     void EvolutionQuad::Animate(float delta) {

@@ -4,6 +4,8 @@
 #include <scenes/Scene.hpp>
 #include <engine/InputManager.hpp>
 #include <constants/Constants.hpp>
+#include <pthread.h>
+#include <signal.h>
 
 using namespace Windows;
 using namespace Scenes;
@@ -29,8 +31,34 @@ float getCurrentTime() {
     return (float) (glfwGetTime() * 1000.0f);
 }
 
-int main()
+void *PlaySound(void *)
 {
+    system("canberra-gtk-play -f \"/home/martin/Projects/pokemon-custom-evolution/data/evolution_music.wav\"");
+
+    return NULL;
+}
+
+int main(int argc, char** argv)
+{
+//    pthread_t soundThread;
+//
+//    int rc = pthread_create(&soundThread,
+//                            NULL,
+//                            PlaySound,
+//                            NULL);
+//    if (rc){
+//        std::cout << "Error:unable to create thread," << rc << std::endl;
+//        exit(-1);
+//    }
+
+    // quick and dirty way
+//    pid_t sid;
+//    pid_t pid = fork();
+//    if (pid == 0) {
+//        sid = system("canberra-gtk-play -f \"/home/martin/Projects/pokemon-custom-evolution/data/evolution_music.wav\"");
+//        exit(0);
+//    }
+
     Window *window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT);
     window->Show();
     inputManager = std::make_shared<InputManager>();
@@ -57,6 +85,7 @@ int main()
         lastFrameTime = currentFrameTime;
     }
 
+//    kill(sid, SIGTERM);
     scene->Clean();
 
     glfwTerminate();
