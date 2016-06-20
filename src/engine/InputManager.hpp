@@ -19,6 +19,7 @@ namespace Engine
         void OnMouseMove(GLFWwindow* window, double xpos, double ypos);
         void OnMouseButtonClick(GLFWwindow* window, int button, int action, int mods);
         bool IsAPressed();
+        bool IsEnterPressed();
     private:
         bool *_keys;
         char _titleBuffer[256] = {'\0'};

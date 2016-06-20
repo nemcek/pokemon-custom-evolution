@@ -35,6 +35,7 @@ namespace Scenes
         RenderManagerPtr _renderManager;
         glm::mat4 _projection;
         InputManagerPtr _inputManager;
+        TextPtr _whatText;
         TextPtr _startEvolutionTextFirstPart;
         TextPtr _startEvolutionTextSecondPart;
         EvolutionQuadPtr _background;
@@ -45,6 +46,11 @@ namespace Scenes
         PngImagePtr _evolutionFirstStageImg;
         PngImagePtr _evolutionSecondStageImg;
         PngImagePtr _evolutionSecondStageImg2;
+        pid_t _evolutionSoundPID;
+        std::vector<BitMapPtr> _cachedFirstStageFadeBitMaps;
+        std::vector<BitMapPtr> _cachedSecondStageFadeBitMaps;
+        std::vector<BitMapPtr> _cachedBackGroundFadeBitMaps;
+        QuadPtr _arrow;
 
         // callbacks
         void WhatTextDrawFinishedCallback();
@@ -56,12 +62,20 @@ namespace Scenes
         void EvolutionSceneEvolutionCompletedCallback();
         void EvolutionSceneCirclesCompletedCallback();
         void EvolutionSceneFadeToWhiteCompletedCallback();
+        void EvolutionSceneFadeBackCompletedCallback();
+        void EvolutionCongratsTextDrawnCallback();
+
         bool _startEvolutionTextDrawEnabled = false;
         bool _flyAroundsActivated = false;
         bool _rainActivated = false;
         bool _circlesActivated = false;
         bool _fadeToWhiteCompleted = false;
+        bool _evolutionMainAnimationEnabled = false;
+        bool _evolutionFadeToWhiteEnabled = false;
+        bool _evolutionLastMessageDrawEnabled = false;
         void Init();
+        void PlayEvolutionSound();
+        void GenerateCache();
 
     public:
         Scene(InputManagerPtr inputManager);

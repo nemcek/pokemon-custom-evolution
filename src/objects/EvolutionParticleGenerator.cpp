@@ -31,9 +31,9 @@ namespace Objects
     }
 
     std::vector<EvolutionParticlePtr>* EvolutionParticleGenerator::GenerateRain(LoaderPtr loader, std::function<void(void)> callback) {
-        int particlesCount = 8;
+        int particlesCount = 6;
         int rainLinesCount = 10;
-        float particleDelayMs = .1f;
+        float particleDelayMs = .03f;
         float totalParticlesDelay = 0.0f;
 
         std::vector<EvolutionParticlePtr> *particles = new std::vector<EvolutionParticlePtr>;
@@ -72,11 +72,11 @@ namespace Objects
         particle->animation->repeat = false;
         particle->animation->Add(std::make_shared<ParticleKeyFrame>(0.0f, particle->position, 1.0f,
                                                                     p1));
-        particle->animation->Add(std::make_shared<ParticleKeyFrame>(1.0f, particle->position, .8f,
+        particle->animation->Add(std::make_shared<ParticleKeyFrame>(.83f, particle->position, .8f,
                                                                     p2, true));
-        particle->animation->Add(std::make_shared<ParticleKeyFrame>(2.0f, particle->position, .6f,
+        particle->animation->Add(std::make_shared<ParticleKeyFrame>(1.66f, particle->position, .6f,
                                                                     p3, true));
-        particle->animation->Add(std::make_shared<ParticleKeyFrame>(2.33f, particle->position, .0f,
+        particle->animation->Add(std::make_shared<ParticleKeyFrame>(2.0f, particle->position, .0f,
                                                                     p3, true));
     }
 
@@ -146,12 +146,13 @@ namespace Objects
     }
 
     void EvolutionParticleGenerator::AddRainAnimation(EvolutionParticlePtr particle, PointCompound4 p1) {
+        PointCompound4 p = {{-100, -100}, {-100, -100}, {-100, -100}, {-100, -100}};
         particle->animation = std::make_shared<ParticleAnimation>(particle->bitMap);
         particle->animation->enabled = true;
         particle->animation->repeat = false;
         particle->animation->Add(std::make_shared<ParticleKeyFrame>(0.0f, particle->position, .4f, p1));
-        particle->animation->Add(std::make_shared<ParticleKeyFrame>(2.0f, particle->position, .4f, p1));
-        particle->animation->Add(std::make_shared<ParticleKeyFrame>(2.0f, particle->position, .0f, p1));
+        particle->animation->Add(std::make_shared<ParticleKeyFrame>(.5f, particle->position, .4f, p1));
+        particle->animation->Add(std::make_shared<ParticleKeyFrame>(.5f, glm::vec2(-10.0f, -10.0f), .0f, p));
     }
 
 

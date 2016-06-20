@@ -40,5 +40,13 @@ namespace Engine
                 this->SetText(this->animation->text);
             }
         }
+
+        bool Text::ShouldRender() {
+            return _allowRender;
+        }
+
+        void Text::StopRendering() {
+            this->_allowRender = false;
+        }
     }
 }

@@ -41,6 +41,15 @@ namespace Engine
                 this->swap = swap;
             }
 
+            EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale,
+                                                 std::vector<BitMapPtr> &cachedFadeBitMaps, bool swap, bool changeToWhite)
+                    : KeyFrame(time, pos, scale)
+                    , changeToWhite(changeToWhite)
+                    , cachedBitMaps(&cachedFadeBitMaps) {
+                this->colorEnabled = true;
+                this->swap = swap;
+            }
+
             EvolutionKeyFrame::EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, unsigned int yColorOffset,
                                                  std::function<void(void)> callback, bool swap)
                     : KeyFrame(time, pos, scale, callback)

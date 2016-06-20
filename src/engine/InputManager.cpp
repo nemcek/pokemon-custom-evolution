@@ -51,4 +51,8 @@ namespace Engine
     bool InputManager::IsAPressed() {
         return this->_keys[GLFW_KEY_A];
     }
+
+    bool InputManager::IsEnterPressed() {
+        return this->_keys[GLFW_KEY_ENTER];
+    }
 }

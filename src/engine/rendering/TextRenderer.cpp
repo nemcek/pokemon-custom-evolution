@@ -37,6 +37,10 @@ namespace Engine
         }
 
         void TextRenderer::Render(TextPtr text, glm::mat4 projection) {
+            if (!text->ShouldRender()) {
+                return;
+            }
+
             shader->Start();
             shader->LoadTextColor(text->color);
             shader->LoadProjection(projection);

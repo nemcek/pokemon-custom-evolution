@@ -6,6 +6,7 @@
 #include <objects/EvolutionParticle.hpp>
 #include <engine/animation/animations/ParticleAnimation.hpp>
 #include <objects/EvolutionParticleGenerator.hpp>
+#include <signal.h>
 #include "Scene.hpp"
 
 namespace Scenes
@@ -16,11 +17,6 @@ namespace Scenes
     }
 
     Scene::~Scene() {
-//    delete _renderManager;
-//    delete _evolution;
-//    delete _background;
-//    delete _startEvolutionTextFirstPart;
-//    delete _startEvolutionTextSecondPart;
         _quads.clear();
         _texts.clear();
     }
@@ -53,7 +49,7 @@ namespace Scenes
         _background = std::make_shared<EvolutionQuad>(_loader, glm::vec2(Constants::WINDOW_WIDTH / 2,
                                                                         Constants::WINDOW_HEIGHT / 2), 1.0f,
                                                       _backgroundImage->bitmap, nullptr);
-        QuadPtr arrowQuad = std::make_shared<Quad>(_loader, glm::vec2(900.0f, 50.0f), 0.04f, arrow->bitmap);
+        _arrow = std::make_shared<Quad>(_loader, glm::vec2(900.0f, 50.0f), 0.04f, arrow->bitmap);
         EvolutionParticlePtr particleCircle = std::make_shared<EvolutionParticle>(_loader,
                                                                                   glm::vec2(Constants::WINDOW_WIDTH / 2,
                                                                                             Constants::WINDOW_HEIGHT / 2),
@@ -63,50 +59,35 @@ namespace Scenes
                                                                                   particleCrossImage->bitmap, 0.0f);
 
         _renderManager->ProcessProjection(_projection);
+        GenerateCache();
 
         textShader->Start();
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
         FontPtr font = std::make_shared<Font>("data/Pokemon.ttf", 48);
         std::string str1("What?!");
-        TextPtr text1 = std::make_shared<Text>(glm::vec2(55.0f, 190.0f), 1.0f, glm::vec3(0, 0, 0), font);
+        _whatText = std::make_shared<Text>(glm::vec2(55.0f, 190.0f), 1.0f, glm::vec3(0, 0, 0), font);
         std::string str2("Martin Nemcek is");
         _startEvolutionTextFirstPart = std::make_shared<Text>(glm::vec2(55.0f, 120.0f), 1.0f, glm::vec3(0, 0, 0), font);
         std::string str3("evolving!");
         _startEvolutionTextSecondPart = std::make_shared<Text>(glm::vec2(55.0f, 50.0f), 1.0f, glm::vec3(0, 0, 0), font);
 
-        this->_texts.push_back(text1);
+        this->_texts.push_back(_whatText);
         this->_texts.push_back(_startEvolutionTextFirstPart);
         this->_texts.push_back(_startEvolutionTextSecondPart);
 
-        _evolution->animation = std::make_shared<EvolutionAnimation>(_evolution->bitMap);
-        _evolution->animation->enabled = false;
-        _evolution->animation->repeat = false;
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, _mainQuadPos, 1.0f));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(1.0f, _mainQuadPos, 1.0f, glm::vec3(255.0, 255.0, 255.0), 0,
-                                                                       false, true));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(2.0f, _mainQuadPos, 0.0f, true));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _mainQuadPos, 1.0f));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(4.0f, _mainQuadPos, 0.0f, true));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(5.0f, _mainQuadPos, 1.0f));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(6.0f, _mainQuadPos, 0.0f, true));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(7.0f, _mainQuadPos, 1.0f));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(8.0f, _mainQuadPos, 0.0f, true));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(9.0f, _mainQuadPos, 1.0f));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(10.0f, _mainQuadPos, 0.0f, true));
-        _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(11.0f, _mainQuadPos, 1.0f, std::bind(&Scene::EvolutionSceneEvolutionCompletedCallback, this)));
-
-        arrowQuad->animation = std::make_shared<Animation>();
-        arrowQuad->animation->Add(std::make_shared<KeyFrame>(0.0f, arrowQuad->position, 1.0f));
-        arrowQuad->animation->Add(std::make_shared<KeyFrame>(0.5f, arrowQuad->position, 1.0f));
-        arrowQuad->animation->Add(std::make_shared<KeyFrame>(0.5f, arrowQuad->position, 0.0f));
-        arrowQuad->animation->Add(std::make_shared<KeyFrame>(1.0f, arrowQuad->position, 0.0f));
+        _arrow->animation = std::make_shared<Animation>();
+        _arrow->animation->enabled = false;
+        _arrow->animation->Add(std::make_shared<KeyFrame>(0.0f, _arrow->position, 1.0f));
+        _arrow->animation->Add(std::make_shared<KeyFrame>(0.5f, _arrow->position, 1.0f));
+        _arrow->animation->Add(std::make_shared<KeyFrame>(0.5f, _arrow->position, 0.0f));
+        _arrow->animation->Add(std::make_shared<KeyFrame>(1.0f, _arrow->position, 0.0f));
 
         std::string empty("");
-        text1->animation = std::make_shared<TextAnimation>(false);
-        text1->animation->SetDelay(1.0f);
-        text1->animation->Add(std::make_shared<TextKeyFrame>(0.0f, text1->position, text1->scale, empty));
-        text1->animation->Add(std::make_shared<TextKeyFrame>(.65f, text1->position, text1->scale, str1,
+        _whatText->animation = std::make_shared<TextAnimation>(false);
+        _whatText->animation->enabled = false;
+        _whatText->animation->Add(std::make_shared<TextKeyFrame>(0.0f, _whatText->position, _whatText->scale, empty));
+        _whatText->animation->Add(std::make_shared<TextKeyFrame>(.65f, _whatText->position, _whatText->scale, str1,
                                                              std::bind(&Scene::WhatTextDrawFinishedCallback, this)));
 
         _startEvolutionTextFirstPart->animation = std::make_shared<TextAnimation>(false);
@@ -114,7 +95,7 @@ namespace Scenes
         _startEvolutionTextFirstPart->animation->Add(
                 std::make_shared<TextKeyFrame>(0.0f, _startEvolutionTextFirstPart->position, 1.0f, empty));
         _startEvolutionTextFirstPart->animation->Add(
-                std::make_shared<TextKeyFrame>(2.0f, _startEvolutionTextFirstPart->position, 1.0f, str2,
+                std::make_shared<TextKeyFrame>(1.0f, _startEvolutionTextFirstPart->position, 1.0f, str2,
                                                std::bind(&Scene::StartEvolutionTextFirstPartDrawFinishedCallback,
                                                          this)));
 
@@ -123,7 +104,7 @@ namespace Scenes
         _startEvolutionTextSecondPart->animation->Add(
                 std::make_shared<TextKeyFrame>(0.0f, _startEvolutionTextSecondPart->position, 1.0f, empty));
         _startEvolutionTextSecondPart->animation->Add(
-                std::make_shared<TextKeyFrame>(1.5f, _startEvolutionTextSecondPart->position, 1.0f, str3,
+                std::make_shared<TextKeyFrame>(0.65f, _startEvolutionTextSecondPart->position, 1.0f, str3,
                                                std::bind(&Scene::StartEvolutionTextDrawFinishedCallback, this)));
 
         _background->animation = std::make_shared<EvolutionAnimation>(_background->bitMap);
@@ -132,28 +113,47 @@ namespace Scenes
         _background->animation->Add(
                 std::make_shared<EvolutionKeyFrame>(0.0f, _background->position, _background->scaleX));
         _background->animation->Add(std::make_shared<EvolutionKeyFrame>(1.0f, _background->position, _background->scaleX,
-                                                                        glm::vec3(0.0, 0.0, 0.0), 286,
+                                                                        glm::vec3(0.0, 0.0, 0.0), 286));
+        _background->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _background->position, _background->scaleX,
                                                                         std::bind(
                                                                                 &Scene::EvolutionSceneFadeCompletedCallback,
                                                                                 this)));
 
         this->_quads.push_back(_background);
         this->_quads.push_back(_evolution);
-        this->_quads.push_back(arrowQuad);
-//        this->_quads.push_back(particle);
-
-//        std::vector<EvolutionParticlePtr> *particles = EvolutionParticleGenerator::GenerateFlyArounds(loader);
-//        std::vector<EvolutionParticlePtr> *particles = EvolutionParticleGenerator::GenerateRain(_loader);
-//
-//        for (EvolutionParticlePtr particle : *particles) {
-//            _quads.push_back(particle);
-//        }
+        this->_quads.push_back(_arrow);
 
         for (QuadPtr quad : this->_quads)
             _renderManager->ProcessQuad(quad);
 
         for (TextPtr text : this->_texts)
             _renderManager->ProcessText(text);
+    }
+
+    void Scene::GenerateCache() {
+        for (float i = 0.0f; i < 1.0f; i += 0.1f) {
+            BitMapPtr bitMap = Transformations::Fade(_evolutionFirstStageImg->bitmap, glm::vec3(255.0, 255.0, 255.0), 0, i);
+            _cachedFirstStageFadeBitMaps.push_back(bitMap);
+        }
+        BitMapPtr bitMap = Transformations::Fade(_evolutionFirstStageImg->bitmap, glm::vec3(255.0, 255.0, 255.0), 0, 1.0f);
+        _cachedFirstStageFadeBitMaps.push_back(bitMap);
+
+        BitMapPtr white = Transformations::ChangeToWhite(_evolutionSecondStageImg2->bitmap);
+        for (float i = 0.0f; i < 1.0f; i += 0.1f) {
+            BitMapPtr bitMapSecond = Transformations::Fade(white, _evolutionSecondStageImg2->bitmap, 0, i);
+            _cachedSecondStageFadeBitMaps.push_back(bitMapSecond);
+        }
+        BitMapPtr bitMapSecond = Transformations::Fade(white, _evolutionSecondStageImg2->bitmap, 0, 1.0f);
+        _cachedSecondStageFadeBitMaps.push_back(bitMapSecond);
+
+//        white = Transformations::ChangeToWhite(_background->bitMap);
+//        for (float i = 0.0f; i < 1.0f; i += 0.1f) {
+//            BitMapPtr bitMapBack = Transformations::Fade(white, _background->bitMap, 286, i);
+//            _cachedBackGroundFadeBitMaps.push_back(bitMapBack);
+//        }
+//        BitMapPtr bitMapBack = Transformations::Fade(white, _background->bitMap, 286, 1.0f);
+//        _cachedBackGroundFadeBitMaps.push_back(bitMapBack);
+
     }
 
     void Scene::Animate(float delta) {
@@ -165,12 +165,6 @@ namespace Scenes
     }
 
     void Scene::Render() {
-//    for (Quad *quad : this->_quads)
-//        _renderManager->ProcessQuad(quad);
-//
-//    for (Text *text : this->_texts)
-//        _renderManager->ProcessText(text);
-
         _renderManager->Prepare();
         _renderManager->Render(this->_projection);
     }
@@ -178,6 +172,10 @@ namespace Scenes
     void Scene::Update(float delta) {
         for (QuadPtr quad : this->_quads) {
             quad->Update(delta);
+        }
+
+        if (_inputManager->IsEnterPressed()) {
+            _whatText->animation->enabled = true;
         }
 
         if (_inputManager->IsAPressed() && _startEvolutionTextDrawEnabled)
@@ -192,6 +190,13 @@ namespace Scenes
                 _renderManager->ProcessQuad(particle);
                 _quads.push_back(particle);
             }
+
+            _evolution->animation = std::make_shared<EvolutionAnimation>(_evolution->bitMap);
+            _evolution->animation->enabled = true;
+            _evolution->animation->repeat = false;
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(2.0f, _mainQuadPos, 1.0f, _cachedFirstStageFadeBitMaps));
+
             _flyAroundsActivated = false;
         }
 
@@ -216,9 +221,9 @@ namespace Scenes
             particle->animation->enabled = true;
             particle->animation->repeat = false;
             particle->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, particle->position, particle->scaleX));
-            particle->animation->Add(std::make_shared<EvolutionKeyFrame>(1.5f, particle->position, 0.0f));
-            particle->animation->Add(std::make_shared<EvolutionKeyFrame>(1.5f, particle->position, 1.0f));
-            particle->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, particle->position, 0.0f,
+            particle->animation->Add(std::make_shared<EvolutionKeyFrame>(0.5f, particle->position, 0.0f));
+            particle->animation->Add(std::make_shared<EvolutionKeyFrame>(0.5f, particle->position, 1.0f));
+            particle->animation->Add(std::make_shared<EvolutionKeyFrame>(1.0f, particle->position, 0.0f,
                                                                          std::bind(&Scene::EvolutionSceneCirclesCompletedCallback, this)));
 
 
@@ -232,29 +237,107 @@ namespace Scenes
             _background->animation->enabled = true;
             _background->animation->repeat = false;
             _background->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, _background->position, _background->scaleX));
-            _background->animation->Add(std::make_shared<EvolutionKeyFrame>(5.0f, _background->position, _background->scaleX,
+            _background->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _background->position, _background->scaleX,
                                                                             _backgroundImage->bitmap, 286));
-            _background->animation->Add(std::make_shared<EvolutionKeyFrame>(5.0f, _background->position, _background->scaleX));
+//            _background->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _background->position, _background->scaleX));
 
             _evolution->ChangeToWhite();
             _evolution->animation = std::make_shared<EvolutionAnimation>(_evolution->bitMap);
             _evolution->animation->enabled = true;
             _evolution->animation->repeat = false;
             _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, _mainQuadPos, 1.0f));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(5.0f, _mainQuadPos, 1.0f,
-                                                                           _evolutionSecondStageImg2->bitmap, 0));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(5.0f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _mainQuadPos, 1.0f,
+                                                                           _cachedSecondStageFadeBitMaps));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _mainQuadPos, 1.0f,
+                                                                           std::bind(&Scene::EvolutionSceneFadeBackCompletedCallback, this)));
 
             _fadeToWhiteCompleted = false;
+        }
+
+        if (_evolutionMainAnimationEnabled) {
+            _evolution->animation = std::make_shared<EvolutionAnimation>(_evolution->bitMap);
+            _evolution->animation->enabled = true;
+            _evolution->animation->repeat = false;
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(1.0f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(1.8f, _mainQuadPos, 0.0f, true));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(2.6f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(3.3f, _mainQuadPos, 0.1f, true));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(4.0f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(4.6f, _mainQuadPos, 0.2f, true));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(5.2f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(5.7f, _mainQuadPos, 0.3f, true));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(6.2f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(6.6f, _mainQuadPos, 0.4f, true));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(7.0f, _mainQuadPos, 1.0f, std::bind(&Scene::EvolutionSceneEvolutionCompletedCallback, this)));
+
+            _evolutionMainAnimationEnabled = false;
+        }
+
+        if (_evolutionFadeToWhiteEnabled) {
+            _background->animation = std::make_shared<EvolutionAnimation>(_background->bitMap);
+            _background->animation->enabled = true;
+            _background->animation->repeat = false;
+            _background->animation->Add(
+                    std::make_shared<EvolutionKeyFrame>(0.0f, _background->position, _background->scaleX));
+            _background->animation->Add(std::make_shared<EvolutionKeyFrame>(1.0f, _background->position, _background->scaleX,
+                                                                            glm::vec3(255.0, 255.0, 255.0), 286,
+                                                                            std::bind(&Scene::EvolutionSceneFadeToWhiteCompletedCallback, this)));
+
+            _evolutionFadeToWhiteEnabled = false;
+        }
+
+        if (_evolutionLastMessageDrawEnabled) {
+            FontPtr font = std::make_shared<Font>("data/Pokemon.ttf", 48);
+            FontPtr fontS = std::make_shared<Font>("data/Pokemon.ttf", 40);
+            std::string str1("Congratulations!");
+            TextPtr congratsText = std::make_shared<Text>(glm::vec2(55.0f, 190.0f), 1.0f, glm::vec3(0, 0, 0), font);
+            std::string str2("Martin Nemcek evolved");
+            TextPtr lastMsgFirstPart = std::make_shared<Text>(glm::vec2(55.0f, 120.0f), 1.0f, glm::vec3(0, 0, 0), fontS);
+            std::string str3("into Bc.Martin Nemcek!");
+            TextPtr lastMsgSecondPart = std::make_shared<Text>(glm::vec2(55.0f, 50.0f), 1.0f, glm::vec3(0, 0, 0), fontS);
+
+            this->_texts.push_back(congratsText);
+            this->_texts.push_back(lastMsgFirstPart);
+            this->_texts.push_back(lastMsgSecondPart);
+
+            std::string empty("");
+            congratsText->animation = std::make_shared<TextAnimation>(false);
+            congratsText->animation->Add(std::make_shared<TextKeyFrame>(0.0f, congratsText->position, congratsText->scale, empty));
+            congratsText->animation->Add(std::make_shared<TextKeyFrame>(.8f, congratsText->position, congratsText->scale, str1));
+
+            lastMsgFirstPart->animation = std::make_shared<TextAnimation>(false);
+            lastMsgFirstPart->animation->Add(std::make_shared<TextKeyFrame>(0.0f, congratsText->position, congratsText->scale, empty));
+            lastMsgFirstPart->animation->Add(
+                    std::make_shared<TextKeyFrame>(1.2f, lastMsgFirstPart ->position, 1.0f, empty));
+            lastMsgFirstPart->animation->Add(
+                    std::make_shared<TextKeyFrame>(2.4f, lastMsgFirstPart ->position, 1.0f, str2));
+
+            lastMsgSecondPart->animation = std::make_shared<TextAnimation>(false);
+            lastMsgSecondPart->animation->Add(std::make_shared<TextKeyFrame>(0.0f, congratsText->position, congratsText->scale, empty));
+            lastMsgSecondPart->animation->Add(
+                    std::make_shared<TextKeyFrame>(2.6f, _startEvolutionTextSecondPart->position, 1.0f, empty));
+            lastMsgSecondPart->animation->Add(
+                    std::make_shared<TextKeyFrame>(4.0f, _startEvolutionTextSecondPart->position, 1.0f, str3));
+
+            _renderManager->ProcessText(congratsText);
+            _renderManager->ProcessText(lastMsgFirstPart);
+            _renderManager->ProcessText(lastMsgSecondPart);
+            _arrow->animation->enabled = false;
+            _arrow->Scale(0.0f);
+
+            _evolutionLastMessageDrawEnabled = false;
         }
     }
 
     void Scene::Clean() {
         this->_renderManager->Clean();
+        kill(_evolutionSoundPID, SIGTERM);
     }
 
     void Scene::WhatTextDrawFinishedCallback() {
         _startEvolutionTextDrawEnabled = true;
+        _arrow->animation->enabled = true;
     }
 
     void Scene::StartEvolutionTextFirstPartDrawFinishedCallback() {
@@ -264,6 +347,8 @@ namespace Scenes
 
     void Scene::StartEvolutionTextDrawFinishedCallback() {
         _background->animation->enabled = true;
+        _background->animation->SetDelay(1.0f);
+        PlayEvolutionSound();
     }
 
 
@@ -276,8 +361,7 @@ namespace Scenes
     }
 
     void Scene::EvolutionSceneRainCompleted() {
-        _evolution->animation->SetDelay(0.5f);
-        _evolution->animation->enabled = true;
+        _evolutionMainAnimationEnabled = true;
     }
 
     void Scene::EvolutionSceneEvolutionCompletedCallback() {
@@ -285,20 +369,27 @@ namespace Scenes
     }
 
     void Scene::EvolutionSceneCirclesCompletedCallback() {
-        _background->animation = std::make_shared<EvolutionAnimation>(_background->bitMap);
-        _background->animation->enabled = true;
-        _background->animation->repeat = false;
-        _background->animation->Add(
-                std::make_shared<EvolutionKeyFrame>(0.0f, _background->position, _background->scaleX));
-        _background->animation->Add(std::make_shared<EvolutionKeyFrame>(1.0f, _background->position, _background->scaleX,
-                                                                        glm::vec3(255.0, 255.0, 255.0), 286,
-                                                                        std::bind(&Scene::EvolutionSceneFadeToWhiteCompletedCallback, this)));
-//        std::bind(
-//                &Scene::EvolutionSceneFadeCompletedCallback,
-//                this)
+        _evolutionFadeToWhiteEnabled = true;
     }
 
     void Scene::EvolutionSceneFadeToWhiteCompletedCallback() {
         _fadeToWhiteCompleted = true;
     }
+
+    void Scene::EvolutionSceneFadeBackCompletedCallback() {
+        _whatText->StopRendering();
+        _startEvolutionTextFirstPart->StopRendering();
+        _startEvolutionTextSecondPart->StopRendering();
+        _evolutionLastMessageDrawEnabled = true;
+    }
+
+    void Scene::PlayEvolutionSound() {
+        // quick and dirty way
+        pid_t pid = fork();
+        if (pid == 0) {
+            _evolutionSoundPID = system("canberra-gtk-play -f \"/home/martin/Projects/pokemon-custom-evolution/data/evolution_music.wav\"");
+            exit(0);
+        }
+    }
+
 }

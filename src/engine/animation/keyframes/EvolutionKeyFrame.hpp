@@ -25,12 +25,15 @@ namespace Engine
                 unsigned int yColorOffset;
                 bool changeToWhite;
                 BitMapPtr fadeBitMap = nullptr;
+                std::vector<BitMapPtr> *cachedBitMaps = nullptr;
 
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, bool swap = false);
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, std::function<void(void)> callback, bool swap = false);
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, unsigned int yColorOffset,
                                   bool swap = false, bool changeToWhite = false);
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, BitMapPtr fadeBitMap, unsigned int yColorOffset,
+                                  bool swap = false, bool changeToWhite = false);
+                EvolutionKeyFrame(float time, glm::vec2 pos, float scale, std::vector<BitMapPtr> &cachedfadeBitMaps,
                                   bool swap = false, bool changeToWhite = false);
                 EvolutionKeyFrame(float time, glm::vec2 pos, float scale, glm::vec3 color, unsigned int yColorOffset,
                                   std::function<void(void)> callback, bool swap = false);

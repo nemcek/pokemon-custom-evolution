@@ -25,17 +25,19 @@ namespace Engine
                     if (currentKeyFrameIndex + 1 >= keyFrames.size())
                         return AnimationStatus::Default;
 
-                    if (std::static_pointer_cast<EvolutionKeyFrame>(
-                            keyFrames[currentKeyFrameIndex + 1])->colorEnabled) {
+                    EvolutionKeyFramePtr evoKeyFrame = std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1]);
+
+                    if (evoKeyFrame->colorEnabled) {
                         float t = GetAnimationTime(currentKeyFrameIndex);
 
-                        if (std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->fadeBitMap !=
-                                nullptr) {
-                            Fade(std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->fadeBitMap,
-                                 t, std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->yColorOffset);
-                        } else {
-                        Fade(std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->color,
-                             t, std::static_pointer_cast<EvolutionKeyFrame>(keyFrames[currentKeyFrameIndex + 1])->yColorOffset);
+                        if (evoKeyFrame->cachedBitMaps != nullptr) {
+                            Fade(*evoKeyFrame->cachedBitMaps, evoKeyFrame->time - keyFrames[currentKeyFrameIndex]->time, animationTime);
+                        }
+                        else if (evoKeyFrame->fadeBitMap != nullptr) {
+                            Fade(evoKeyFrame->fadeBitMap, t, evoKeyFrame->yColorOffset);
+                        }
+                        else {
+                            Fade(evoKeyFrame->color, t, evoKeyFrame->yColorOffset);
                         }
                     }
 
@@ -56,6 +58,16 @@ namespace Engine
 
             void EvolutionAnimation::Fade(BitMapPtr fadeBitMap, float time, unsigned int yOffset) {
                 bitMap = Transformations::Fade(originalBitMap, fadeBitMap, yOffset, time);
+            }
+
+            void EvolutionAnimation::Fade(std::vector<BitMapPtr> &cachedBitMaps, float totalAnimTime, float animTime) {
+                float cachedBitMapsCount = cachedBitMaps.size();
+                float oneCachedBitMapTimePortion = totalAnimTime / cachedBitMapsCount;
+                int idx = static_cast<int>(animTime / oneCachedBitMapTimePortion);
+
+                printf("animtime: %f; onecached: %f; idx: %i\n", animTime, oneCachedBitMapTimePortion, idx);
+
+                bitMap = cachedBitMaps[idx];
             }
         }
     }

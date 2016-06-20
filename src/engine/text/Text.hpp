@@ -38,6 +38,10 @@ namespace Engine
             ~Text();
             void SetText(std::string text);
             void Animate(float delta);
+            void StopRendering();
+            bool ShouldRender();
+        private:
+            bool _allowRender = true;
         };
 
         typedef std::shared_ptr<Text> TextPtr;
