@@ -26,12 +26,11 @@ namespace Scenes
                                  static_cast<GLfloat>(Constants::WINDOW_HEIGHT));
 
         _mainQuadPos = glm::vec2(Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2 + Constants::WINDOW_HEIGHT / 6);
-//        PngImagePtr png_image = std::make_shared<PngImage>("_data/github.png");
         _evolutionFirstStageImg = std::make_shared<PngImage>("data/first_evo.png");
         _backgroundImage = std::make_shared<PngImage>("data/evolution_background.png");
         PngImagePtr arrow = std::make_shared<PngImage>("data/evolution_arrow.png");
-        _evolutionSecondStageImg = std::make_shared<PngImage>("_data/google.png");
-        _evolutionSecondStageImg2 = std::make_shared<PngImage>("_data/google.png");
+        _evolutionSecondStageImg = std::make_shared<PngImage>("data/second_evo.png");
+        _evolutionSecondStageImg2 = std::make_shared<PngImage>("data/second_evo.png");
         PngImagePtr particleCircleImage = std::make_shared<PngImage>("data/evolution_particle_circle.png");
         PngImagePtr particleCrossImage = std::make_shared<PngImage>("data/evolution_particle_cross.png");
         PngImagePtr particleQuadImage = std::make_shared<PngImage>("data/evolution_particle_quad.png");
@@ -145,15 +144,6 @@ namespace Scenes
         }
         BitMapPtr bitMapSecond = Transformations::Fade(white, _evolutionSecondStageImg2->bitmap, 0, 1.0f);
         _cachedSecondStageFadeBitMaps.push_back(bitMapSecond);
-
-//        white = Transformations::ChangeToWhite(_background->bitMap);
-//        for (float i = 0.0f; i < 1.0f; i += 0.1f) {
-//            BitMapPtr bitMapBack = Transformations::Fade(white, _background->bitMap, 286, i);
-//            _cachedBackGroundFadeBitMaps.push_back(bitMapBack);
-//        }
-//        BitMapPtr bitMapBack = Transformations::Fade(white, _background->bitMap, 286, 1.0f);
-//        _cachedBackGroundFadeBitMaps.push_back(bitMapBack);
-
     }
 
     void Scene::Animate(float delta) {
@@ -239,7 +229,6 @@ namespace Scenes
             _background->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, _background->position, _background->scaleX));
             _background->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _background->position, _background->scaleX,
                                                                             _backgroundImage->bitmap, 286));
-//            _background->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _background->position, _background->scaleX));
 
             _evolution->ChangeToWhite();
             _evolution->animation = std::make_shared<EvolutionAnimation>(_evolution->bitMap);
@@ -260,15 +249,11 @@ namespace Scenes
             _evolution->animation->repeat = false;
             _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(0.0f, _mainQuadPos, 1.0f));
             _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(1.0f, _mainQuadPos, 1.0f));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(1.8f, _mainQuadPos, 0.0f, true));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(2.6f, _mainQuadPos, 1.0f));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(3.3f, _mainQuadPos, 0.1f, true));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(4.0f, _mainQuadPos, 1.0f));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(4.6f, _mainQuadPos, 0.2f, true));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(5.2f, _mainQuadPos, 1.0f));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(5.7f, _mainQuadPos, 0.3f, true));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(6.2f, _mainQuadPos, 1.0f));
-            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(6.6f, _mainQuadPos, 0.4f, true));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(2.0f, _mainQuadPos, 0.0f, true));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(3.0f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(4.0f, _mainQuadPos, 0.0f, true));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(5.0f, _mainQuadPos, 1.0f));
+            _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(6.0f, _mainQuadPos, 0.0f, true));
             _evolution->animation->Add(std::make_shared<EvolutionKeyFrame>(7.0f, _mainQuadPos, 1.0f, std::bind(&Scene::EvolutionSceneEvolutionCompletedCallback, this)));
 
             _evolutionMainAnimationEnabled = false;

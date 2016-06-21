@@ -32,20 +32,18 @@ namespace Engine
         double x, y;
         glfwGetCursorPos(window, &x, &y);
         y = glm::abs(Constants::WINDOW_HEIGHT - y);
-
-        printf("[%i, %i]\n", static_cast<int>(x), static_cast<int>(y));
     }
 
     void InputManager::OnMouseMove(GLFWwindow *window, double xpos, double ypos) {
-        double x, y;
-        glfwGetCursorPos(window, &x, &y);
+//        double x, y;
+//        glfwGetCursorPos(window, &x, &y);
 
-        y = glm::abs(Constants::WINDOW_HEIGHT - y);
-
-        snprintf(_titleBuffer, 255, "[%i, %i]", static_cast<int>(x), static_cast<int>(y));
-
-        // Sets coordinates into title
-        glfwSetWindowTitle(window, _titleBuffer);
+//        y = glm::abs(Constants::WINDOW_HEIGHT - y);
+//
+//        snprintf(_titleBuffer, 255, "[%i, %i]", static_cast<int>(x), static_cast<int>(y));
+//
+//        // Sets coordinates into title
+//        glfwSetWindowTitle(window, _titleBuffer);
     }
 
     bool InputManager::IsAPressed() {

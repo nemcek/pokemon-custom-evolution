@@ -26,7 +26,7 @@ namespace Windows
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         // Try to create a window
-        this->window = glfwCreateWindow(this->width, this->height, "Evolution", NULL, NULL);
+        this->window = glfwCreateWindow(this->width, this->height, "Custom Evolution", NULL, NULL);
         if (this->window == NULL) {
             std::cerr << "Failed to open GLFW window, your graphics card is probably only capable of OpenGL 2.1" <<
             std::endl;

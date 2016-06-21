@@ -65,8 +65,6 @@ namespace Engine
                 float oneCachedBitMapTimePortion = totalAnimTime / cachedBitMapsCount;
                 int idx = static_cast<int>(animTime / oneCachedBitMapTimePortion);
 
-                printf("animtime: %f; onecached: %f; idx: %i\n", animTime, oneCachedBitMapTimePortion, idx);
-
                 bitMap = cachedBitMaps[idx];
             }
         }
