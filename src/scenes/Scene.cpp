@@ -26,11 +26,11 @@ namespace Scenes
                                  static_cast<GLfloat>(Constants::WINDOW_HEIGHT));
 
         _mainQuadPos = glm::vec2(Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2 + Constants::WINDOW_HEIGHT / 6);
-        _evolutionFirstStageImg = std::make_shared<PngImage>("data/first_evo.png");
+        _evolutionFirstStageImg = std::make_shared<PngImage>("_data/first_evo.png");
         _backgroundImage = std::make_shared<PngImage>("data/evolution_background.png");
         PngImagePtr arrow = std::make_shared<PngImage>("data/evolution_arrow.png");
-        _evolutionSecondStageImg = std::make_shared<PngImage>("data/second_evo.png");
-        _evolutionSecondStageImg2 = std::make_shared<PngImage>("data/second_evo.png");
+        _evolutionSecondStageImg = std::make_shared<PngImage>("_data/second_evo.png");
+        _evolutionSecondStageImg2 = std::make_shared<PngImage>("_data/second_evo.png");
         PngImagePtr particleCircleImage = std::make_shared<PngImage>("data/evolution_particle_circle.png");
         PngImagePtr particleCrossImage = std::make_shared<PngImage>("data/evolution_particle_cross.png");
         PngImagePtr particleQuadImage = std::make_shared<PngImage>("data/evolution_particle_quad.png");
@@ -372,7 +372,7 @@ namespace Scenes
         // quick and dirty way
         pid_t pid = fork();
         if (pid == 0) {
-            _evolutionSoundPID = system("canberra-gtk-play -f \"/home/martin/Projects/pokemon-custom-evolution/data/evolution_music.wav\"");
+            _evolutionSoundPID = system("paplay \"/home/nemcek/dev/pokemon-custom-evolution/data/evolution_music.wav\"");
             exit(0);
         }
     }
