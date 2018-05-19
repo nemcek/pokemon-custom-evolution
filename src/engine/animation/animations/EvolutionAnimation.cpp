@@ -61,6 +61,9 @@ namespace Engine
             }
 
             void EvolutionAnimation::Fade(std::vector<BitMapPtr> &cachedBitMaps, float totalAnimTime, float animTime) {
+                if (animTime > totalAnimTime)
+                    animTime = totalAnimTime;
+
                 float cachedBitMapsCount = cachedBitMaps.size();
                 float oneCachedBitMapTimePortion = totalAnimTime / cachedBitMapsCount;
                 int idx = static_cast<int>(animTime / oneCachedBitMapTimePortion);
