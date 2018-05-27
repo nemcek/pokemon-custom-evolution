@@ -1,7 +1,7 @@
 #include <images/PngImage.hpp>
 #include <GLFW/glfw3.h>
 #include <windows/Window.hpp>
-#include <scenes/Scene.hpp>
+#include <scenes/EvolutionScene.hpp>
 
 using namespace Windows;
 using namespace Scenes;
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
     Window *window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT);
     window->Show();
     inputManager = std::make_shared<InputManager>();
-    ScenePtr scene = std::make_shared<Scene>(inputManager);
+    ScenePtr scene = std::make_shared<EvolutionScene>(inputManager);
 
     glfwSetKeyCallback(window->window, OnKeyPress);
     glfwSetCursorPosCallback(window->window, OnMouseMove);
