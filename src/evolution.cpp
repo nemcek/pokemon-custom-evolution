@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <windows/Window.hpp>
 #include <scenes/EvolutionScene.hpp>
+#include <scenes/BattleScene.hpp>
 
 using namespace Windows;
 using namespace Scenes;
@@ -53,8 +54,6 @@ int main(int argc, char** argv)
         frameTimeDelta = (currentFrameTime - lastFrameTime) / 1000.0f;
         lastFrameTime = currentFrameTime;
     }
-
-//    kill(sid, SIGTERM);
 
     glfwTerminate();
 
