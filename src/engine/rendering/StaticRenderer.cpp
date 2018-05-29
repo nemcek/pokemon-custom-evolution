@@ -31,6 +31,7 @@ namespace Engine
             glBindVertexArray(quad->rawModel->vao);
             glBindBuffer(GL_ARRAY_BUFFER, quad->rawModel->vbo);
 
+
             glm::vec2 coords = Transformations::ToOpenGLCoords(quad->position, Constants::WINDOW_WIDTH,
                                                                Constants::WINDOW_HEIGHT);
             this->shader->LoadPosition(coords);

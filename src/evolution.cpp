@@ -32,6 +32,7 @@ int main(int argc, char** argv)
     Window *window = new Window(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT);
     window->Show();
     inputManager = std::make_shared<InputManager>();
+//    ScenePtr scene = std::make_shared<BattleScene>();
     ScenePtr scene = std::make_shared<EvolutionScene>(inputManager);
 
     glfwSetKeyCallback(window->window, OnKeyPress);

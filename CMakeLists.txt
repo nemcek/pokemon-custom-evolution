@@ -134,7 +134,7 @@ set ( EVOLUTION_SRC
         ${evolution_engine_loaders}
         ${evolution_engine_animation}
         ${evolution_scenes}
-        ${evolution_constants})
+        ${evolution_constants} src/scenes/Scene.cpp src/scenes/Scene.hpp src/scenes/BattleScene.cpp src/scenes/BattleScene.hpp)
 
 generate_shaders( EVOLUTION_SHADERS
         src/shaders/frag_text.glsl

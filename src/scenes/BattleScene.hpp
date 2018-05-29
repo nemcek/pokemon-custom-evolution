@@ -6,10 +6,21 @@
 #define POKEMON_CUSTOM_EVOLUTION_BATTLESCENE_H
 
 #include "Scene.hpp"
+#include "objects/Quad.hpp"
+#include "engine/rendering/RenderManager.hpp"
+#include <constants/Constants.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Scenes
 {
     class BattleScene : public Scene {
+    private:
+        std::vector<QuadPtr> _quads;
+        Rendering::RenderManagerPtr _renderManager;
+        glm::mat4 _projection;
+        LoaderPtr _loader;
+
+        void Init();
     public:
         BattleScene();
         ~BattleScene();
