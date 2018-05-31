@@ -309,7 +309,7 @@ namespace Scenes
             _renderManager->ProcessText(lastMsgFirstPart);
             _renderManager->ProcessText(lastMsgSecondPart);
             _arrow->animation->enabled = false;
-            _arrow->Scale(0.0f);
+            _arrow->Scale(glm::vec2(0.0f, 0.0f));
 
             _evolutionLastMessageDrawEnabled = false;
         }

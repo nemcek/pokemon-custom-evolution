@@ -31,6 +31,7 @@ namespace Images
         int height;
 
         BitMap(int width, int height);
+        BitMap(int width, int height, Pixel value);
         ~BitMap();
     };
 

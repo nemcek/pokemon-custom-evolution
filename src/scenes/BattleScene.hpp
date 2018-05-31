@@ -16,6 +16,7 @@ namespace Scenes
     class BattleScene : public Scene {
     private:
         std::vector<QuadPtr> _quads;
+        std::vector<TextPtr> _texts;
         Rendering::RenderManagerPtr _renderManager;
         glm::mat4 _projection;
         LoaderPtr _loader;

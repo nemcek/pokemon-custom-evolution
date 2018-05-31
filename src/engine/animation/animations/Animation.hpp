@@ -30,7 +30,7 @@ namespace Engine
                 std::vector<KeyFramePtr> keyFrames;
                 bool repeat = true;
                 glm::vec2 position;
-                float scale;
+                glm::vec2 scale;
                 bool enabled;
 
                 Animation();

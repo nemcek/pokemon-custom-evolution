@@ -14,6 +14,12 @@ namespace Engine
                 Init(time, pos, scale);
             }
 
+            KeyFrame::KeyFrame(float time, glm::vec2 pos, glm::vec2 scale) {
+                this->time = time;
+                this->position = pos;
+                this->scale = scale;
+            }
+
             KeyFrame::KeyFrame(float time, glm::vec2 pos, float scale, std::function<void(void)> callback) {
                 Init(time, pos, scale);
                 this->callback = callback;
@@ -25,7 +31,7 @@ namespace Engine
             void KeyFrame::Init(float time, glm::vec2 pos, float scale) {
                 this->time = time;
                 this->position = pos;
-                this->scale = scale;
+                this->scale = glm::vec2(scale, scale);
             }
         }
     }

@@ -36,7 +36,7 @@ namespace Engine
             if (this->animation != nullptr) {
                 this->animation->Animate(delta);
                 this->position = this->animation->position;
-                this->scale = this->animation->scale;
+                this->scale = this->animation->scale.x;
                 this->SetText(this->animation->text);
             }
         }

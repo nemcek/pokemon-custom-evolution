@@ -75,11 +75,15 @@ namespace Objects
         }
     }
 
-    std::vector<GLfloat> Quad::Scale(float scale) {
+    std::vector<GLfloat> Quad::Scale(glm::vec2 scale) {
         std::vector<GLfloat> scaled(this->_vertexBuffer.size());
 
-        for (int i = 0; i < this->_vertexBuffer.size(); i++)
-            scaled[i] = this->_vertexBuffer[i] * scale;
+        for (int i = 0; i < this->_vertexBuffer.size(); i++) {
+            if (i % 2 == 1)
+                scaled[i] = this->_vertexBuffer[i] * scale.x;
+            else
+                scaled[i] = this->_vertexBuffer[i] * scale.y;
+        }
 
         // apply scaling
         this->loader->LoadVertexBuffer(this->rawModel->vbo, scaled);

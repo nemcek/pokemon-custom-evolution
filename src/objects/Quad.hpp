@@ -42,7 +42,7 @@ namespace Objects
         void ChangeToWhite();
         virtual void Animate(float delta);
         virtual void Update(float delta);
-        std::vector<GLfloat> Scale(float scale);
+        std::vector<GLfloat> Scale(glm::vec2 scale);
 
     protected:
         float _timeDelayed = 0.0f;
