@@ -68,17 +68,24 @@ namespace Scenes {
         enemy->animation->Add(std::make_shared<KeyFrame>(0.0f, glm::vec2(960, 800), 1.0f));
         enemy->animation->Add(std::make_shared<KeyFrame>(1.5f, glm::vec2(720, 800), 1.0f));
 
-        PngImagePtr guiMenuImage = std::make_shared<PngImage>("data/pokemon_gui_menu.png");
-        QuadPtr guiMenu = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.775f, Constants::WINDOW_HEIGHT * 0.1475f), 0.45f, 0.3f, guiMenuImage->bitmap);
+//        PngImagePtr guiMenuImage = std::make_shared<PngImage>("data/pokemon_gui_menu.png");
+//        QuadPtr guiMenu = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.775f, Constants::WINDOW_HEIGHT * 0.1475f), 0.45f, 0.3f, guiMenuImage->bitmap);
+
+//        PngImagePtr guiSelectorImage = std::make_shared<PngImage>("data/pokemon_gui_selector.png");
+//        QuadPtr guiSelector = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.695f, Constants::WINDOW_HEIGHT * 0.197f), 0.22f, 0.06f, guiSelectorImage->bitmap);
+//
+//        guiSelector->animation = std::make_shared<Animation>(true);
+//        guiSelector->animation->Add(std::make_shared<KeyFrame>(0.0f, guiSelector->position, 1.0f));
+//        guiSelector->animation->Add(std::make_shared<KeyFrame>(0.7f, guiSelector->position, 1.0f));
+//        guiSelector->animation->Add(std::make_shared<KeyFrame>(0.7f, guiSelector->position, 0.0f));
+//        guiSelector->animation->Add(std::make_shared<KeyFrame>(1.0f, guiSelector->position, 0.0f));
 
         PngImagePtr guiSelectorImage = std::make_shared<PngImage>("data/pokemon_gui_selector.png");
-        QuadPtr guiSelector = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.695f, Constants::WINDOW_HEIGHT * 0.197f), 0.22f, 0.06f, guiSelectorImage->bitmap);
+//        QuadPtr guiSelector = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.21f, Constants::WINDOW_HEIGHT * 0.197f), 0.35f, 0.06f, guiSelectorImage->bitmap);
+        QuadPtr guiSelector = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.21f, Constants::WINDOW_HEIGHT * 0.0975f), 0.35f, 0.06f, guiSelectorImage->bitmap);
 
-        guiSelector->animation = std::make_shared<Animation>(true);
-        guiSelector->animation->Add(std::make_shared<KeyFrame>(0.0f, guiSelector->position, 1.0f));
-        guiSelector->animation->Add(std::make_shared<KeyFrame>(0.7f, guiSelector->position, 1.0f));
-        guiSelector->animation->Add(std::make_shared<KeyFrame>(0.7f, guiSelector->position, 0.0f));
-        guiSelector->animation->Add(std::make_shared<KeyFrame>(1.0f, guiSelector->position, 0.0f));
+        PngImagePtr guiBattleMenuImage = std::make_shared<PngImage>("data/pokemon_gui_battle_menu.png");
+        QuadPtr guiBattleMenu = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.5f, Constants::WINDOW_HEIGHT * 0.1475f), 1.0f, 0.3f, guiBattleMenuImage->bitmap);
 
         PngImagePtr playerExpImage = std::make_shared<PngImage>("data/pokemon_gui_expbar.png");
         QuadPtr playerExpbar = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.677f, Constants::WINDOW_HEIGHT * 0.3115f), 0.04f, 0.012f, playerExpImage->bitmap);
@@ -98,8 +105,12 @@ namespace Scenes {
         TextPtr playerLevelValueText = std::make_shared<Text>(std::string("99"), glm::vec2(Constants::WINDOW_WIDTH * 0.905f, Constants::WINDOW_HEIGHT * 0.44f), 0.5f, glm::vec3(0, 0, 0), font);
         TextPtr playerHealthActualText = std::make_shared<Text>(std::string("250"), glm::vec2(Constants::WINDOW_WIDTH * 0.69f, Constants::WINDOW_HEIGHT * 0.34f), 0.6f, glm::vec3(0, 0, 0), font);
         TextPtr playerHealthMaxText = std::make_shared<Text>(std::string("/ 250"), glm::vec2(Constants::WINDOW_WIDTH * 0.80f, Constants::WINDOW_HEIGHT * 0.34f), 0.6f, glm::vec3(0, 0, 0), font);
-        TextPtr menuPart1Text = std::make_shared<Text>(std::string("FIGHT BAG"), glm::vec2(Constants::WINDOW_WIDTH * 0.6f, Constants::WINDOW_HEIGHT * 0.18f), 0.8f, glm::vec3(0, 0, 0), font);
-        TextPtr menuPart2Text = std::make_shared<Text>(std::string("PKMN  RUN"), glm::vec2(Constants::WINDOW_WIDTH * 0.6f, Constants::WINDOW_HEIGHT * 0.08f), 0.8f, glm::vec3(0, 0, 0), font);
+//        TextPtr menuPart1Text = std::make_shared<Text>(std::string("FIGHT BAG"), glm::vec2(Constants::WINDOW_WIDTH * 0.6f, Constants::WINDOW_HEIGHT * 0.18f), 0.8f, glm::vec3(0, 0, 0), font);
+//        TextPtr menuPart2Text = std::make_shared<Text>(std::string("PKMN  RUN"), glm::vec2(Constants::WINDOW_WIDTH * 0.6f, Constants::WINDOW_HEIGHT * 0.08f), 0.8f, glm::vec3(0, 0, 0), font);
+        TextPtr battleMenuPart1Text = std::make_shared<Text>(std::string("DIPLOMKA  REST"), glm::vec2(Constants::WINDOW_WIDTH * 0.05f, Constants::WINDOW_HEIGHT * 0.18f), 0.8f, glm::vec3(0, 0, 0), font);
+        TextPtr battleMenuPart2Text = std::make_shared<Text>(std::string("OBHAJOBA  FART"), glm::vec2(Constants::WINDOW_WIDTH * 0.05f, Constants::WINDOW_HEIGHT * 0.08f), 0.8f, glm::vec3(0, 0, 0), font);
+        TextPtr battleMenuPart3Text = std::make_shared<Text>(std::string("PP 20/20"), glm::vec2(Constants::WINDOW_WIDTH * 0.7f, Constants::WINDOW_HEIGHT * 0.18f), 0.7f, glm::vec3(0, 0, 0), font);
+        TextPtr battleMenuPart4Text = std::make_shared<Text>(std::string("NORMAL"), glm::vec2(Constants::WINDOW_WIDTH * 0.7f, Constants::WINDOW_HEIGHT * 0.08f), 0.8f, glm::vec3(0, 0, 0), font);
 
         playerHealthActualText->animation = std::make_shared<TextAnimation>(false);
         playerHealthActualText->animation->Add(std::make_shared<TextKeyFrame>(0.0f, playerHealthActualText->position, playerHealthActualText->scale, playerHealthActualText->text));
@@ -117,7 +128,8 @@ namespace Scenes {
         this->_quads.push_back(playerGuiBackgroud);
         this->_quads.push_back(playerHealthbar);
         this->_quads.push_back(playerGui);
-        this->_quads.push_back(guiMenu);
+//        this->_quads.push_back(guiMenu);
+        this->_quads.push_back(guiBattleMenu);
         this->_quads.push_back(guiSelector);
         this->_quads.push_back(playerExpbar);
 
@@ -129,8 +141,12 @@ namespace Scenes {
         this->_texts.push_back(playerLevelValueText);
         this->_texts.push_back(playerHealthActualText);
         this->_texts.push_back(playerHealthMaxText);
-        this->_texts.push_back(menuPart1Text);
-        this->_texts.push_back(menuPart2Text);
+//        this->_texts.push_back(menuPart1Text);
+//        this->_texts.push_back(menuPart2Text);
+        this->_texts.push_back(battleMenuPart1Text);
+        this->_texts.push_back(battleMenuPart2Text);
+        this->_texts.push_back(battleMenuPart3Text);
+        this->_texts.push_back(battleMenuPart4Text);
 
         for (QuadPtr quad : this->_quads)
             _renderManager->ProcessQuad(quad);
