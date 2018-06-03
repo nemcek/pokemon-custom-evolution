@@ -94,6 +94,16 @@ namespace Scenes {
         playerExpbar->animation->Add(std::make_shared<KeyFrame>(0.0f, playerExpbar->position, 1.0f));
         playerExpbar->animation->Add(std::make_shared<KeyFrame>(2.0f, glm::vec2(Constants::WINDOW_WIDTH * 0.802f, playerExpbar->position.y), glm::vec2(1.0f, 7.25f)));
 
+        PngImagePtr playerAttack1Image = std::make_shared<PngImage>("data/enemy_attack1.png");
+        QuadPtr playerAttack1 = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.4f, Constants::WINDOW_HEIGHT * 0.5f), 0.2f, playerAttack1Image->bitmap);
+
+        playerAttack1->animation = std::make_shared<Animation>(true);
+        playerAttack1->animation->Add(std::make_shared<KeyFrame>(0.0f, playerAttack1->position, 1.0f));
+        playerAttack1->animation->Add(std::make_shared<KeyFrame>(2.0f, glm::vec2(Constants::WINDOW_WIDTH * 0.8f, Constants::WINDOW_HEIGHT * 0.8f), 0.3f));
+
+        PngImagePtr guiMenuImage = std::make_shared<PngImage>("data/pokemon_gui_menu.png");
+        QuadPtr guiLevelUp = std::make_shared<Quad>(_loader, glm::vec2(Constants::WINDOW_WIDTH * 0.775f, Constants::WINDOW_HEIGHT * 0.1475f), 0.45f, 1.0f, guiMenuImage->bitmap);
+
         textShader->Start();
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         FontPtr font = std::make_shared<Font>("data/Pokemon.ttf", 48);
@@ -132,6 +142,8 @@ namespace Scenes {
         this->_quads.push_back(guiBattleMenu);
         this->_quads.push_back(guiSelector);
         this->_quads.push_back(playerExpbar);
+        this->_quads.push_back(playerAttack1);
+        this->_quads.push_back(guiLevelUp);
 
         this->_texts.push_back(enemyNameText);
         this->_texts.push_back(enemyLevelText);
