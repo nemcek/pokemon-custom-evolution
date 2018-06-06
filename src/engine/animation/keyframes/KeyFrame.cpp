@@ -33,6 +33,13 @@ namespace Engine
                 this->position = pos;
                 this->scale = glm::vec2(scale, scale);
             }
+
+            KeyFrame::KeyFrame(float time, glm::vec2 pos, glm::vec2 scale, std::function<void(void)> callback) {
+                this->time = time;
+                this->position = pos;
+                this->scale = scale;
+                this->callback = callback;
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Engine
 
                 KeyFrame(float time, glm::vec2 pos, float scale);
                 KeyFrame(float time, glm::vec2 pos, glm::vec2 scale);
+                KeyFrame(float time, glm::vec2 pos, glm::vec2 scale, std::function<void(void)> callback);
                 KeyFrame(float time, glm::vec2 pos, float scale, std::function<void(void)> callback);
                 virtual ~KeyFrame();
             };

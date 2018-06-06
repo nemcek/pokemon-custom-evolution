@@ -38,6 +38,7 @@ namespace Engine
         static BitMapPtr Fade(BitMapPtr background, glm::vec3 fadeColor, unsigned int yOffset, float fadeTime);
         static BitMapPtr Fade(BitMapPtr background, BitMapPtr fadeBitMap, unsigned int yOffset, float fadeTime);
         static void Bezier(Point &dest, const Point& a, const Point& b, const Point& c, const Point& d, const float t);
+        static BitMapPtr Faint(BitMapPtr bitMap, int faint);
     private:
         static BitMapPtr Center(BitMapPtr background, BitMapPtr foreground);
     };

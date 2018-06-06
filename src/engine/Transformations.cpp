@@ -182,4 +182,20 @@ namespace Engine {
         Transformations::Lerp(bccd, bc, cd, t);
         Transformations::Lerp(dest, abbc, bccd, t);
     }
+
+    BitMapPtr Transformations::Faint(BitMapPtr bitMap, int faint) {
+        BitMapPtr fainted = std::make_shared<BitMap>(bitMap->width, bitMap->height, Pixel{0, 0, 0, 0});
+        int offset = (int)(bitMap->height / 100.0 * (100 - faint));
+
+        for (unsigned int y = offset; y < bitMap->height; y++) {
+            for (unsigned int x = 0; x < bitMap->width; x++) {
+                (*fainted->buffer)[y * bitMap->width + x].R = (*bitMap->buffer)[y * bitMap->width + x].R;
+                (*fainted->buffer)[y * bitMap->width + x].G = (*bitMap->buffer)[y * bitMap->width + x].G;
+                (*fainted->buffer)[y * bitMap->width + x].B = (*bitMap->buffer)[y * bitMap->width + x].B;
+                (*fainted->buffer)[y * bitMap->width + x].A = (*bitMap->buffer)[y * bitMap->width + x].A;
+            }
+        }
+
+        return fainted;
+    }
 }

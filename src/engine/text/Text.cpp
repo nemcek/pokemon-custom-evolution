@@ -48,5 +48,9 @@ namespace Engine
         void Text::StopRendering() {
             this->_allowRender = false;
         }
+
+        void Text::StartRendering() {
+            this->_allowRender = true;
+        }
     }
 }

@@ -34,6 +34,7 @@ namespace Objects
         GLuint textureId;
         AnimationPtr animation = nullptr;
         bool renderAllowed = true;
+        bool renderStoped = false;
         float renderDelay = 0.0f;
 
         Quad(LoaderPtr loader, glm::vec2 position, float scale, BitMapPtr bitMap);

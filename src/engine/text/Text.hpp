@@ -39,6 +39,7 @@ namespace Engine
             void SetText(std::string text);
             void Animate(float delta);
             void StopRendering();
+            void StartRendering();
             bool ShouldRender();
         private:
             bool _allowRender = true;

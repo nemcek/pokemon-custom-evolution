@@ -16,6 +16,8 @@ namespace Scenes
         virtual void Render() = 0;
 
         virtual void Update(float delta) = 0;
+
+        bool finished = false;
     };
 
     typedef std::shared_ptr<Scene> ScenePtr;

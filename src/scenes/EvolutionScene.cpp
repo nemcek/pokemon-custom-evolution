@@ -66,7 +66,7 @@ namespace Scenes
         FontPtr font = std::make_shared<Font>("data/Pokemon.ttf", 48);
         std::string str1("What?!");
         _whatText = std::make_shared<Text>(glm::vec2(55.0f, 190.0f), 1.0f, glm::vec3(0, 0, 0), font);
-        std::string str2("Martin Nemcek is");
+        std::string str2("Bc.Martin Nemcek is");
         _startEvolutionTextFirstPart = std::make_shared<Text>(glm::vec2(55.0f, 120.0f), 1.0f, glm::vec3(0, 0, 0), font);
         std::string str3("evolving!");
         _startEvolutionTextSecondPart = std::make_shared<Text>(glm::vec2(55.0f, 50.0f), 1.0f, glm::vec3(0, 0, 0), font);
@@ -92,9 +92,9 @@ namespace Scenes
         _startEvolutionTextFirstPart->animation = std::make_shared<TextAnimation>(false);
         _startEvolutionTextFirstPart->animation->enabled = false;
         _startEvolutionTextFirstPart->animation->Add(
-                std::make_shared<TextKeyFrame>(0.0f, _startEvolutionTextFirstPart->position, 1.0f, empty));
+                std::make_shared<TextKeyFrame>(0.0f, _startEvolutionTextFirstPart->position, 0.9f, empty));
         _startEvolutionTextFirstPart->animation->Add(
-                std::make_shared<TextKeyFrame>(1.0f, _startEvolutionTextFirstPart->position, 1.0f, str2,
+                std::make_shared<TextKeyFrame>(1.0f, _startEvolutionTextFirstPart->position, 0.9f, str2,
                                                std::bind(&EvolutionScene::StartEvolutionTextFirstPartDrawFinishedCallback,
                                                          this)));
 
@@ -277,9 +277,9 @@ namespace Scenes
             FontPtr fontS = std::make_shared<Font>("data/Pokemon.ttf", 40);
             std::string str1("Congratulations!");
             TextPtr congratsText = std::make_shared<Text>(glm::vec2(55.0f, 190.0f), 1.0f, glm::vec3(0, 0, 0), font);
-            std::string str2("Martin Nemcek evolved");
+            std::string str2("Bc.Martin Nemcek evolved");
             TextPtr lastMsgFirstPart = std::make_shared<Text>(glm::vec2(55.0f, 120.0f), 1.0f, glm::vec3(0, 0, 0), fontS);
-            std::string str3("into Bc.Martin Nemcek!");
+            std::string str3("into Ing.Martin Nemcek!");
             TextPtr lastMsgSecondPart = std::make_shared<Text>(glm::vec2(55.0f, 50.0f), 1.0f, glm::vec3(0, 0, 0), fontS);
 
             this->_texts.push_back(congratsText);
@@ -294,16 +294,16 @@ namespace Scenes
             lastMsgFirstPart->animation = std::make_shared<TextAnimation>(false);
             lastMsgFirstPart->animation->Add(std::make_shared<TextKeyFrame>(0.0f, congratsText->position, congratsText->scale, empty));
             lastMsgFirstPart->animation->Add(
-                    std::make_shared<TextKeyFrame>(1.2f, lastMsgFirstPart ->position, 1.0f, empty));
+                    std::make_shared<TextKeyFrame>(1.2f, lastMsgFirstPart ->position, 0.9f, empty));
             lastMsgFirstPart->animation->Add(
-                    std::make_shared<TextKeyFrame>(2.4f, lastMsgFirstPart ->position, 1.0f, str2));
+                    std::make_shared<TextKeyFrame>(2.4f, lastMsgFirstPart ->position, 0.9f, str2));
 
             lastMsgSecondPart->animation = std::make_shared<TextAnimation>(false);
             lastMsgSecondPart->animation->Add(std::make_shared<TextKeyFrame>(0.0f, congratsText->position, congratsText->scale, empty));
             lastMsgSecondPart->animation->Add(
-                    std::make_shared<TextKeyFrame>(2.6f, _startEvolutionTextSecondPart->position, 1.0f, empty));
+                    std::make_shared<TextKeyFrame>(2.6f, _startEvolutionTextSecondPart->position, 0.9f, empty));
             lastMsgSecondPart->animation->Add(
-                    std::make_shared<TextKeyFrame>(4.0f, _startEvolutionTextSecondPart->position, 1.0f, str3));
+                    std::make_shared<TextKeyFrame>(4.0f, _startEvolutionTextSecondPart->position, 0.9f, str3));
 
             _renderManager->ProcessText(congratsText);
             _renderManager->ProcessText(lastMsgFirstPart);

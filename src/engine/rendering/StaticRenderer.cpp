@@ -24,7 +24,7 @@ namespace Engine
         }
 
         void StaticRenderer::Render(QuadPtr quad) {
-            if (!quad->renderAllowed) {
+            if (!quad->renderAllowed || quad->renderStoped) {
                 return;
             }
 
