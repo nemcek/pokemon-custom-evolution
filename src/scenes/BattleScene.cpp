@@ -586,6 +586,8 @@ namespace Scenes {
         _enemy->animation->Add(std::make_shared<BattleKeyFrame>(0.9f, _enemy->position, 1.0f, 100.0f));
         _enemy->animation->repeat = false;
         _enemy->animation->useFaint = false;
+
+        PlayAttackImpactSound();
     }
 
     void BattleScene::BattleAttack1HealthCallback() {
@@ -634,6 +636,8 @@ namespace Scenes {
         _playerHealthActualText->animation->Add(std::make_shared<TextKeyFrame>(.9f, _playerHealthActualText->position, _playerHealthActualText->scale, std::string("244")));
         _playerHealthActualText->animation->Add(std::make_shared<TextKeyFrame>(1.2f, _playerHealthActualText->position, _playerHealthActualText->scale, std::string("242"),
                                                                                std::bind(&BattleScene::BattleAttack2HealthCallback, this)));
+
+        PlayAttackImpactSound();
     }
 
     void BattleScene::BattleAttack2HealthCallback() {
@@ -741,6 +745,7 @@ namespace Scenes {
         _enemyHealthbar->animation->Add(std::make_shared<KeyFrame>(1.6f, glm::vec2(_enemyHealthbar->position.x - _enemyHealthbar->bitMap->width * 0.305f, _enemyHealthbar->position.y), glm::vec2(1.0f, 0.0f),
                                                                    std::bind(&BattleScene::BattleAttack3HealthCallback, this)));
 
+        PlayAttackImpactSound();
     }
 
     void BattleScene::BattleAttack3HealthCallback() {
@@ -822,6 +827,16 @@ namespace Scenes {
     void BattleScene::Clean() {
         this->_renderManager->Clean();
         kill(_musicPID + 2, SIGTERM);
+    }
+
+    void BattleScene::PlayAttackImpactSound() {
+        // quick and dirty way
+        pid_t pid = fork();
+
+        if (pid == 0) {
+            system("paplay \"/home/nemcek/dev/pokemon-custom-evolution/data/pokemon_attack_impact_sound.wav\"");
+            exit(0);
+        }
     }
 
 }

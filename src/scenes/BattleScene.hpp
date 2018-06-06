@@ -110,6 +110,7 @@ namespace Scenes
         pid_t _musicPID;
 
         void PlayBattleMusic();
+        void PlayAttackImpactSound();
     public:
         BattleScene(InputManagerPtr inputManager);
         ~BattleScene();
