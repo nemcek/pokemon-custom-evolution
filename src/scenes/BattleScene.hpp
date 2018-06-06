@@ -107,12 +107,16 @@ namespace Scenes
 
         InputManagerPtr _inputManager;
         bool enabled = false;
+        pid_t _musicPID;
+
+        void PlayBattleMusic();
     public:
         BattleScene(InputManagerPtr inputManager);
         ~BattleScene();
         void Animate(float delta);
         void Render();
         void Update(float delta);
+        void Clean();
     };
 
     typedef std::shared_ptr<BattleScene> BattleScenePtr;

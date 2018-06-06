@@ -17,6 +17,8 @@ namespace Scenes
 
         virtual void Update(float delta) = 0;
 
+        virtual void Clean() = 0;
+
         bool finished = false;
     };
 

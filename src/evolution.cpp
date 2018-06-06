@@ -48,7 +48,7 @@ int main(int argc, char** argv)
         scene->Render();
 
         if (scene->finished) {
-            printf("%f\n", getCurrentTime());
+            scene->Clean();
             scene = std::make_shared<EvolutionScene>(inputManager);
         }
 

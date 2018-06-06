@@ -7,6 +7,7 @@
 #include <engine/Transformations.hpp>
 #include <engine/animation/keyframes/TextKeyFrame.hpp>
 #include <objects/BattleQuad.hpp>
+#include <csignal>
 #include "BattleScene.hpp"
 
 namespace Scenes {
@@ -474,8 +475,10 @@ namespace Scenes {
     }
 
     void BattleScene::Animate(float delta) {
-        if (_inputManager->IsEnterPressed())
+        if (_inputManager->IsEnterPressed()) {
+            PlayBattleMusic();
             this->enabled = true;
+        }
 
         if (!this->enabled)
             return;
@@ -804,6 +807,21 @@ namespace Scenes {
 
     void BattleScene::BattleGrewFinishedCallback() {
         this->finished = true;
+    }
+
+    void BattleScene::PlayBattleMusic() {
+        // quick and dirty way
+        _musicPID = fork();
+
+        if (_musicPID == 0) {
+            system("paplay \"/home/nemcek/dev/pokemon-custom-evolution/data/pokemon_battle_music.wav\"");
+            exit(0);
+        }
+    }
+
+    void BattleScene::Clean() {
+        this->_renderManager->Clean();
+        kill(_musicPID + 2, SIGTERM);
     }
 
 }
